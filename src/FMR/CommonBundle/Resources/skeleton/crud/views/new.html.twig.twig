@@ -1,0 +1,22 @@
+{%- include "views/others/header.html.twig.twig" %}
+
+{{ "{% block content -%}" }}
+	<div class="page-header">
+	    <h1>Ajouter un {{ entity|lower }}</h1>
+	    <div style="text-align:right;">
+	    	<a class="btn" href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}">
+	            Retour &agrave; la liste
+	        </a>
+	    </div>
+	</div>
+
+    <form action="{{ "{{ path('" ~ route_name_prefix ~ "_create') }}" }}" method="post" {{ "{{ form_enctype(form) }}" }}>
+        {{ "{{ form_widget(form) }}" }}
+        <p>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </p>
+    </form>
+
+    {% set hide_edit, hide_delete = true, true %}
+    {% include 'views/others/record_actions.html.twig.twig' %}
+{{ "{% endblock %}" }}

@@ -1,3 +1,7 @@
+home:
+    pattern:  /
+    defaults: { _controller: FMRCommonBundle:Default:index }
+    
 fmr_facture:
     resource: "@FMRFactureBundle/Controller/"
     type:     annotation

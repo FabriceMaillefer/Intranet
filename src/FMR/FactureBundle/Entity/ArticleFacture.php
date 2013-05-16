@@ -28,4 +28,37 @@ class ArticleFacture extends ArticleBase
 	 * @ORM\ManyToOne(targetEntity="FMR\FactureBundle\Entity\Facture", inversedBy="articles")
 	 */
 	private $facture;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set facture
+     *
+     * @param \FMR\FactureBundle\Entity\Facture $facture
+     * @return ArticleFacture
+     */
+    public function setFacture(\FMR\FactureBundle\Entity\Facture $facture = null)
+    {
+        $this->facture = $facture;
+    
+        return $this;
+    }
+
+    /**
+     * Get facture
+     *
+     * @return \FMR\FactureBundle\Entity\Facture 
+     */
+    public function getFacture()
+    {
+        return $this->facture;
+    }
 }

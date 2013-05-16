@@ -1,0 +1,58 @@
+{% extends 'FMROffreBundle::layout.html.twig' %}
+{% block content -%}
+	<div class="page-header">
+		<div class="pull-right" style="text-align:right;">
+      		<form action="{{ path('offre_search') }}" >
+      			<input name="q" type="search" placeholder="Rechercher une offre"{% if recherche is defined %}value="{{ recherche }}"{% endif %} /><br />
+      			<button type="submit" class="btn">Recherche</button>
+      		</form>
+      	</div>
+		{% if recherche is defined %}
+      		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
+      	{% else %}
+			<h1>Liste des offres</h1>
+		{% endif %}
+	       	<a class="btn" href="{{ path('offre_new') }}">
+				Ajouter une nouvelle offre
+			</a>
+    	</div>
+	
+	
+	<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Date Cr&eacute;ation</th>
+                <th>R&eacute;f&eacute;rence</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('offre_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.client }}</td>
+                <td>{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
+                <td>{{ entity.referenceClient }}</td>
+                <td><a class="btn btn-info" href="{{ path('offre_show', { 'id': entity.id }) }}">Voir</a>
+<a class="btn btn-success" href="{{ path('offre_edit', { 'id': entity.id }) }}">Modifier</a>                </td>
+            </tr>
+            {% else %}
+			<tr>
+				<td colspan="5">
+					Aucune offre trouv&eacute;e.
+					<br/><br/>
+					<a class="btn btn-primary" href="{{ path('offre_new') }}">
+						Ajouter une nouvelle offre
+					</a>
+		      	</td>
+		      </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+		<a class="btn" href="{{ path('offre_new') }}">
+            Ajouter une nouvelle offre
+		</a>
+    {% endblock %}

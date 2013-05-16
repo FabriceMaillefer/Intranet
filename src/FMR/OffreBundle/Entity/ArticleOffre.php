@@ -28,4 +28,37 @@ class ArticleOffre extends ArticleBase
 	 * @ORM\ManyToOne(targetEntity="FMR\OffreBundle\Entity\Offre", inversedBy="articles")
 	 */
 	private $offre;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set offre
+     *
+     * @param \FMR\OffreBundle\Entity\Offre $offre
+     * @return ArticleOffre
+     */
+    public function setOffre(\FMR\OffreBundle\Entity\Offre $offre = null)
+    {
+        $this->offre = $offre;
+    
+        return $this;
+    }
+
+    /**
+     * Get offre
+     *
+     * @return \FMR\OffreBundle\Entity\Offre 
+     */
+    public function getOffre()
+    {
+        return $this->offre;
+    }
 }

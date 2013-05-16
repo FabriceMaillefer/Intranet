@@ -1,0 +1,30 @@
+{% extends '::layout.html.twig' %}
+{% block content %}
+<div class="page-header">
+    <h1>Modifier un articleoffre</h1>
+    	<div style="text-align:right;">
+		<a class="btn" href="{{ path('articleoffre_show', { 'id': entity.id }) }}" >
+            Retour aux d&eacute;tails du ArticleOffre
+        </a>
+	</div>
+</div>
+
+<form action="{{ path('articleoffre_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	<input type="hidden" name="_method" value="PUT" />
+    {{ form_widget(edit_form) }}
+    <p>
+        <button class="btn btn-primary" type="submit">Enregistrer</button>
+    </p>
+</form>
+
+	<div class="form-actions">
+        <a class="btn" href="{{ path('articleoffre') }}">
+            Retour &agrave; la liste
+        </a>
+        <a class="btn btn-danger" href="{{ path('articleoffre_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a>
+</div>
+
+{% endblock %}
+

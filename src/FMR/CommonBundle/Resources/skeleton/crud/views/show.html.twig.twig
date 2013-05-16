@@ -1,0 +1,29 @@
+{%- include "views/others/header.html.twig.twig" %}
+
+{{ "{% block content -%}" }}
+<div class="page-header">
+      <h1>{{ entity }}</h1>
+</div>
+
+<div class="row-fluid"> 
+    {%- for field, metadata in fields %}
+
+         <p><strong>{{ field|capitalize }}</strong>
+
+        {%- if metadata.type in ['date', 'datetime'] %}
+
+            {{ '{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d H:i:s\') }}' }}
+
+        {%- else %}
+
+            {{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}
+
+        {%- endif %}
+
+        </p>
+
+    {%- endfor %}
+</div>
+    {% set hide_edit, hide_delete = false, false %}
+    {% include 'views/others/record_actions.html.twig.twig' %}
+{{ "{% endblock %}" }}

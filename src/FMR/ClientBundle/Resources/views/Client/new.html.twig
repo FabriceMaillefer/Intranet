@@ -1,0 +1,25 @@
+{% extends 'FMRClientBundle::layout.html.twig' %}
+{% block content -%}
+	<div class="page-header">
+	    <h1>Ajouter un client</h1>
+	     <div style="text-align:right;">
+	     <a class="btn" href="{{ path('client') }}">
+            Retour &agrave; la liste
+        </a>
+        </div>
+	</div>
+
+    <form action="{{ path('client_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </p>
+    </form>
+
+    <div class="form-actions">
+        <a class="btn" href="{{ path('client') }}">
+            Retour &agrave; la liste
+        </a>
+	</div>
+
+{% endblock %}

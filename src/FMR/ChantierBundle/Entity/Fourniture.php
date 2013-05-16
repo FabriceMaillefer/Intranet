@@ -182,4 +182,40 @@ class Fourniture
     {
         return $this->unite;
     }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Fourniture
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    
+        return $this;
+    }
+
+    /**
+     * Set chantier
+     *
+     * @param \FMR\ChantierBundle\Entity\Chantier $chantier
+     * @return Fourniture
+     */
+    public function setChantier(\FMR\ChantierBundle\Entity\Chantier $chantier = null)
+    {
+        $this->chantier = $chantier;
+    
+        return $this;
+    }
+
+    /**
+     * Get chantier
+     *
+     * @return \FMR\ChantierBundle\Entity\Chantier 
+     */
+    public function getChantier()
+    {
+        return $this->chantier;
+    }
 }

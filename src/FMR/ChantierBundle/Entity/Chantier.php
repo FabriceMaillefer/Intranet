@@ -228,4 +228,96 @@ class Chantier
     {
         return $this->dateCreation;
     }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Chantier
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    
+        return $this;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \FMR\ClientBundle\Entity\Client $client
+     * @return Chantier
+     */
+    public function setClient(\FMR\ClientBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+    
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \FMR\ClientBundle\Entity\Client 
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set offre
+     *
+     * @param \FMR\OffreBundle\Entity\Offre $offre
+     * @return Chantier
+     */
+    public function setOffre(\FMR\OffreBundle\Entity\Offre $offre = null)
+    {
+        $this->offre = $offre;
+    
+        return $this;
+    }
+
+    /**
+     * Get offre
+     *
+     * @return \FMR\OffreBundle\Entity\Offre 
+     */
+    public function getOffre()
+    {
+        return $this->offre;
+    }
+
+    /**
+     * Add fournitures
+     *
+     * @param \FMR\ChantierBundle\Entity\Fourniture $fournitures
+     * @return Chantier
+     */
+    public function addFourniture(\FMR\ChantierBundle\Entity\Fourniture $fournitures)
+    {
+        $this->fournitures[] = $fournitures;
+    
+        return $this;
+    }
+
+    /**
+     * Remove fournitures
+     *
+     * @param \FMR\ChantierBundle\Entity\Fourniture $fournitures
+     */
+    public function removeFourniture(\FMR\ChantierBundle\Entity\Fourniture $fournitures)
+    {
+        $this->fournitures->removeElement($fournitures);
+    }
+
+    /**
+     * Get fournitures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFournitures()
+    {
+        return $this->fournitures;
+    }
 }

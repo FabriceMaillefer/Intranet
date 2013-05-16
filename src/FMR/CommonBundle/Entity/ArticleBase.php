@@ -60,6 +60,7 @@ class ArticleBase
     private $prixUnitaire;
 
 
+
     /**
      * Get id
      *

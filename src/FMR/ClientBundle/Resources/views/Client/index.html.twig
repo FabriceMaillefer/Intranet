@@ -1,0 +1,60 @@
+{% extends 'FMRClientBundle::layout.html.twig' %}
+{% block content -%}
+	<div class="page-header">
+		<div class="pull-right" style="text-align:right;">
+      		<form action="{{ path('client_search') }}" >
+      			<input name="q" type="search" placeholder="Rechercher un client"{% if recherche is defined %}value="{{ recherche }}"{% endif %} /><br />
+      			<button type="submit" class="btn">Recherche</button>
+      		</form>
+      	</div>
+      	{% if recherche is defined %}
+      		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
+      	{% else %}
+			<h1>Liste des clients</h1>
+	    {% endif %}
+	    <a class="btn" href="{{ path('client_new') }}">
+            Ajouter un nouveau client
+      	</a>
+      	
+	</div>
+	
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Client</th>
+				<th>Adresse</th>
+				<th>Localite</th>
+				<th>Date de cr&eacute;ation</th>
+				<th>Email</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{% for entity in entities %}
+			<tr>
+				<td><a href="{{ path('client_show', { 'id': entity.id }) }}">{{ entity.nomPrenom }}</a></td>
+				<td>{{ entity.adresse }}</td>
+				<td>{{ entity.nPA }} {{ entity.localite }}</td>
+				<td>{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
+				<td>{{ entity.email }}</td>
+				<td><a class="btn btn-info" href="{{ path('client_show', { 'id': entity.id }) }}">Voir</a>
+					<a class="btn btn-success" href="{{ path('client_edit', { 'id': entity.id }) }}">Modifier</a>
+				</td>
+			</tr>
+		{% else %}
+			<tr>
+				<td colspan="6">
+					Aucun client trouv&eacute;.
+					<br/><br/>
+					<a class="btn btn-primary" href="{{ path('client_new') }}">
+		            	Ajouter un nouveau client
+		      		</a>
+		      	</td>
+		      </tr>
+		      
+		{% endfor %}
+		</tbody>
+	</table>
+
+      
+    {% endblock %}

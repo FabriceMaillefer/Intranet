@@ -1,0 +1,30 @@
+{% extends 'FMROffreBundle::layout.html.twig' %}
+{% block content -%}
+	<div class="page-header">
+		{% if client is defined and client is not null %}
+			<h1>Ajouter une offre pour le client {{ client }}</h1>
+		{% else %}
+			<h1>Ajouter une offre</h1>
+		{% endif %}
+	    
+	    <div style="text-align:right;">
+	    	<a class="btn" href="{{ path('offre') }}">
+	            Retour &agrave; la liste
+	        </a>
+	    </div>
+	</div>
+
+    <form action="{{ path('offre_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </p>
+    </form>
+
+        	<div class="form-actions">
+        <a class="btn" href="{{ path('offre') }}">
+            Retour &agrave; la liste
+        </a>
+</div>
+
+{% endblock %}

@@ -38,21 +38,21 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="Adresse", type="string", length=255)
+     * @ORM\Column(name="Adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="NPA", type="integer")
+     * @ORM\Column(name="NPA", type="integer", nullable=true)
      */
     private $nPA;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Localite", type="string", length=255)
+     * @ORM\Column(name="Localite", type="string", length=255, nullable=true)
      */
     private $localite;
 
@@ -66,14 +66,14 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="Divers", type="string", length=255)
+     * @ORM\Column(name="Divers", type="string", length=255, nullable=true)
      */
     private $divers;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Email", type="string", length=255)
+     * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $email;
 
@@ -102,7 +102,9 @@ class Client
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     }
-    
+    public function __toString() {
+    	return $this->getNomPrenom();
+    }
 
     /**
      * Get id
@@ -160,6 +162,16 @@ class Client
         return $this->prenom;
     }
 
+    /**
+     * Get nom et pr�nom
+     *
+     * @return string
+     */
+    public function getNomPrenom()
+    {
+    	return $this->nom .' '. $this->prenom;
+    }
+    
     /**
      * Set adresse
      *
@@ -286,4 +298,116 @@ class Client
     }
 
 
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Client
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    
+        return $this;
+    }
+
+    /**
+     * Add offres
+     *
+     * @param \FMR\OffreBundle\Entity\Offre $offres
+     * @return Client
+     */
+    public function addOffre(\FMR\OffreBundle\Entity\Offre $offres)
+    {
+        $this->offres[] = $offres;
+    
+        return $this;
+    }
+
+    /**
+     * Remove offres
+     *
+     * @param \FMR\OffreBundle\Entity\Offre $offres
+     */
+    public function removeOffre(\FMR\OffreBundle\Entity\Offre $offres)
+    {
+        $this->offres->removeElement($offres);
+    }
+
+    /**
+     * Get offres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOffres()
+    {
+        return $this->offres;
+    }
+
+    /**
+     * Add chantiers
+     *
+     * @param \FMR\ChantierBundle\Entity\Chantier $chantiers
+     * @return Client
+     */
+    public function addChantier(\FMR\ChantierBundle\Entity\Chantier $chantiers)
+    {
+        $this->chantiers[] = $chantiers;
+    
+        return $this;
+    }
+
+    /**
+     * Remove chantiers
+     *
+     * @param \FMR\ChantierBundle\Entity\Chantier $chantiers
+     */
+    public function removeChantier(\FMR\ChantierBundle\Entity\Chantier $chantiers)
+    {
+        $this->chantiers->removeElement($chantiers);
+    }
+
+    /**
+     * Get chantiers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChantiers()
+    {
+        return $this->chantiers;
+    }
+
+    /**
+     * Add factures
+     *
+     * @param \FMR\FactureBundle\Entity\Facture $factures
+     * @return Client
+     */
+    public function addFacture(\FMR\FactureBundle\Entity\Facture $factures)
+    {
+        $this->factures[] = $factures;
+    
+        return $this;
+    }
+
+    /**
+     * Remove factures
+     *
+     * @param \FMR\FactureBundle\Entity\Facture $factures
+     */
+    public function removeFacture(\FMR\FactureBundle\Entity\Facture $factures)
+    {
+        $this->factures->removeElement($factures);
+    }
+
+    /**
+     * Get factures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFactures()
+    {
+        return $this->factures;
+    }
 }

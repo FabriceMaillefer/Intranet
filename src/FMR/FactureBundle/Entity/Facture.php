@@ -204,4 +204,119 @@ class Facture
     {
         return $this->tVA;
     }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Facture
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    
+        return $this;
+    }
+
+    /**
+     * Set client
+     *
+     * @param \FMR\ClientBundle\Entity\Client $client
+     * @return Facture
+     */
+    public function setClient(\FMR\ClientBundle\Entity\Client $client = null)
+    {
+        $this->client = $client;
+    
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return \FMR\ClientBundle\Entity\Client 
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Set chantier
+     *
+     * @param \FMR\ChantierBundle\Entity\Chantier $chantier
+     * @return Facture
+     */
+    public function setChantier(\FMR\ChantierBundle\Entity\Chantier $chantier = null)
+    {
+        $this->chantier = $chantier;
+    
+        return $this;
+    }
+
+    /**
+     * Get chantier
+     *
+     * @return \FMR\ChantierBundle\Entity\Chantier 
+     */
+    public function getChantier()
+    {
+        return $this->chantier;
+    }
+
+    /**
+     * Add articles
+     *
+     * @param \FMR\FactureBundle\Entity\ArticleFacture $articles
+     * @return Facture
+     */
+    public function addArticle(\FMR\FactureBundle\Entity\ArticleFacture $articles)
+    {
+        $this->articles[] = $articles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \FMR\FactureBundle\Entity\ArticleFacture $articles
+     */
+    public function removeArticle(\FMR\FactureBundle\Entity\ArticleFacture $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Set statut
+     *
+     * @param \FMR\FactureBundle\Entity\StatutFacture $statut
+     * @return Facture
+     */
+    public function setStatut(\FMR\FactureBundle\Entity\StatutFacture $statut = null)
+    {
+        $this->statut = $statut;
+    
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return \FMR\FactureBundle\Entity\StatutFacture 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
 }

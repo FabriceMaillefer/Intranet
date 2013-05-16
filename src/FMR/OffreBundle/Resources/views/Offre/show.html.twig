@@ -1,0 +1,47 @@
+{% extends 'FMROffreBundle::layout.html.twig' %}
+{% block content -%}
+<div class="page-header">
+		<h1>Offre N° {{ entity.id }}</h1>
+		<div style="text-align:right;">
+			<a class="btn btn-primary" href="{{ path('offre_edit', { 'id': entity.id }) }}">
+				Editer
+			</a>
+		</div>
+	</div>
+
+<div class="row-fluid">
+		<h3>Informations sur l'offre : </h3>
+		<div class="row-fluid">
+			<div class="span6">
+				<p><strong>Référence Client : </strong>{{ entity.referenceClient }}</p>
+				<p><strong>Statut : </strong>{{ entity.statut }}</p>
+			</div>
+			<div class="span6">
+				<p><strong>Date Cr&eacute;ation</strong>
+           		{{ entity.dateCreation|date('d.m.Y H:i:s') }}</p>
+			</div>
+		</div>
+		<hr>
+		{% if entity.client %}
+			<h3>Informations sur le client :</h3>
+			<p><strong>Client : </strong><a href="{{ path('client_show', { 'id': entity.client.id }) }}">{{ entity.client }}</a></p>
+			<p><strong>Adresse : </strong>{{ entity.client.adresse }}</p>
+			<p><strong>Localité : </strong>{{ entity.client.NPA }} {{ entity.client.Localite }}</p>
+			<hr>
+		{% endif %}
+		
+		<h3>Articles : </h3>
+		
+	</div>
+	
+    <div class="form-actions">
+        <a class="btn" href="{{ path('offre') }}">
+            Retour &agrave; la liste
+        </a>
+
+        <a class="btn btn-danger" href="{{ path('offre_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a>
+</div>
+
+{% endblock %}

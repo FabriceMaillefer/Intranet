@@ -28,6 +28,9 @@ class StatutFacture
      */
     private $statut;
 
+    public function __toString(){
+    	return $this->statut;
+    }
 
     /**
      * Get id
