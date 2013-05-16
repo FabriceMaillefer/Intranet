@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -63,3 +63,21 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+    
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: FMR\CommonBundle\Entity\User
+    
+ps_pdf:
+    nodes_file: ~
+    fonts_file: ~
+    complex_attributes_file: ~
+    colors_file: ~
+    use_cache_in_stylesheet: ~
+    cache:
+      type: ~
+      options: ~
+    markdown_stylesheet_filepath: ~
+    markdown_document_template_filepath: ~
+    document_parser_type: ~
