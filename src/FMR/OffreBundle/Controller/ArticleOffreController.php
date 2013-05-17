@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\OffreBundle\Entity\ArticleOffre;
 use FMR\OffreBundle\Form\ArticleOffreType;
+use FMR\OffreBundle\Entity\Offre;
 
 /**
  * ArticleOffre controller.
@@ -38,11 +39,11 @@ class ArticleOffreController extends Controller
     /**
      * Creates a new ArticleOffre entity.
      *
-     * @Route("/", name="articleoffre_create")
+     * @Route("/offre/{id}/", name="articleoffre_create")
      * @Method("POST")
      * @Template("FMROffreBundle:ArticleOffre:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction(Request $request,Offre $offre)
     {
         $entity  = new ArticleOffre();
         $form = $this->createForm(new ArticleOffreType(), $entity);
@@ -50,17 +51,19 @@ class ArticleOffreController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setOffre($offre);
             $em->persist($entity);
             $em->flush();
             
 			$this->get('session')->getFlashBag()->add('success', 'Cr&eacute;ation compl&egrave;te');
-		
-            return $this->redirect($this->generateUrl('articleoffre_show', array('id' => $entity->getId())));
+			
+            return $this->redirect($this->generateUrl('offre_show', array('id' => $entity->getOffre()->getId())));
         }
 		$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la cr&eacute;ation');
         
         return array(
             'entity' => $entity,
+        	'offre' => $offre,
             'form'   => $form->createView(),
         );
     }
@@ -68,17 +71,19 @@ class ArticleOffreController extends Controller
     /**
      * Displays a form to create a new ArticleOffre entity.
      *
-     * @Route("/new", name="articleoffre_new")
+     * @Route("/offre/{id}/new", name="articleoffre_new")
      * @Method("GET")
-     * @Template()
+     * @Template("FMROffreBundle:ArticleOffre:new_single.html.twig")
      */
-    public function newAction()
+    public function newAction(Offre $offre)
     {
         $entity = new ArticleOffre();
+        $entity->setOffre($offre);
         $form   = $this->createForm(new ArticleOffreType(), $entity);
 
         return array(
             'entity' => $entity,
+        	'offre' => $offre,
             'form'   => $form->createView(),
         );
     }
@@ -100,9 +105,7 @@ class ArticleOffreController extends Controller
             throw $this->createNotFoundException('Unable to find ArticleOffre entity.');
         }
 
-        return array(
-            'entity'      => $entity,
-        );
+        return $this->redirect($this->generateUrl('offre_show', array('id' => $entity->getOffre()->getId())));
     }
 
     /**
@@ -156,7 +159,7 @@ class ArticleOffreController extends Controller
             
             $this->get('session')->getFlashBag()->add('success', 'Modification r&eacute;ussie');
 
-            return $this->redirect($this->generateUrl('articleoffre_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('offre_show', array('id' => $entity->getOffre()->getId())));
         }
         
 		$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification');
@@ -182,11 +185,13 @@ class ArticleOffreController extends Controller
 			throw $this->createNotFoundException('Unable to find ArticleOffre entity.');
 		}
 		
+		$offre = $entity->getOffre();
+		
 		$em->remove($entity);
 		$em->flush();
             
 		$this->get('session')->getFlashBag()->add('success', 'Supression accomplie !');
 
-		return $this->redirect($this->generateUrl('articleoffre'));
+		return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
 	}
 }

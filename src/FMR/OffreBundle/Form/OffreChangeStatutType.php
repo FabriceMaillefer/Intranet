@@ -6,13 +6,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OffreType extends AbstractType
+class OffreChangeStatutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('referenceClient',null,array('required'=> false,'label'=>'Référence pour le client'))
-            ->add('client')
+            ->add('statut')
         ;
     }
 
@@ -25,6 +24,6 @@ class OffreType extends AbstractType
 
     public function getName()
     {
-        return 'fmr_offrebundle_offretype';
+        return 'fmr_offrebundle_offrechangestatuttype';
     }
 }

@@ -5,14 +5,13 @@ namespace FMR\OffreBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use FMR\CommonBundle\Form\ArticleBaseType;
 
-class ArticleOffreType extends AbstractType
+class ArticleOffreType extends ArticleBaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('offre')
-        ;
+       	parent::buildForm($builder, $options);
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

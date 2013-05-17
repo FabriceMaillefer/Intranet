@@ -10,6 +10,7 @@ framework:
         strict_requirements: null
     #validation:
     #    cache: apc
+    
 
 #doctrine:
 #    orm:

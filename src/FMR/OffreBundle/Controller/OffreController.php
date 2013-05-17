@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\OffreBundle\Entity\Offre;
 use FMR\ClientBundle\Entity\Client;
 use FMR\OffreBundle\Form\OffreType;
+use FMR\OffreBundle\Form\OffreChangeStatutType;
 
 /**
  * Offre controller.
@@ -54,12 +55,14 @@ class OffreController extends Controller
     	$qb
     	->select('o')
     	->from('FMROffreBundle:Offre', 'o')
-    	->innerJoin('FMRClientBundle:Client', 'c')
+    	->innerJoin('o.client', 'c')
     	->where('CONCAT(c.nom, \' \', c.prenom) LIKE ?1')
     	->orWhere('CONCAT(c.prenom, \' \', c.nom) LIKE ?1')
     	->orWhere('o.referenceClient LIKE ?1')
-    	->orWhere('o.id LIKE ?1')
+    	->orWhere('o.id = ?2')
     	->setParameter('1','%'.$q.'%')
+    	->setParameter('2',$q)
+    	
     	;
     	 
     	 
@@ -89,6 +92,11 @@ class OffreController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $statut = $em->getRepository('FMROffreBundle:StatutOffre')->find(1);
+            if ($statut) {
+            	$entity->setStatut($statut);
+            }
+            
             $em->persist($entity);
             $em->flush();
             
@@ -116,6 +124,7 @@ class OffreController extends Controller
     {
         $entity = new Offre();
         $entity->setClient($client);
+        
         $form   = $this->createForm(new OffreType(), $entity);
 
         return array(
@@ -137,14 +146,55 @@ class OffreController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('FMROffreBundle:Offre')->find($id);
-
+		
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
 
+        $formStatut = $this->createForm(new OffreChangeStatutType(), $entity);
+        
         return array(
             'entity'      => $entity,
+        	'formStatut' => $formStatut->createView(),
         );
+    }
+    
+    /**
+     * Permet de changer le statut de l'offre
+     *
+     * @Route("/{id}/statut", name="offre_statut")
+     * @Method("PUT")
+     * @Template("FMROffreBundle:Offre:show.html.twig")
+     */
+    public function changeStatutAction(Request $request, $id)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$entity = $em->getRepository('FMROffreBundle:Offre')->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find Offre entity.');
+    	}
+    
+    	$formStatut = $this->createForm(new OffreChangeStatutType(), $entity);
+
+    	$formStatut->bind($request);
+    
+    	if ($formStatut->isValid()) {
+    		$em->persist($entity);
+    		$em->flush();
+    
+    		$this->get('session')->getFlashBag()->add('success', 'Modification du statut r&eacute;ussie');
+    
+    		return $this->redirect($this->generateUrl('offre_show', array('id' => $id)));
+    	}
+    
+    	$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification du statut');
+    
+    	return array(
+    			'entity'      => $entity,
+    			'formStatut' => $formStatut->createView(),
+    	);
     }
 
     /**
@@ -198,7 +248,7 @@ class OffreController extends Controller
             
             $this->get('session')->getFlashBag()->add('success', 'Modification r&eacute;ussie');
 
-            return $this->redirect($this->generateUrl('offre_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('offre_show', array('id' => $id)));
         }
         
 		$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification');

@@ -1,30 +1,32 @@
 <?php
 
-namespace FMR\OffreBundle\Form;
+namespace FMR\CommonBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class OffreType extends AbstractType
+class ArticleBaseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('referenceClient',null,array('required'=> false,'label'=>'Référence pour le client'))
-            ->add('client')
+            ->add('descriptif')
+            ->add('quantite')
+            ->add('unite')
+            ->add('prixUnitaire')
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'FMR\OffreBundle\Entity\Offre'
+            'data_class' => 'FMR\CommonBundle\Entity\ArticleBase'
         ));
     }
 
     public function getName()
     {
-        return 'fmr_offrebundle_offretype';
+        return 'fmr_commonbundle_articlebasetype';
     }
 }

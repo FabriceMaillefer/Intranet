@@ -1,0 +1,6 @@
+    <form action="{{ path('articleoffre_create', {'id':offre.id}) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </p>
+    </form>

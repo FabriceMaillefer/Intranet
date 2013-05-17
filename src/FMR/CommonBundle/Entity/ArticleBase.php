@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Article de base
  *
  * @ORM\Table()
+ * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type_class", type="string")
  */
@@ -58,9 +59,29 @@ class ArticleBase
      * @ORM\Column(name="PrixUnitaire", type="float")
      */
     private $prixUnitaire;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateCreation", type="datetime")
+     */
+    private $dateCreation;
 
+    public function __construct() {
+    	$this->dateCreation = new \DateTime();
+    	$this->ordre  = 0;
+    }
 
-
+    /**
+     * Calcul du prix total
+     *
+     * @return float
+     */
+    public function CalculPrixTotal()
+    {
+    	return $this->prixUnitaire * $this->quantite;
+    }
+    
     /**
      * Get id
      *
@@ -184,6 +205,16 @@ class ArticleBase
     public function getPrixUnitaire()
     {
         return $this->prixUnitaire;
+    }
+    
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+    	return $this->dateCreation;
     }
 }
 

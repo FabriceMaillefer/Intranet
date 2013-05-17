@@ -9,17 +9,12 @@
 	    </div>
 	</div>
 
-    <form action="{{ path('articleoffre_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-        <p>
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-        </p>
-    </form>
+	{% include 'new_single.html.twig' %}
 
-        	<div class="form-actions">
+    <div class="form-actions">
         <a class="btn" href="{{ path('articleoffre') }}">
             Retour &agrave; la liste
         </a>
-</div>
+	</div>
 
 {% endblock %}

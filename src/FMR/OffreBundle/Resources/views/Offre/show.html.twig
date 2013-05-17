@@ -1,4 +1,27 @@
 {% extends 'FMROffreBundle::layout.html.twig' %}
+
+{% form_theme form _self %}
+
+{% block form_row %}
+{% spaceless %}
+    <div>
+        {{ form_label(form) }}{{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock form_row %}
+{% block form_widget_compound %}
+{% spaceless %}
+    <span {{ block('widget_container_attributes') }}>
+        {% if form.parent is empty %}
+            {{ form_errors(form) }}
+        {% endif %}
+        {{ block('form_rows') }}
+        {{ form_rest(form) }}
+    </span>
+{% endspaceless %}
+{% endblock form_widget_compound %}
+
 {% block content -%}
 <div class="page-header">
 		<h1>Offre N° {{ entity.id }}</h1>
@@ -19,6 +42,15 @@
 			<div class="span6">
 				<p><strong>Date Cr&eacute;ation</strong>
            		{{ entity.dateCreation|date('d.m.Y H:i:s') }}</p>
+           		<p>
+           			<form action="{{ path('offre_statut', {'id':entity.id}) }}" method="post" {{ form_enctype(formStatut) }}>
+           				<input type="hidden" name="_method" value="PUT" />
+		           		{{ form_widget(formStatut) }}
+				        <p>
+				            <button type="submit" class="btn btn-primary">Changer le statut</button>
+				        </p>
+    				</form>
+    			</p>
 			</div>
 		</div>
 		<hr>
@@ -32,6 +64,31 @@
 		
 		<h3>Articles : </h3>
 		
+		<table class="table table-bordered table-striped table-condensed">
+	        <thead>
+	            <tr>
+	            	<th>Descriptif</th>
+	            	<th>Quantité</th>
+	            	<th>Unité</th>
+	            	<th>Prix Unitaire</th>
+	            	<th>Prix Total</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        {% for article in entity.articles %}
+	            <tr>
+	                <td>{{ article.descriptif }}</td>
+	                <td>{{ article.quantite }}</td>
+	                <td>{{ article.unite }}</td>
+	                <td>{{ article.prixUnitaire }}</td>
+	                <td>{{ article.calculPrixTotal }}</td>
+	                <td><a href="{{ path('articleoffre_edit', { 'id': article.id }) }}">Modifier</a></td>
+	            </tr>
+	        {% endfor %}
+	        </tbody>
+	    </table>
+		{{ render(controller("FMROffreBundle:ArticleOffre:new", { 'id':entity.id } )) }}
 	</div>
 	
     <div class="form-actions">
