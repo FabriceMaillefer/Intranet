@@ -1,7 +1,7 @@
 {% extends 'FMRClientBundle::layout.html.twig' %}
 {% block content -%}
 <div class="page-header">
-      <h1>Client</h1>
+      <h1>Client : {{ entity.nomPrenom }}</h1>
 </div>
 
 <div class="row-fluid">
@@ -29,10 +29,21 @@
          <p><strong>Email</strong>
             {{ entity.email }}
         </p>
-        <a class="btn btn-primary" href="{{ path('offre_client_new', { 'id': entity.id }) }}">
-            Créer une offre pour ce client.
-        </a>
-        </div>
+<h3>Offres en cours</h3>
+       	<p>
+	       	<a class="btn btn-primary" href="{{ path('offre_client_new', { 'id': entity.id }) }}">
+	            Créer une offre pour ce client.
+	        </a>
+        </p>
+		{% include 'FMROffreBundle:Offre:offre_list_only.html.twig' %}
+<h3>Chantiers en cours</h3
+<p>
+	       	<a class="btn btn-primary" href="{{ path('chantier_client_new', { 'id': entity.id }) }}">
+	            Créer un chantier pour ce client.
+	        </a>
+        </p>
+		{% include 'FMRChantierBundle:Chantier:chantier_list_only.html.twig' %}
+</div>
 
         <div class="form-actions">
         <a class="btn" href="{{ path('client') }}">

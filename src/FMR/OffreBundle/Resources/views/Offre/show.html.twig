@@ -1,30 +1,8 @@
 {% extends 'FMROffreBundle::layout.html.twig' %}
 
-{% form_theme form _self %}
-
-{% block form_row %}
-{% spaceless %}
-    <div>
-        {{ form_label(form) }}{{ form_errors(form) }}
-        {{ form_widget(form) }}
-    </div>
-{% endspaceless %}
-{% endblock form_row %}
-{% block form_widget_compound %}
-{% spaceless %}
-    <span {{ block('widget_container_attributes') }}>
-        {% if form.parent is empty %}
-            {{ form_errors(form) }}
-        {% endif %}
-        {{ block('form_rows') }}
-        {{ form_rest(form) }}
-    </span>
-{% endspaceless %}
-{% endblock form_widget_compound %}
-
 {% block content -%}
 <div class="page-header">
-		<h1>Offre N° {{ entity.id }}</h1>
+		<h1>Offre N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
 		<div style="text-align:right;">
 			<a class="btn btn-primary" href="{{ path('offre_edit', { 'id': entity.id }) }}">
 				Editer
@@ -38,6 +16,16 @@
 			<div class="span6">
 				<p><strong>Référence Client : </strong>{{ entity.referenceClient }}</p>
 				<p><strong>Statut : </strong>{{ entity.statut }}</p>
+				{% if entity.statut.id != 1 or entity.chantier %}
+					<h4>Chantier :</h4>
+					{% if entity.chantier %}
+						<strong>Chantier lié :</strong> <a href="{{ path('chantier_show', { 'id': entity.chantier.id }) }}">{{ entity.chantier }}</a>
+					{% else %}
+						<a class="btn btn-primary" href="{{ path('chantier_offre_new', { 'id': entity.id }) }}">
+					       Créer un chantier pour cette offre.
+					    </a>
+					{% endif %}
+				{% endif %}
 			</div>
 			<div class="span6">
 				<p><strong>Date Cr&eacute;ation</strong>
@@ -61,7 +49,6 @@
 			<p><strong>Localité : </strong>{{ entity.client.NPA }} {{ entity.client.Localite }}</p>
 			<hr>
 		{% endif %}
-		
 		<h3>Articles : </h3>
 		
 		<table class="table table-bordered table-striped table-condensed">

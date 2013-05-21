@@ -25,9 +25,18 @@ class Offre
      * @var FMR\ClientBundle\Entity\Client
      *
      * @ORM\ManyToOne(targetEntity="FMR\ClientBundle\Entity\Client", inversedBy="offres")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=false)
      */
     private $client;
 
+    /**
+     * @var FMR\ChantierBundle\Entity\Chantier
+     *
+     * @ORM\OneToOne(targetEntity="FMR\ChantierBundle\Entity\Chantier", mappedBy="offre")
+     */
+    private $chantier;
+    
+    
     /**
      * @var \DateTime
      *
@@ -45,7 +54,7 @@ class Offre
     /**
      * @var string
      *
-     * @ORM\Column(name="ReferenceClient", type="string", length=255)
+     * @ORM\Column(name="ReferenceClient", type="string", length=255, nullable=true)
      */
     private $referenceClient;
 
@@ -53,11 +62,15 @@ class Offre
      * @var FMR\OffreBundle\Entity\StatutOffre
      *
      * @ORM\ManyToOne(targetEntity="FMR\OffreBundle\Entity\StatutOffre")
+     * @ORM\JoinColumn(name="statut_id", referencedColumnName="id", nullable=false)
      */
     private $statut;
 
     public function __construct() {
     	$this->dateCreation = new \DateTime();
+    }
+    public function __toString() {
+    	return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().', '.$this->getReferenceClient();
     }
 
     /**
@@ -200,5 +213,28 @@ class Offre
     public function getStatut()
     {
         return $this->statut;
+    }
+    
+    /**
+     * Set chantier
+     *
+     * @param \FMR\ChantierBundle\Entity\Chantier $chantier
+     * @return Facture
+     */
+    public function setChantier(\FMR\ChantierBundle\Entity\Chantier $chantier = null)
+    {
+    	$this->chantier = $chantier;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get chantier
+     *
+     * @return \FMR\ChantierBundle\Entity\Chantier
+     */
+    public function getChantier()
+    {
+    	return $this->chantier;
     }
 }

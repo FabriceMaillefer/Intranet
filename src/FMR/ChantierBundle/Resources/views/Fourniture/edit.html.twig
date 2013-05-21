@@ -1,0 +1,30 @@
+{% extends 'FMRChantierBundle::layout.html.twig' %}
+{% block content %}
+<div class="page-header">
+    <h1>Modifier un fourniture</h1>
+    	<div style="text-align:right;">
+		<a class="btn btn-primary" href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}" >
+            Retour aux fournitures du chantier
+        </a>
+	</div>
+</div>
+
+<form action="{{ path('fourniture_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+	<input type="hidden" name="_method" value="PUT" />
+    {{ form_widget(edit_form) }}
+    <p>
+        <button class="btn btn-primary" type="submit">Enregistrer</button>
+    </p>
+</form>
+
+	<div class="form-actions">
+		<a class="btn" href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}" >
+            Retour aux fournitures du chantier
+        </a>
+        <a class="btn btn-danger" href="{{ path('fourniture_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a>
+</div>
+
+{% endblock %}
+

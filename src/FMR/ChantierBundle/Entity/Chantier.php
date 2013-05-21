@@ -25,27 +25,29 @@ class Chantier
      * @var FMR\ClientBundle\Entity\Client
      *
      * @ORM\ManyToOne(targetEntity="FMR\ClientBundle\Entity\Client", inversedBy="chantiers")
+     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=false)
      */
     private $client;
 
     /**
      * @var FMR\OffreBundle\Entity\Offre
      *
-     * @ORM\OneToOne(targetEntity="FMR\OffreBundle\Entity\Offre")
+     * @ORM\OneToOne(targetEntity="FMR\OffreBundle\Entity\Offre", inversedBy="chantier")
+     * @ORM\JoinColumn(name="offre_id", referencedColumnName="id", nullable=true)
      */
     private $offre;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Architecte", type="string", length=255)
+     * @ORM\Column(name="Architecte", type="string", length=255, nullable=true)
      */
     private $architecte;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Lieu", type="string", length=255)
+     * @ORM\Column(name="Lieu", type="string", length=255, nullable=true)
      */
     private $lieu;
 
@@ -59,21 +61,21 @@ class Chantier
     /**
      * @var string
      *
-     * @ORM\Column(name="Description", type="string", length=255)
+     * @ORM\Column(name="Description", type="string", length=255, nullable=true)
      */
     private $description;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DateDebut", type="date")
+     * @ORM\Column(name="DateDebut", type="date", nullable=true)
      */
     private $dateDebut;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="DateFin", type="date")
+     * @ORM\Column(name="DateFin", type="date", nullable=true)
      */
     private $dateFin;
 
@@ -86,8 +88,14 @@ class Chantier
 
     public function __construct() {
     	$this->dateCreation = new \DateTime();
+    	$this->dateDebut = new \DateTime();
     }
 
+    public function __toString() {
+    	return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().' à '.$this->getLieu();
+    }
+    
+    
     /**
      * Get id
      *

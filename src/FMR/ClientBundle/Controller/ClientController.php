@@ -133,8 +133,42 @@ class ClientController extends Controller
             throw $this->createNotFoundException('Unable to find Client entity.');
         }
 
+        
+        $em = $this->getDoctrine()->getManager();
+        
+        //Selection des offres en cours
+        $qb = $em->createQueryBuilder();
+        $qb
+        ->select('o')
+        ->from('FMROffreBundle:Offre', 'o')
+        ->innerJoin('o.client', 'c')
+        ->innerJoin('o.statut', 's')
+        ->where('c.id = ?1')
+        ->andWhere('s.id = ?2')
+        ->setParameter('1',$id)
+        ->setParameter('2',1)
+        ;
+        $query = $qb->getQuery();
+        $offres = $query->getResult();
+        
+        //Selection des chantiers en cours
+        $qb = $em->createQueryBuilder();
+        $qb
+        ->select('h')
+    	->from('FMRChantierBundle:Chantier', 'h')
+        ->innerJoin('h.client', 'c')
+        ->where('c.id = ?1')
+        ->andWhere('(h.dateFin >= ?2 OR h.dateFin is null)')
+        ->setParameter('1',$id)
+        ->setParameter('2', new \DateTime())
+        ;
+        $query = $qb->getQuery();
+        $chantiers = $query->getResult();
+        
         return array(
             'entity'      => $entity,
+        	'offres' =>  $offres,
+        	'chantiers' => $chantiers,
         );
     }
 

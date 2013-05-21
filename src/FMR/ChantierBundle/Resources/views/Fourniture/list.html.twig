@@ -1,0 +1,72 @@
+{% extends 'FMRChantierBundle::layout.html.twig' %}
+{% block content -%}
+	<div class="page-header">
+	    <h1>Liste des fournitures du chantier {{ chantier }}</h1>
+		<div style="text-align:right;">
+			<a class="btn btn-primary" href="{{ path('chantier_show', { 'id': chantier.id }) }}">
+				Retour aux détails du chantier
+			</a>
+		</div>
+   	</div>
+   	
+   	<h3>Informations sur le chantier : </h3>
+
+				<p><strong>Date de d&eacute;but : </strong>
+           		{{ chantier.dateDebut|date('d.m.Y') }}</p>
+           		<p><strong>Date de fin : </strong>
+           		{{ chantier.dateFin|date('d.m.Y') }}</p>
+           		<p><strong>Lieu : </strong>
+           		{{ chantier.lieu }}</p>
+           		<p><strong>Architecte : </strong>
+           		{{ chantier.architecte }}</p>
+				<p><strong>Description : </strong>{{ chantier.description }}</p>
+		<hr />
+		
+		<div>
+    <h3>Ajout de fournitures : </h3>
+    	<script>
+			function getFormulaireFourniture(url){
+				$.ajax({
+					url: url,
+					type: 'GET',
+					success: function(data){
+						$('#formulaire_fourniture').html(data);
+					}
+				});
+		
+			}
+    	</script>
+    	<a href="{{ path('fourniture_new',{'id':chantier.id}) }}" onclick="getFormulaireFourniture('{{ path('fourniture_new',{'id':chantier.id}) }}');return false;">Ajouter une fourniture simple</a>
+    	<div id="formulaire_fourniture"></div>
+    </div>
+    <h3>Liste des fournitures : </h3>
+	<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Descriptif</th>
+                <th>Quantite</th>
+                <th>Unite</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in fournitures %}
+            <tr>
+                <td>{{ entity.descriptif }}</td>
+                <td>{{ entity.quantite }}</td>
+                <td>{{ entity.unite }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('d.m.Y') }}{% endif %}</td>
+                <td>
+                	<a class="btn btn-success" href="{{ path('fourniture_edit', { 'id': entity.id }) }}" 
+                		onclick="getFormulaireFourniture('{{ path('fourniture_edit', { 'id': entity.id }) }}');return false;">
+                		Modifier
+                	</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    {% endblock %}
+    

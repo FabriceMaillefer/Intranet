@@ -1,0 +1,26 @@
+<table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Date Cr&eacute;ation</th>
+                <th>R&eacute;f&eacute;rence</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre in offres %}
+            <tr>
+                <td><a href="{{ path('offre_show', { 'id': offre.id }) }}">{{ offre.id }}</a></td>
+                <td>{% if offre.dateCreation %}{{ offre.dateCreation|date('d.m.Y') }}{% endif %}</td>
+                <td><a href="{{ path('offre_show', { 'id': offre.id }) }}">{{ offre.referenceClient }}</a></td>
+                <td><a class="btn btn-info" href="{{ path('offre_show', { 'id': offre.id }) }}">Voir</a>                </td>
+            </tr>
+            {% else %}
+			<tr>
+				<td colspan="5">
+					Aucune offre trouv&eacute;e.
+		      	</td>
+		      </tr>
+        {% endfor %}
+        </tbody>
+    </table>

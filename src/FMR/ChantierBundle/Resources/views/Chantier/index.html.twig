@@ -1,0 +1,48 @@
+{% extends 'FMRChantierBundle::layout.html.twig' %}
+{% block content -%}
+	<div class="page-header">
+		<div class="pull-right" style="text-align:right;">
+      		<form action="{{ path('chantier_search') }}" >
+      			<input name="q" type="search" placeholder="Rechercher un chantier"{% if recherche is defined %}value="{{ recherche }}"{% endif %} /><br />
+      			<button type="submit" class="btn">Recherche</button>
+      		</form>
+      	</div>
+		{% if recherche is defined %}
+      		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
+      	{% else %}
+			<h1>Liste des chantiers</h1>
+		{% endif %}
+	       	<a class="btn" href="{{ path('chantier_new') }}">
+				Ajouter un nouveau chantier
+			</a>
+    	</div>
+	
+	<table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th>Architecte</th>
+                <th>Lieu</th>
+                <th>Description</th>
+                <th>Datedebut</th>
+                <th>Datefin</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('chantier_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.client }}</td>
+                <td>{{ entity.architecte }}</td>
+                <td>{{ entity.lieu }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{% if entity.dateDebut %}{{ entity.dateDebut|date('d.m.Y') }}{% endif %}</td>
+                <td>{% if entity.dateFin %}{{ entity.dateFin|date('d.m.Y') }}{% endif %}</td>
+                <td><a class="btn btn-info" href="{{ path('chantier_show', { 'id': entity.id }) }}">Voir</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

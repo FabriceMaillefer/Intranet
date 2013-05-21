@@ -5,10 +5,9 @@ namespace FMR\ChantierBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Fourniture
+ * Fourniture simple
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="FMR\ChantierBundle\Entity\FournitureRepository")
+ * @ORM\Entity()
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type_class", type="string")
  */
@@ -21,7 +20,7 @@ class Fourniture
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -67,6 +66,7 @@ class Fourniture
     
     public function __construct() {
     	$this->dateCreation = new \DateTime();
+    	$this->date = new \DateTime();
     }
 
     /**
