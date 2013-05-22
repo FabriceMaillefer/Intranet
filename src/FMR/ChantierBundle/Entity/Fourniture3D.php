@@ -3,6 +3,7 @@
 namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FMR\ChantierBundle\Form\Fourniture3DType as FournitureType;
 
 /**
  * Fourniture trois dimensions 
@@ -28,4 +29,48 @@ class Fourniture3D extends Fourniture2D
 	 */
 	private $hauteur;
 	
+	public function getForm(){
+		return new FournitureType();
+	}
+
+	public function getTaille(){
+		return $this->getLongueur().' [m] x '.$this->getLargeur().' [cm] x '.$this->getHauteur().' [mm]';
+	}
+	
+	public function CalculQuantiteTotale(){
+		return 'vol. : '.$this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100 * $this->getHauteur()/1000 .'[m<sup>3</sup>]';
+	}
+	
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set hauteur
+     *
+     * @param float $hauteur
+     * @return Fourniture3D
+     */
+    public function setHauteur($hauteur)
+    {
+        $this->hauteur = $hauteur;
+    
+        return $this;
+    }
+
+    /**
+     * Get hauteur
+     *
+     * @return float 
+     */
+    public function getHauteur()
+    {
+        return $this->hauteur;
+    }
 }

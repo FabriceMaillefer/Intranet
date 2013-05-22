@@ -23,9 +23,12 @@
 		<hr />
 		
 		<div>
+		
+	<a name="form_zone"></a>
     <h3>Ajout de fournitures : </h3>
     	<script>
 			function getFormulaireFourniture(url){
+				$('#formulaire_fourniture').html('<p>Chargement du formulaire...</p>');
 				$.ajax({
 					url: url,
 					type: 'GET',
@@ -36,16 +39,38 @@
 		
 			}
     	</script>
-    	<a href="{{ path('fourniture_new',{'id':chantier.id}) }}" onclick="getFormulaireFourniture('{{ path('fourniture_new',{'id':chantier.id}) }}');return false;">Ajouter une fourniture simple</a>
+    	<div class="btn-group">
+		
+			<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				Choisir un type de fourniture
+			<span class="caret"></span>
+			</a>
+	    	<ul class="dropdown-menu">
+	    		<li>
+	    			<a href="{{ path('fourniture_new',{'id':chantier.id,'type':''}) }}" onclick="getFormulaireFourniture('{{ path('fourniture_new',{'id':chantier.id,'type':''}) }}');return false;">Ajouter une fourniture simple</a>
+	    		</li>
+	    		<li>
+	    			<a href="{{ path('fourniture_new',{'id':chantier.id,'type':'1D'}) }}" onclick="getFormulaireFourniture('{{ path('fourniture_new',{'id':chantier.id,'type':'1D'}) }}');return false;">Ajouter une fourniture 1D</a>
+				</li>
+				<li>
+					<a href="{{ path('fourniture_new',{'id':chantier.id,'type':'2D'}) }}" onclick="getFormulaireFourniture('{{ path('fourniture_new',{'id':chantier.id,'type':'2D'}) }}');return false;">Ajouter une fourniture 2D</a>
+				</li>
+				<li>    	
+					<a href="{{ path('fourniture_new',{'id':chantier.id,'type':'3D'}) }}" onclick="getFormulaireFourniture('{{ path('fourniture_new',{'id':chantier.id,'type':'3D'}) }}');return false;">Ajouter une fourniture 3D</a>
+				</li>
+	    	</ul>
+    	</div>
+    	
     	<div id="formulaire_fourniture"></div>
     </div>
     <h3>Liste des fournitures : </h3>
-	<table class="table table-bordered table-striped">
+	<table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>
                 <th>Descriptif</th>
-                <th>Quantite</th>
-                <th>Unite</th>
+                <th>Taille long. x larg. x haut.</th>
+                <th>Quantité</th>
+                <th>Quantité totale</th>
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
@@ -53,15 +78,19 @@
         <tbody>
         {% for entity in fournitures %}
             <tr>
-                <td>{{ entity.descriptif }}</td>
-                <td>{{ entity.quantite }}</td>
-                <td>{{ entity.unite }}</td>
-                <td>{% if entity.date %}{{ entity.date|date('d.m.Y') }}{% endif %}</td>
+               	<td>{{ entity.descriptif }}</td>
+				<td>{{ entity.taille | raw  }}</td>
+				<td>{{ entity.quantite }}[{{ entity.unite }}]</td>
+				<td>{{ entity.CalculQuantiteTotale | raw }}</td>
+				<td>{% if entity.date %}{{ entity.date|date('d.m.Y') }}{% endif %}</td>
                 <td>
                 	<a class="btn btn-success" href="{{ path('fourniture_edit', { 'id': entity.id }) }}" 
                 		onclick="getFormulaireFourniture('{{ path('fourniture_edit', { 'id': entity.id }) }}');return false;">
                 		Modifier
                 	</a>
+                	<a class="btn btn-danger" href="{{ path('fourniture_delete', { 'id': entity.id }) }}">
+			            Supprimer
+			        </a>
                 </td>
             </tr>
         {% endfor %}

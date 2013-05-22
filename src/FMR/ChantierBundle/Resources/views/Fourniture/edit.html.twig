@@ -8,15 +8,7 @@
         </a>
 	</div>
 </div>
-
-<form action="{{ path('fourniture_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-	<input type="hidden" name="_method" value="PUT" />
-    {{ form_widget(edit_form) }}
-    <p>
-        <button class="btn btn-primary" type="submit">Enregistrer</button>
-    </p>
-</form>
-
+	{% include 'FMRChantierBundle:Fourniture:edit_single.html.twig' %}
 	<div class="form-actions">
 		<a class="btn" href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}" >
             Retour aux fournitures du chantier

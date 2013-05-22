@@ -22,11 +22,12 @@
             <tr>
                 <th>N°</th>
                 <th>Client</th>
-                <th>Architecte</th>
+                <th class="hidden-phone">Architecte</th>
                 <th>Lieu</th>
-                <th>Description</th>
+                <th class="hidden-phone">Description</th>
                 <th>Datedebut</th>
                 <th>Datefin</th>
+                <th class="hidden-phone">Nb Fournitures</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -35,12 +36,18 @@
             <tr>
                 <td><a href="{{ path('chantier_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.client }}</td>
-                <td>{{ entity.architecte }}</td>
+                <td class="hidden-phone">{{ entity.architecte }}</td>
                 <td>{{ entity.lieu }}</td>
-                <td>{{ entity.description }}</td>
+                <td class="hidden-phone">{{ entity.description }}</td>
+                
                 <td>{% if entity.dateDebut %}{{ entity.dateDebut|date('d.m.Y') }}{% endif %}</td>
                 <td>{% if entity.dateFin %}{{ entity.dateFin|date('d.m.Y') }}{% endif %}</td>
-                <td><a class="btn btn-info" href="{{ path('chantier_show', { 'id': entity.id }) }}">Voir</a></td>
+                <td class="hidden-phone">{{ entity.fournitures.count }}</td>
+                <td><a class="btn btn-info" href="{{ path('chantier_show', { 'id': entity.id }) }}">Voir</a>
+                <a class="btn btn-primary hidden-phone" href="{{ path('chantier_fourniture', { 'id': entity.id }) }}">
+            		Fournitures
+        		</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

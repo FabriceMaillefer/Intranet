@@ -3,6 +3,7 @@
 namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FMR\ChantierBundle\Form\FournitureType as FournitureType;
 
 /**
  * Fourniture simple
@@ -64,11 +65,27 @@ class Fourniture
      */
     private $unite;
     
+    
+    
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     	$this->date = new \DateTime();
+    	$this->quantite = 1;
     }
 
+    public function getForm(){
+    	return new FournitureType();
+    }
+    
+	public function getTaille(){
+		return '';
+	}
+    
+	
+	public function CalculQuantiteTotale(){
+		return $this->quantite;
+	}
+    
     /**
      * Get id
      *

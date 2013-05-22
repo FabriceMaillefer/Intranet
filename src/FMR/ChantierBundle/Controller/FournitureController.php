@@ -8,7 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\ChantierBundle\Entity\Fourniture;
-use FMR\ChantierBundle\Form\FournitureType;
+use FMR\ChantierBundle\Entity\Fourniture1D;
+use FMR\ChantierBundle\Entity\Fourniture2D;
+use FMR\ChantierBundle\Entity\Fourniture3D;
 use FMR\ChantierBundle\Entity\Chantier;
 
 /**
@@ -46,10 +48,14 @@ class FournitureController extends Controller
      */
     public function createAction(Request $request, Chantier $chantier)
     {
-        $entity  = new Fourniture();
-        $form = $this->createForm(new FournitureType(), $entity);
-        $form->bind($request);
+    	$type=$request->request->get('_type');
 
+    	$classe = 'FMR\ChantierBundle\Entity\Fourniture'.$type;
+        $entity  = new $classe();
+        
+        $form = $this->createForm($entity->getForm(), $entity);
+        $form->bind($request);
+        
         $entity->setChantier($chantier);
         
         if ($form->isValid()) {
@@ -63,45 +69,48 @@ class FournitureController extends Controller
             return $this->redirect($this->generateUrl('chantier_fourniture', array('id' => $entity->getChantier()->getId())));
         }
 		$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la cr&eacute;ation');
-        
+		
         return array(
             'entity' => $entity,
             'form'   => $form->createView(),
         	'chantier'=> $chantier,
+        	'type' => $type,
         );
     }
 
     /**
      * Displays a form to create a new Fourniture entity.
      *
-     * @Route("/chantier/{id}/new", name="fourniture_new")
+     * @Route("/chantier/{id}/new/{type}", name="fourniture_new")
+     * 
      * @Method("GET")
      * @Template()
      */
-    public function newAction(Request $request, Chantier $chantier)
+    public function newAction(Request $request, Chantier $chantier, $type="")
     {
     	
     	
-        $entity = new Fourniture();
+        $classe = 'FMR\ChantierBundle\Entity\Fourniture'.$type;
+        $entity  = new $classe();
+        
         $entity->setChantier($chantier);
         
-        $form   = $this->createForm(new FournitureType(), $entity);
+        $form   = $this->createForm($entity->getForm(), $entity);
+
+        $return_options = array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        	'chantier'=> $chantier,
+        	'type' => $type,
+        );
         
 		if ($request->isXmlHttpRequest()){
 			return $this->render(
 					'FMRChantierBundle:Fourniture:new_single.html.twig',
-					array(
-							'entity' => $entity,
-				            'form'   => $form->createView(),
-							'chantier'=> $chantier,
-					)
+					$return_options
 			);
     	}
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        	'chantier'=> $chantier,
-        );
+        return $return_options;
     }
 
     /**
@@ -133,7 +142,7 @@ class FournitureController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -143,12 +152,21 @@ class FournitureController extends Controller
             throw $this->createNotFoundException('Unable to find Fourniture entity.');
         }
 
-        $editForm = $this->createForm(new FournitureType(), $entity);
+        $editForm = $this->createForm($entity->getForm(), $entity);
 
-        return array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+        
+        $return_options = array(
+        		'entity' => $entity,
+        		'edit_form'   => $editForm->createView(),
         );
+        
+        if ($request->isXmlHttpRequest()){
+        	return $this->render(
+        			'FMRChantierBundle:Fourniture:edit_single.html.twig',
+        			$return_options
+        	);
+        }
+        return $return_options;
     }
 
     /**
@@ -168,7 +186,7 @@ class FournitureController extends Controller
             throw $this->createNotFoundException('Unable to find Fourniture entity.');
         }
 
-        $editForm = $this->createForm(new FournitureType(), $entity);
+        $editForm = $this->createForm($entity->getForm(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -177,7 +195,7 @@ class FournitureController extends Controller
             
             $this->get('session')->getFlashBag()->add('success', 'Modification r&eacute;ussie');
 
-            return $this->redirect($this->generateUrl('fourniture_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('chantier_fourniture', array('id' => $entity->getChantier()->getId())));
         }
         
 		$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification');

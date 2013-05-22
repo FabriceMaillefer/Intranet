@@ -2,19 +2,8 @@
 {% block content -%}
 	<div class="page-header">
 	    <h1>Ajouter un fourniture</h1>
-	    <div style="text-align:right;">
-	    	<a class="btn" href="{{ path('fourniture') }}">
-	            Retour &agrave; la liste
-	        </a>
-	    </div>
 	</div>
 
    {% include 'FMRChantierBundle:Fourniture:new_single.html.twig' %}
-
-        	<div class="form-actions">
-        <a class="btn" href="{{ path('fourniture') }}">
-            Retour &agrave; la liste
-        </a>
-</div>
 
 {% endblock %}

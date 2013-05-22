@@ -11,10 +11,11 @@ class FournitureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('date',null,array('label'=> 'Date', 'widget'=> 'single_text', 'attr'=>array('class'=>'input-medium')))
             ->add('descriptif',null,array('attr'=>array('class'=>'input-large')))
             ->add('quantite',null,array('label'=> 'Quantité','attr'=>array('class'=>'input-mini')))
             ->add('unite',null,array('label'=> 'Unité','attr'=>array('class'=>'input-medium')))
-            ->add('date',null,array('label'=> 'Date'))
+            
             
         ;
     }

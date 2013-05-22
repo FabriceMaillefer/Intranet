@@ -8,10 +8,9 @@ imports:
 framework:
     router:
         strict_requirements: null
-    #validation:
+    validation:
     #    cache: apc
     
-
 #doctrine:
 #    orm:
 #        metadata_cache_driver: apc

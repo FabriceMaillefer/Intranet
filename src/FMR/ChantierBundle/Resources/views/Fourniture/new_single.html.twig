@@ -1,18 +1,6 @@
- <form action="{{ path('fourniture_create', {'id': chantier.id}) }}" method="post" {{ form_enctype(form) }}>
-      <div style="display:inline-block;">
-			{{ form_row(form.descriptif) }}
-		</div>
-		<div style="display:inline-block;">
-		{{ form_label(form.quantite) }}
-		{{ form_errors(form.quantite) }}     
-		{{ form_widget(form.quantite) }}
-		</div>
-		<div style="display:inline-block;">
-		{{ form_label(form.unite) }}
-		{{ form_errors(form.unite) }}     
-		{{ form_widget(form.unite) }}
-		</div>
-       {{ form_rest(form) }}
+ <form action="{{ path('fourniture_create', {'id': chantier.id}) }}" method="post" class="form_inline_block" {{ form_enctype(form) }}>
+      <input type="hidden" name="_type" value="{{ type }}" />
+		{{ form_widget(form) }}
         <p>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
         </p>

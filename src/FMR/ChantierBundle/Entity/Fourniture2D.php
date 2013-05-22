@@ -4,6 +4,7 @@
 namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FMR\ChantierBundle\Form\Fourniture2DType as FournitureType;
 
 /**
  * Fourniture deux dimensions 
@@ -29,4 +30,48 @@ class Fourniture2D extends Fourniture1D
 	 */
 	private $largeur;
 	
+	public function getForm(){
+		return new FournitureType();
+	}
+	
+	public function getTaille(){
+		return $this->getLongueur().' [m] x '.$this->getLargeur().' [cm]';
+	}
+	
+	public function CalculQuantiteTotale(){
+		return 'surf. : '.$this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100 . '[m<sup>2</sup>]';
+	}
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set largeur
+     *
+     * @param float $largeur
+     * @return Fourniture2D
+     */
+    public function setLargeur($largeur)
+    {
+        $this->largeur = $largeur;
+    
+        return $this;
+    }
+
+    /**
+     * Get largeur
+     *
+     * @return float 
+     */
+    public function getLargeur()
+    {
+        return $this->largeur;
+    }
 }
