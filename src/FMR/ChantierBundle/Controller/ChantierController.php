@@ -11,6 +11,8 @@ use FMR\ChantierBundle\Entity\Chantier;
 use FMR\ChantierBundle\Form\ChantierType;
 use FMR\OffreBundle\Entity\Offre;
 use FMR\ClientBundle\Entity\Client;
+use FMR\FactureBundle\Entity\Facture;
+use FMR\FactureBundle\Entity\ArticleFacture;
 
 /**
  * Chantier controller.
@@ -107,6 +109,60 @@ class ChantierController extends Controller
             'form'   => $form->createView(),
         );
     }
+    
+    /**
+     * Creates a new Facture entity for a Chantier.
+     *
+     * @Route("/{id}/facture", name="chantier_facture_create")
+     * @Method("GET")
+     */
+    public function createFactureAction(Chantier $chantier)
+    {
+    	if ($chantier->getFacture()){
+    		$this->get('session')->getFlashBag()->add('info', 'Facture déjà existante pour ce chantier!');
+    		
+    		return $this->redirect($this->generateUrl('facture_show', array('id' => $chantier->getFacture()->getId())));
+    	}
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	$facture  = new Facture();
+    	
+    	//Création de la facture selon les données liée d'offre et du chantier
+    	$facture->setChantier($chantier);
+    	$facture->setClient($chantier->getClient());
+    	if ($chantier->getOffre()){
+    		$facture->setReferenceClient($chantier->getOffre()->getReferenceClient());
+    	} else {
+    		$facture->setReferenceClient($chantier->getDescription());
+    	}
+    	
+    	$ordre = 0;
+    	//ajout des articles
+    	foreach ($chantier->getFournitures() as $fourniture ){
+    		$ordre++;
+    		$article = new ArticleFacture();
+    		$article
+				->setFacture($facture)
+    			->setOrdre($ordre)
+    			->setDescriptif($fourniture->getLigneFacturation())
+    			->setQuantite($fourniture->CalculQuantiteTotale())
+    			->setUnite($fourniture->getUnite())
+    		;
+    		$em->persist($article);
+    	}
+    	
+    	$chantier->setFacture($facture);
+    	
+    	$em->persist($facture);
+    	$em->persist($chantier);
+    	$em->flush();
+    
+    	$this->get('session')->getFlashBag()->add('success', 'Cr&eacute;ation de la facture compl&egrave;te avec '.$ordre.' articles importés.');
+    
+    	return $this->redirect($this->generateUrl('facture_show', array('id' => $chantier->getFacture()->getId())));
+    	
+    	
+    }
 
     /**
      * Displays a form to create a new Chantier entity.
@@ -125,6 +181,16 @@ class ChantierController extends Controller
         	$entity->setClient($offre->getClient());
         	$entity->setDescription($offre->getReferenceClient());
         	$entity->setLieu($offre->getClient()->getLocalite());
+        	
+        	$em = $this->getDoctrine()->getManager();
+        	
+        	$statut = $em->getRepository('FMROffreBundle:StatutOffre')->find(3);
+        	if ($statut) {
+        		$offre->setStatut($statut);
+        	}
+      
+        	$em->persist($offre);
+        	$em->flush();
         }
 
         $form   = $this->createForm(new ChantierType(), $entity);
@@ -254,6 +320,7 @@ class ChantierController extends Controller
 		if (!$entity) {
 			throw $this->createNotFoundException('Unable to find Chantier entity.');
 		}
+	
 		
 		$em->remove($entity);
 		$em->flush();

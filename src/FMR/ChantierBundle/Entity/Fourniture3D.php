@@ -38,7 +38,12 @@ class Fourniture3D extends Fourniture2D
 	}
 	
 	public function CalculQuantiteTotale(){
-		return 'vol. : '.$this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100 * $this->getHauteur()/1000 .'[m<sup>3</sup>]';
+		return $this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100 * $this->getHauteur()/1000;
+	}
+	
+	public function __construct(){
+		parent::__construct();
+		$this->setUnite('m3');
 	}
 	
     /**

@@ -22,10 +22,10 @@
 		<thead>
 			<tr>
 				<th>Client</th>
-				<th>Adresse</th>
+				<th class="hidden-phone">Adresse</th>
 				<th>Localite</th>
-				<th>Date de cr&eacute;ation</th>
-				<th>Email</th>
+				<th class="hidden-phone">Date de cr&eacute;ation</th>
+				<th class="hidden-phone">Email</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -33,10 +33,10 @@
 		{% for entity in entities %}
 			<tr>
 				<td><a href="{{ path('client_show', { 'id': entity.id }) }}">{{ entity.nomPrenom }}</a></td>
-				<td>{{ entity.adresse }}</td>
+				<td class="hidden-phone">{{ entity.adresse }}</td>
 				<td>{{ entity.nPA }} {{ entity.localite }}</td>
-				<td>{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
-				<td>{{ entity.email }}</td>
+				<td class="hidden-phone">{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
+				<td class="hidden-phone">{{ entity.email }}</td>
 				<td><a class="btn btn-info" href="{{ path('client_show', { 'id': entity.id }) }}">Voir</a>
 					<a class="btn btn-success" href="{{ path('client_edit', { 'id': entity.id }) }}">Modifier</a>
 				</td>

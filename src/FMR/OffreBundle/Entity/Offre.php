@@ -83,7 +83,20 @@ class Offre
         return $this->id;
     }
 
-
+    /**
+	 * Verifie si le statut permet la modification de l'entité. 
+	 * Statut 1 = En création
+     */
+    public function isEditable()
+    {
+    	if($this->getStatut()->getId() == 1){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    		
+    	
+    }
 
 
     /**

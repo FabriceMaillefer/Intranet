@@ -61,7 +61,7 @@ class Fourniture
     /**
      * @var string
      *
-     * @ORM\Column(name="Unite", type="string", length=5)
+     * @ORM\Column(name="Unite", type="string", length=10)
      */
     private $unite;
     
@@ -71,6 +71,7 @@ class Fourniture
     	$this->dateCreation = new \DateTime();
     	$this->date = new \DateTime();
     	$this->quantite = 1;
+    	$this->unite = "pcs";
     }
 
     public function getForm(){
@@ -79,6 +80,10 @@ class Fourniture
     
 	public function getTaille(){
 		return '';
+	}
+	
+	public function getLigneFacturation(){
+		return  $this->getQuantite().'x '.$this->getDescriptif();
 	}
     
 	

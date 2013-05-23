@@ -214,6 +214,11 @@ class OffreController extends Controller
             throw $this->createNotFoundException('Unable to find Offre entity.');
         }
 
+        if (!$entity->isEditable()){
+        	$this->get('session')->getFlashBag()->add('error', 'Offre vérouillée. Changez le statut pour pouvoir la modifier');
+        	return $this->redirect($this->generateUrl('offre_show', array('id' => $id)));
+        }
+        
         $editForm = $this->createForm(new OffreType(), $entity);
 
         return array(

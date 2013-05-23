@@ -1,10 +1,10 @@
 {% extends '::layout.html.twig' %}
 {% block content %}
 <div class="page-header">
-    <h1>Modifier un articleoffre</h1>
+    <h1>Modifier un article d'offre</h1>
     	<div style="text-align:right;">
-		<a class="btn" href="{{ path('articleoffre_show', { 'id': entity.id }) }}" >
-            Retour aux d&eacute;tails du ArticleOffre
+		<a class="btn" href="{{ path('offre_show', { 'id': entity.offre.id }) }}" >
+            Retour aux d&eacute;tails de l'offre
         </a>
 	</div>
 </div>
@@ -18,9 +18,9 @@
 </form>
 
 	<div class="form-actions">
-        <a class="btn" href="{{ path('offre_show', {'id': entity.offre.id}) }}">
-            Retour &agrave; l'offre
-        </a>
+		<a class="btn" href="{{ path('offre_show', { 'id': entity.offre.id }) }}" >
+            Retour aux d&eacute;tails de l'offre
+        </a>s
         <a class="btn btn-danger" href="{{ path('articleoffre_delete', { 'id': entity.id }) }}">
             Supprimer
         </a>

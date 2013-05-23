@@ -70,6 +70,8 @@ class ArticleBase
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     	$this->ordre  = 0;
+    	$this->quantite = 1;
+    	$this->prixUnitaire = 0;
     }
 
     /**

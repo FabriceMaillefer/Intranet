@@ -1,0 +1,125 @@
+{% extends 'FMROffreBundle::layout.html.twig' %}{% block content -%}
+<div class="page-header">
+		<h1>Facture N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
+		<div style="text-align:right;">
+			<a class="btn btn-primary" href="{{ path('facture_edit', { 'id': entity.id }) }}">
+				Editer
+			</a>
+		</div>
+	</div>
+
+<div class="row-fluid">
+        <h3>Informations sur la facture : </h3>
+		<div class="row-fluid">
+			<div class="span6">
+				<p><strong>Référence Client : </strong>{{ entity.referenceClient }}</p>
+				<p><strong>Statut : </strong>{{ entity.statut }}</p>
+				<p><strong>Rabais</strong>
+		            {{ macro.monetaire(entity.rabais*100) }}%
+		        </p>
+		        <p><strong>TVA</strong>
+		            {{ macro.monetaire(entity.tVA*100) }}%
+		        </p>
+			</div>
+			<div class="span6">
+				<p><strong>Date Cr&eacute;ation</strong>
+           		{{ entity.dateCreation|date('d.m.Y H:i') }}</p>
+           		{% if entity.dateImpression %}
+           			<p><strong>Date d'impression</strong>
+		            	{{ entity.dateImpression|date('d.m.Y H:i') }}
+		        	</p>
+		        {% endif %}
+		        {% if entity.datePayement %}
+		       		<p><strong>Date du payement</strong>
+		        	    {{ entity.datePayement|date('d.m.Y H:i') }}
+		        	</p>
+		        {% endif %}
+		        {% if entity.chantier %}
+					<h4>Chantier :</h4>
+					<a class="btn btn-info" href="{{ path('chantier_show', { 'id': entity.chantier.id }) }}">Voir le chantier</a>
+					{% if entity.chantier.offre %}
+						<h4>Offre :</h4>
+						<a class="btn btn-info" href="{{ path('offre_show', { 'id': entity.chantier.offre.id }) }}">Voir l'offre</a>
+					{% endif %}
+				{% endif %}
+		        
+		        
+			</div>
+		</div>
+
+        <hr>
+		{% if entity.client %}
+			<h3>Informations sur le client :</h3>
+			<p><strong>Client : </strong><a href="{{ path('client_show', { 'id': entity.client.id }) }}">{{ entity.client }}</a></p>
+			<p><strong>Adresse : </strong>{{ entity.client.adresse }}</p>
+			<p><strong>Localité : </strong>{{ entity.client.NPA }} {{ entity.client.Localite }}</p>
+			<hr>
+		{% endif %}
+        
+        <h3>Articles : </h3>
+		
+		<table class="table table-bordered table-striped table-condensed">
+	        <thead>
+	            <tr>
+	            	<th>Descriptif</th>
+	            	<th>Quantité</th>
+	            	<th>Unité</th>
+	            	<th>Prix Unitaire</th>
+	            	<th>Montant</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        {% for article in entity.articles %}
+	            <tr>
+	                <td>{{ article.descriptif|raw }}</td>
+	                <td>{{ article.quantite }}</td>
+	                <td>{{ article.unite }}</td>
+	                <td>{{ article.prixUnitaire }}</td>
+	                <td>{{ article.calculPrixTotal }}</td>
+	                <td><a href="{{ path('articlefacture_edit', { 'id': article.id }) }}">Modifier</a></td>
+	            </tr>
+	        {% endfor %}
+	        {% set colspan = 3 %}
+				<tr>
+					<td colspan="{{ colspan }}" rowspan="8"></td>
+					<td>Montant  : </td>
+					<td>{{ macro.monetaire(entity.CalculSommeTotale) }}</td>
+					<td rowspan="8"></td>
+				<tr>
+				</tr>
+					{% if entity.rabais > 0 %}<td>Rabais {{ macro.monetaire(entity.rabais*100) }}% : </td>
+					<td>-{{ macro.monetaire(entity.CalculRabais)  }}</td>{% endif %}
+				<tr>
+				</tr>
+
+					<td>TVA {{ macro.monetaire(entity.tVA*100) }}% : </td>
+					<td>{{ macro.monetaire(entity.CalculTVA) }}</td>
+				</tr>
+				</tr>
+					<td>Total TTC : </td>
+					<td>{{ macro.monetaire(entity.CalculSommeTTCTotale) }}</td>
+				<tr>
+	        </tbody>
+	    </table>
+		{{ render(controller("FMRFactureBundle:ArticleFacture:new", { 'id':entity.id } )) }}
+        
+        
+        </div>
+        
+        
+        
+        
+        	<div class="form-actions">
+        <a class="btn" href="{{ path('facture') }}">
+            Retour &agrave; la liste
+        </a>
+        <a class="btn btn-primary" href="{{ path('facture_edit', { 'id': entity.id }) }}">
+            Editer
+        </a>
+        <a class="btn btn-danger" href="{{ path('facture_delete', { 'id': entity.id }) }}">
+            Supprimer
+        </a>
+</div>
+
+{% endblock %}

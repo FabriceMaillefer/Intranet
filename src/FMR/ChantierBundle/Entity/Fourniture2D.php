@@ -39,9 +39,14 @@ class Fourniture2D extends Fourniture1D
 	}
 	
 	public function CalculQuantiteTotale(){
-		return 'surf. : '.$this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100 . '[m<sup>2</sup>]';
+		return $this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100;
 	}
 
+	public function __construct(){
+		parent::__construct();
+		$this->setUnite('m2');
+	}
+	
     /**
      * Get id
      *

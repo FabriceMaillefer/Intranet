@@ -35,10 +35,19 @@ class Fourniture1D extends Fourniture
 		return $this->getLongueur().' [m]';
 	}
 	
-	public function CalculQuantiteTotale(){
-		return 'lon. : '.$this->getQuantite() * $this->getLongueur() . '[m]';
+	public function getLigneFacturation(){
+		return  $this->getQuantite().'x '.$this->getDescriptif(). ' : '. $this->getTaille();
 	}
-
+	
+	public function CalculQuantiteTotale(){
+		return $this->getQuantite() * $this->getLongueur();
+	}
+	
+	public function __construct(){
+		parent::__construct();
+		$this->setUnite('m');
+	}
+	
     /**
      * Get id
      *

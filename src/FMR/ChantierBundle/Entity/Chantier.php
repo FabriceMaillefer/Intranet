@@ -36,6 +36,13 @@ class Chantier
      * @ORM\JoinColumn(name="offre_id", referencedColumnName="id", nullable=true)
      */
     private $offre;
+    
+    /**
+     * @var FMR\FactureBundle\Entity\Facture
+     *
+     * @ORM\OneToOne(targetEntity="FMR\FactureBundle\Entity\Facture", mappedBy="chantier")
+     */
+    private $facture;
 
     /**
      * @var string
@@ -327,5 +334,28 @@ class Chantier
     public function getFournitures()
     {
         return $this->fournitures;
+    }
+
+    /**
+     * Set facture
+     *
+     * @param \FMR\FactureBundle\Entity\Facture $facture
+     * @return Chantier
+     */
+    public function setFacture(\FMR\FactureBundle\Entity\Facture $facture = null)
+    {
+        $this->facture = $facture;
+    
+        return $this;
+    }
+
+    /**
+     * Get facture
+     *
+     * @return \FMR\FactureBundle\Entity\Facture
+     */
+    public function getFacture()
+    {
+        return $this->facture;
     }
 }
