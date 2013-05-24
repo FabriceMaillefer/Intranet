@@ -25,6 +25,7 @@
                 <th>Client</th>
                 <th class="hidden-phone">Date Cr&eacute;ation</th>
                 <th>R&eacute;f&eacute;rence</th>
+                <th>Nb Article</th>
                 <th>Statut</th>
                 <th>Actions</th>
             </tr>
@@ -36,9 +37,10 @@
                 <td>{{ entity.client }}</td>
                 <td class="hidden-phone">{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
                 <td>{{ entity.referenceClient }}</td>
+                <td>{{ entity.articles.count }}</td>
                 <td>{{ entity.statut }}</td>
                 <td><a class="btn btn-info" href="{{ path('offre_show', { 'id': entity.id }) }}">Voir</a>
-<a class="btn btn-success" href="{{ path('offre_edit', { 'id': entity.id }) }}">Modifier</a>                </td>
+                </td>
             </tr>
             {% else %}
 			<tr>

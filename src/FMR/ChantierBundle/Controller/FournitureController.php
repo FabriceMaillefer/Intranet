@@ -29,10 +29,11 @@ class FournitureController extends Controller
      */
     public function listFournitureChantierAction(Chantier $chantier)
     {
-    	$em = $this->getDoctrine()->getManager();
-    
-    	$fournitures = $em->getRepository('FMRChantierBundle:Fourniture')->findByChantier($chantier);
-    
+    	    
+    	$fournitures = $chantier->getFournitures();
+    	if ($chantier->getFacture()){
+    		$this->get('session')->getFlashBag()->add('info', 'Ce chantier est déjà facturé. Les nouvelles fournitures ajoutées ne seront pas facturées.');    		
+    	}
     	return array(
     			'fournitures' => $fournitures,
     			'chantier' => $chantier,
@@ -113,27 +114,6 @@ class FournitureController extends Controller
         return $return_options;
     }
 
-    /**
-     * Finds and displays a Fourniture entity.
-     *
-     * @Route("/{id}", name="fourniture_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRChantierBundle:Fourniture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Fourniture entity.');
-        }
-
-        return array(
-            'entity'      => $entity,
-        );
-    }
 
     /**
      * Displays a form to edit an existing Fourniture entity.

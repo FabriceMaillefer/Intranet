@@ -16,7 +16,20 @@
 			<div class="span6">
 				<p><strong>Référence Client : </strong>{{ entity.referenceClient }}</p>
 				<p><strong>Statut : </strong>{{ entity.statut }}</p>
-				{% if entity.statut.id == 2 or entity.statut.id == 3 or entity.chantier %}
+				{% if not entity.chantier %}
+           			<form action="{{ path('offre_statut', {'id':entity.id}) }}" method="post" {{ form_enctype(formStatut) }}>
+           				<input type="hidden" name="_method" value="PUT" />
+		           		{{ form_widget(formStatut) }}
+		           		<button type="submit" class="btn btn-primary">Changer le statut</button>
+    				</form>
+    				{% endif %}
+				
+			</div>
+			<div class="span6">
+				<p><strong>Date Cr&eacute;ation</strong>
+           		{{ entity.dateCreation|date('d.m.Y H:i') }}</p>
+           		<p>
+           			{% if entity.statut.id == 2 or entity.statut.id == 3 or entity.chantier %}
 					<h4>Chantier :</h4>
 					{% if entity.chantier %}
 						<a class="btn btn-info" href="{{ path('chantier_show', { 'id': entity.chantier.id }) }}">Voir le chantier lié</a>
@@ -26,20 +39,6 @@
 					    </a>
 					{% endif %}
 				{% endif %}
-			</div>
-			<div class="span6">
-				<p><strong>Date Cr&eacute;ation</strong>
-           		{{ entity.dateCreation|date('d.m.Y H:i:s') }}</p>
-           		<p>
-           			{% if not entity.chantier %}
-           			<form action="{{ path('offre_statut', {'id':entity.id}) }}" method="post" {{ form_enctype(formStatut) }}>
-           				<input type="hidden" name="_method" value="PUT" />
-		           		{{ form_widget(formStatut) }}
-				        <p>
-				            <button type="submit" class="btn btn-primary">Changer le statut</button>
-				        </p>
-    				</form>
-    				{% endif %}
     			</p>
 			</div>
 		</div>
@@ -61,7 +60,7 @@
 	            	<th>Unité</th>
 	            	<th>Prix Unitaire</th>
 	            	<th>Prix Total</th>
-	                <th>Actions</th>
+	                {% if entity.editable  %}<th>Actions</th>{% endif %}
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -72,7 +71,7 @@
 	                <td>{{ article.unite }}</td>
 	                <td>{{ article.prixUnitaire }}</td>
 	                <td>{{ article.calculPrixTotal }}</td>
-	                <td><a href="{{ path('articleoffre_edit', { 'id': article.id }) }}">Modifier</a></td>
+	                {% if entity.editable  %}<td><a href="{{ path('articleoffre_edit', { 'id': article.id }) }}">Modifier</a></td>{% endif %}
 	            </tr>
 	        {% endfor %}
 	        </tbody>

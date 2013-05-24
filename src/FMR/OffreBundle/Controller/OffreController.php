@@ -166,27 +166,21 @@ class OffreController extends Controller
      * @Method("PUT")
      * @Template("FMROffreBundle:Offre:show.html.twig")
      */
-    public function changeStatutAction(Request $request, $id)
+    public function changeStatutAction(Request $request, Offre $offre)
     {
     	$em = $this->getDoctrine()->getManager();
     
-    	$entity = $em->getRepository('FMROffreBundle:Offre')->find($id);
-    
-    	if (!$entity) {
-    		throw $this->createNotFoundException('Unable to find Offre entity.');
-    	}
-    
-    	$formStatut = $this->createForm(new OffreChangeStatutType(), $entity);
+    	$formStatut = $this->createForm(new OffreChangeStatutType(), $offre);
 
     	$formStatut->bind($request);
     
     	if ($formStatut->isValid()) {
-    		$em->persist($entity);
+    		$em->persist($offre);
     		$em->flush();
     
     		$this->get('session')->getFlashBag()->add('success', 'Modification du statut r&eacute;ussie');
     
-    		return $this->redirect($this->generateUrl('offre_show', array('id' => $id)));
+    		return $this->redirect($this->generateUrl('offre_show', array('id' => $offre->getId())));
     	}
     
     	$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification du statut');
@@ -215,7 +209,7 @@ class OffreController extends Controller
         }
 
         if (!$entity->isEditable()){
-        	$this->get('session')->getFlashBag()->add('error', 'Offre vérouillée. Changez le statut pour pouvoir la modifier');
+        	$this->get('session')->getFlashBag()->add('error', 'Offre vérouillée. Changez le statut pour pouvoir la modifier.');
         	return $this->redirect($this->generateUrl('offre_show', array('id' => $id)));
         }
         

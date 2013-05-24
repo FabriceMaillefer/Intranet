@@ -104,23 +104,86 @@ class Facture
     	return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().', '.$this->getReferenceClient();
     }
     
+    /**
+     * Verifie si le statut permet la modification de l'entité.
+     * Statut 1 = En création
+     */
+    public function isEditable()
+    {
+    	if($this->getStatut()->getId() == 1){
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    
+    /**
+     * Calcul du montant total de tous les articles
+     *
+     * @return float
+     */
     public function CalculSommeTotale() {
     	$somme = 0;
     	foreach ($this->getArticles() as $article){
-    		$somme = $article->CalculPrixTotal();
+    		$somme += $article->CalculPrixTotal();
     	}
     	return $somme;
     }
+    /**
+     * Calcul du montant avec la TVA de la facture
+     *
+     * @return float
+     */
     public function CalculSommeTTCTotale() {
-    	return $this->CalculSommeTotale()* (1 - $this->rabais + $this->tVA);
+    	return $this->arrondiAuCentime($this->CalculSommeTotale() + $this->CalculTVA());
     }
-
+    
+    /**
+     * Calcul du montant avec la TVA et le rabais de la facture
+     *
+     * @return float
+     */
+    public function CalculSommeMontantTotal() {
+    	return $this->arrondiAuCentime($this->CalculSommeTotale() + $this->CalculTVA() - $this->CalculRabais());
+    }
+    
+    /**
+     * Calcul du montant arrondi de la facture
+     *
+     * @return float
+     */
+    public function CalculSommeMontantArrondiTotal() {
+    	return floor($this->CalculSommeMontantTotal());
+    }
+    
+    /**
+     * Calcul de la TVA de la facture
+     *
+     * @return float
+     */
     public function CalculTVA() {
-    	return $this->CalculSommeTTCTotale() * $this->tVA;
+    	return $this->arrondiAuCentime($this->CalculSommeTotale() * $this->tVA);
     }
+    
+    /**
+     * Calcul du rabais de la facture
+     *
+     * @return float
+     */
     public function CalculRabais() {
-    	return $this->CalculSommeTTCTotale() * $this->rabais;
+    	return $this->arrondiAuCentime($this->CalculSommeTotale() * $this->rabais);
     }
+    
+    /**
+     * Arrondi au 5 centimes
+     *
+     * @var float
+     * @return float
+     */
+     public function arrondiAuCentime($montant){
+     	return 0.05 * ceil($montant / 0.05);
+     }
     
     
     /**

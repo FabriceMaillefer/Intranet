@@ -18,24 +18,7 @@ use FMR\OffreBundle\Entity\Offre;
  */
 class ArticleOffreController extends Controller
 {
-    /**
-     * Lists all ArticleOffre entities.
-     *
-     * @Route("/", name="articleoffre")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('FMROffreBundle:ArticleOffre')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
-
+   
     /**
      * Creates a new ArticleOffre entity.
      *
@@ -88,25 +71,6 @@ class ArticleOffreController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a ArticleOffre entity.
-     *
-     * @Route("/{id}", name="articleoffre_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMROffreBundle:ArticleOffre')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleOffre entity.');
-        }
-
-        return $this->redirect($this->generateUrl('offre_show', array('id' => $entity->getOffre()->getId())));
-    }
 
     /**
      * Displays a form to edit an existing ArticleOffre entity.

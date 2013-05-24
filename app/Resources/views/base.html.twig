@@ -21,10 +21,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<![endif]-->
 		<link href="{{- asset('bundles/fmrcommon/css/jquery-ui-1.10.3.custom.min.css') -}}" rel="stylesheet" type="text/css">
-		<link href="{{- asset('bundles/fmrcommon/css/bootstrap.min.css') -}}" rel="stylesheet" type="text/css">
-		
-{# 		<link href="{{- asset('bundles/fmrcommon/css/bootstrap-responsive.css') -}}" rel="stylesheet">#}
-		
+		<link href="{{- asset('bundles/fmrcommon/css/bootstrap.min.css') -}}" rel="stylesheet" type="text/css">		
         <script src="{{- asset('bundles/fmrcommon/js/jquery.js') -}}" type="text/javascript"></script>
      	<script src="{{- asset('bundles/fmrcommon/js/jquery-ui-1.10.3.custom.min.js') -}}" type="text/javascript"></script>
      	<script src="{{- asset('bundles/fmrcommon/js/bootstrap.min.js') -}}" type="text/javascript"></script>
@@ -32,6 +29,9 @@
      	.form_inline_block div{
      		display: inline-block;
      	}
+     	table .text-right {
+			text-align: right;
+		}
      	</style>
 		{% block stylesheets %}{% endblock %}
 		<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -67,7 +67,7 @@
 		        </div>
 			</div>
 		</div>
-		
+		<br />
     	<div class="container-fluid">
 			{% for type, flashMessages in app.session.flashbag.all() %}
 			    {% for flashMessage in flashMessages %}

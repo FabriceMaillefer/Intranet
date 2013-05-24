@@ -1,0 +1,33 @@
+<div class="row-fluid">
+	<h3>Informations sur le chantier : </h3>
+	<div class="row-fluid">
+		<div class="span6">
+			<p><strong>Date de d&eacute;but : </strong>
+			{{ chantier.dateDebut|date('d.m.Y') }}</p>
+			<p><strong>Date de fin : </strong>
+			{{ chantier.dateFin|date('d.m.Y') }}</p>
+			<p><strong>Lieu : </strong>
+			{{ chantier.lieu }}</p>
+			<p><strong>Architecte : </strong>
+			{{ chantier.architecte }}</p>
+			<p><strong>Description : </strong>{{ chantier.description }}</p>
+		</div>
+		<div class="span6">
+			<p><strong>Date Cr&eacute;ation</strong>
+			{{ chantier.dateCreation|date('d.m.Y H:i') }}</p>
+			{% if chantier.offre %}
+				<h4>Offre :</h4>
+				<a class="btn btn-info" href="{{ path('offre_show', { 'id': chantier.offre.id }) }}">Voir l'offre</a>				
+			{% endif %}
+			<h4>Facture :</h4>
+			{% if chantier.facture %}
+				<a class="btn btn-info" href="{{ path('facture_show', { 'id': chantier.facture.id }) }}">Voir la facture de ce chantier</a>
+			{% else %}
+				<a class="btn btn-info" href="{{ path('chantier_facture_create', { 'id': chantier.id }) }}">Facturer ce chantier</a>
+			{% endif %}
+		</div>
+			
+	</div>
+	
+	<hr />
+<div>

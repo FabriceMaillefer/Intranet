@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\FactureBundle\Entity\Facture;
 use FMR\ClientBundle\Entity\Client;
 use FMR\FactureBundle\Form\FactureType;
+use FMR\FactureBundle\Form\FactureChangeStatutType;
 
 /**
  * Facture controller.
@@ -150,9 +151,45 @@ class FactureController extends Controller
             throw $this->createNotFoundException('Unable to find Facture entity.');
         }
 
+        $formStatut = $this->createForm(new FactureChangeStatutType(), $entity);
+        
+        
         return array(
             'entity'      => $entity,
+        	'formStatut' => $formStatut->createView(),
         );
+    }
+    /**
+     * Permet de changer le statut de la facture
+     *
+     * @Route("/{id}/statut", name="facture_statut")
+     * @Method("PUT")
+     * @Template("FMRFactureBundle:Offre:show.html.twig")
+     */
+    public function changeStatutAction(Request $request, Facture $facture)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    
+    
+    	$formStatut = $this->createForm(new FactureChangeStatutType(), $facture);
+    
+    	$formStatut->bind($request);
+    
+    	if ($formStatut->isValid()) {
+    		$em->persist($facture);
+    		$em->flush();
+    
+    		$this->get('session')->getFlashBag()->add('success', 'Modification du statut r&eacute;ussie');
+    
+    		return $this->redirect($this->generateUrl('facture_show', array('id' => $facture->getId())));
+    	}
+    
+    	$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification du statut');
+    
+    	return array(
+    			'entity'      => $facture,
+    			'formStatut' => $formStatut->createView(),
+    	);
     }
 
     /**
@@ -172,6 +209,11 @@ class FactureController extends Controller
             throw $this->createNotFoundException('Unable to find Facture entity.');
         }
 
+        if (!$entity->isEditable()){
+        	$this->get('session')->getFlashBag()->add('error', 'Facture vérouillée. Changez le statut pour pouvoir la modifier.');
+        	return $this->redirect($this->generateUrl('facture_show', array('id' => $id)));
+        }
+        
         $editForm = $this->createForm(new FactureType(), $entity);
 
         return array(

@@ -15,8 +15,7 @@ class FournitureType extends AbstractType
             ->add('descriptif',null,array('attr'=>array('class'=>'input-large')))
             ->add('quantite',null,array('label'=> 'Quantité','attr'=>array('class'=>'input-mini')))
             ->add('unite',null,array('label'=> 'Unité','attr'=>array('class'=>'input-medium')))
-            
-            
+
         ;
     }
 

@@ -73,6 +73,16 @@ class ArticleBase
     	$this->quantite = 1;
     	$this->prixUnitaire = 0;
     }
+    
+    /**
+     * Arrondi au 5 centimes
+     * 
+     * @var float
+     * @return float
+     */
+    public function arrondiAuCentime($montant){
+    	return 0.05 * ceil($montant / 0.05);
+    }
 
     /**
      * Calcul du prix total
@@ -81,7 +91,8 @@ class ArticleBase
      */
     public function CalculPrixTotal()
     {
-    	return $this->prixUnitaire * $this->quantite;
+    	return $this->arrondiAuCentime($this->prixUnitaire * $this->quantite);
+ 
     }
     
     /**

@@ -94,8 +94,6 @@ class Offre
     	} else {
     		return false;
     	}
-    		
-    	
     }
 
 

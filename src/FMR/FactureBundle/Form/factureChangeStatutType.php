@@ -6,19 +6,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class FactureType extends AbstractType
+class FactureChangeStatutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('referenceClient',null,array('required'=> false,'label'=>'Référence pour le client'))
-            ->add('rabais')
-            ->add('tVA')
-            ->add('client')
-            ->add('chantier')
+            ->add('statut')
         ;
     }
-
+    
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -28,6 +24,6 @@ class FactureType extends AbstractType
 
     public function getName()
     {
-        return 'fmr_facturebundle_facturetype';
+        return 'fmr_facturebundle_facturechangestatuttype';
     }
 }

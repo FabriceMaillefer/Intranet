@@ -37,10 +37,9 @@
                 <td class="hidden-phone">{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
                 <td>{{ entity.referenceClient }}</td>
                 <td><a class="btn btn-info" href="{{ path('facture_show', { 'id': entity.id }) }}">Voir</a>
-                	<a class="btn btn-success" href="{{ path('facture_edit', { 'id': entity.id }) }}">Modifier</a>
                 </td>
             </tr>
-             {% else %}
+        {% else %}
 			<tr>
 				<td colspan="7">
 					Aucune facture trouv&eacute;e.

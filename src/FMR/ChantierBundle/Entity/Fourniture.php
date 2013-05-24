@@ -74,6 +74,11 @@ class Fourniture
     	$this->unite = "pcs";
     }
 
+    /**
+     * Retourne le formulaire correspondant au type de fourniture
+     *
+     * @return FournitureType
+     */
     public function getForm(){
     	return new FournitureType();
     }
