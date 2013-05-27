@@ -55,7 +55,11 @@ class ClientController extends Controller
     	->from('FMRClientBundle:Client', 'c')
     	->where('CONCAT(c.nom,\' \',c.prenom) LIKE ?1')
     	->orWhere('CONCAT(c.prenom,\' \',c.nom) LIKE ?1')
+    	->orWhere('c.Adresse LIKE ?1')
+    	->orWhere('c.Npa = ?2')
+    	->orWhere('c.Localite LIKE ?1')
     	->setParameter('1','%'.$q.'%')
+    	->setParameter('2',$q)
     	;
     	
     	
