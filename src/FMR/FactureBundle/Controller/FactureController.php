@@ -10,7 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\FactureBundle\Entity\Facture;
 use FMR\ClientBundle\Entity\Client;
 use FMR\FactureBundle\Form\FactureType;
+use FMR\FactureBundle\Form\ArticleFactureType;
 use FMR\FactureBundle\Form\FactureChangeStatutType;
+use Ps\PdfBundle\Annotation\Pdf;
 
 /**
  * Facture controller.
@@ -50,24 +52,7 @@ class FactureController extends Controller
     
     	$em = $this->getDoctrine()->getManager();
     
-    	$qb = $em->createQueryBuilder();
-    
-    	$qb
-    	->select('f')
-    	->from('FMRFactureBundle:Facture', 'f')
-    	->innerJoin('f.client', 'c')
-    	->where('CONCAT(c.nom, \' \', c.prenom) LIKE ?1')
-    	->orWhere('CONCAT(c.prenom, \' \', c.nom) LIKE ?1')
-    	->orWhere('f.referenceClient LIKE ?1')
-    	->orWhere('f.id = ?2')
-    	->setParameter('1','%'.$q.'%')
-    	->setParameter('2',$q)
-    	 
-    	;
-    
-    
-    	$query = $qb->getQuery();
-    	$entities = $query->getResult();
+    	$entities = $em->getRepository('FMRFactureBundle:Facture')->search($q);
     
     	return array(
     			'entities' => $entities,
@@ -135,36 +120,124 @@ class FactureController extends Controller
     }
 
     /**
+     * 
+     *
+     * @Route("/{id}/multiple/article/edit", name="facture_article_multiple_edit")
+     * @Method("GET")
+     * @Template("FMRFactureBundle:Facture:article_edit_multiple.html.twig")
+     */
+    public function multipleArticleEditAction(Facture $facture)
+    {
+    	$formArticles = $this->createFormBuilder($facture)
+    		->add('articles', 'collection', 
+    				array(
+    				'type'   => new ArticleFactureType()
+    		)
+    	)
+    	->getForm();
+
+        return array(
+            'facture'      => $facture,
+        	'formArticles' => $formArticles->createView(),
+        );
+    }
+    /**
+     *
+     *
+     * @Route("/{id}/multiple/article/update", name="facture_article_multiple_update")
+     * @Method("PUT")
+     */
+    public function multipleArticleUpdateAction(Request $request, Facture $facture)
+    {
+    	
+
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$formArticles = $this->createFormBuilder($facture)
+    	->add('articles', 'collection',
+    			array(
+    					'type'   => new ArticleFactureType()
+    			)
+    	)
+    	->getForm();
+    	
+    	$formArticles->bind($request);
+    		
+    		if ($formArticles->isValid()) {
+    			$em->persist($facture);
+    			foreach ($facture->getArticles() as $article){
+    				$em->persist($article);
+    			}
+    		}
+    	
+    	$em->flush();
+    	
+    	$this->get('session')->getFlashBag()->add('success', 'Modification r&eacute;ussie');
+    		 
+    	return $this->redirect($this->generateUrl('facture_show', array('id' => $facture->getId())));
+    }
+    
+    /**
      * Finds and displays a Facture entity.
      *
      * @Route("/{id}", name="facture_show")
      * @Method("GET")
-     * @Template()
+     *
+     * @Pdf()
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Facture entity.');
-        }
-
-        $formStatut = $this->createForm(new FactureChangeStatutType(), $entity);
-        
-        
-        return array(
-            'entity'      => $entity,
-        	'formStatut' => $formStatut->createView(),
-        );
+    	
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find Facture entity.');
+    	}
+    
+    	$formStatut = $this->createForm(new FactureChangeStatutType(), $entity);
+    
+    
+    	return array(
+    			'entity'      => $entity,
+    			'formStatut' => $formStatut->createView(),
+    	);
     }
+    
+    /**
+     * Finds and displays a Facture entity.
+     *
+     * @Route("/{id}/print", name="facture_show", defaults={"_format"="html"})
+     * @Method("GET")
+     *
+     * @Pdf()
+     */
+    public function printAction($id)
+    {
+    	$format = $this->get('request')->get('_format');
+    	 
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find Facture entity.');
+    	}
+    
+   
+    	return $this->render(sprintf('FMRFactureBundle:Facture:print.%s.twig', $format), array(
+    			'entity'      => $entity,
+    	));
+    }
+    
+    
     /**
      * Permet de changer le statut de la facture
      *
      * @Route("/{id}/statut", name="facture_statut")
      * @Method("PUT")
-     * @Template("FMRFactureBundle:Offre:show.html.twig")
+     * @Template("FMRFactureBundle:Facture:show.html.twig")
      */
     public function changeStatutAction(Request $request, Facture $facture)
     {

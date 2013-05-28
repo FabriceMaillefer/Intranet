@@ -12,4 +12,27 @@ use Doctrine\ORM\EntityRepository;
  */
 class FactureRepository extends EntityRepository
 {
+	/**
+	 * Recherche des factures
+	 */
+	public function search($q){
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		
+		$qb = $em->createQueryBuilder();
+    
+    	$qb
+	    	->select('f')
+	    	->from('FMRFactureBundle:Facture', 'f')
+	    	->innerJoin('f.client', 'c')
+	    	->where('CONCAT(c.nom, \' \', c.prenom) LIKE ?1')
+	    	->orWhere('CONCAT(c.prenom, \' \', c.nom) LIKE ?1')
+	    	->orWhere('f.referenceClient LIKE ?1')
+	    	->orWhere('f.id = ?2')
+	    	->setParameter('1','%'.$q.'%')
+	    	->setParameter('2',$q)
+    	;
+		
+		$query = $qb->getQuery();
+		return $query->getResult();
+	}
 }

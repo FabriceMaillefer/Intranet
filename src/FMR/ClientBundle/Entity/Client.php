@@ -76,6 +76,13 @@ class Client
      * @ORM\Column(name="Email", type="string", length=255, nullable=true)
      */
     private $email;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Tel", type="string", length=255, nullable=true)
+     */
+    private $tel;
 
     /**
      * @var FMR\OffreBundle\Entity\Offre
@@ -409,5 +416,28 @@ class Client
     public function getFactures()
     {
         return $this->factures;
+    }
+
+    /**
+     * Set tel
+     *
+     * @param string $tel
+     * @return Client
+     */
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+    
+        return $this;
+    }
+
+    /**
+     * Get tel
+     *
+     * @return string 
+     */
+    public function getTel()
+    {
+        return $this->tel;
     }
 }

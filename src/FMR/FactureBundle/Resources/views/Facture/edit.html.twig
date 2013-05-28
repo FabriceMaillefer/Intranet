@@ -3,10 +3,10 @@
 <div class="page-header">
     <h1>Modifier une facture</h1>
     	<div style="text-align:right;">
-		<a class="btn" href="{{ path('facture_show', { 'id': entity.id }) }}" >
-            Retour aux d&eacute;tails de la facture
-        </a>
-	</div>
+			<a class="btn" href="{{ path('facture_show', { 'id': entity.id }) }}" >
+	            Retour aux d&eacute;tails de la facture
+	        </a>
+		</div>
 </div>
 
 <form action="{{ path('facture_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>

@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\ClientBundle\Entity\Client;
 use FMR\ClientBundle\Form\ClientType;
 
+
 /**
  * Client controller.
  *
@@ -28,7 +29,7 @@ class ClientController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('FMRClientBundle:Client')->findAll();
+        $entities = $em->getRepository('FMRClientBundle:Client')->findRecents();
 
         return array(
             'entities' => $entities,
@@ -48,27 +49,13 @@ class ClientController extends Controller
     	
     	$em = $this->getDoctrine()->getManager();
     
-    	$qb = $em->createQueryBuilder();
-    	
-    	$qb
-    	->select('c')
-    	->from('FMRClientBundle:Client', 'c')
-    	->where('CONCAT(c.nom,\' \',c.prenom) LIKE ?1')
-    	->orWhere('CONCAT(c.prenom,\' \',c.nom) LIKE ?1')
-    	->orWhere('c.Adresse LIKE ?1')
-    	->orWhere('c.Npa = ?2')
-    	->orWhere('c.Localite LIKE ?1')
-    	->setParameter('1','%'.$q.'%')
-    	->setParameter('2',$q)
-    	;
-    	
-    	
-    	$query = $qb->getQuery();
-    	$entities = $query->getResult();
+    	$entities = $em->getRepository('FMRClientBundle:Client')->search($q);
+    	$count = count($entities);
     	
     	return array(
-    			 'entities' => $entities,
+    			'entities' => $entities,
     			'recherche' => $q,
+    			'count' => $count,
     	);
     }
     
@@ -148,9 +135,8 @@ class ClientController extends Controller
         ->innerJoin('o.client', 'c')
         ->innerJoin('o.statut', 's')
         ->where('c.id = ?1')
-        ->andWhere('s.id = ?2')
+        ->andWhere('s.id = 1 or s.id = 2')
         ->setParameter('1',$id)
-        ->setParameter('2',1)
         ;
         $query = $qb->getQuery();
         $offres = $query->getResult();
@@ -169,10 +155,25 @@ class ClientController extends Controller
         $query = $qb->getQuery();
         $chantiers = $query->getResult();
         
+        //Selection des offres en cours
+        $qb = $em->createQueryBuilder();
+        $qb
+	        ->select('f')
+	        ->from('FMRFactureBundle:Facture', 'f')
+	        ->innerJoin('f.client', 'c')
+	        ->innerJoin('f.statut', 's')
+	        ->where('c.id = ?1')
+	        ->andWhere('s.id = 1 or s.id = 2')
+	        ->setParameter('1',$id)
+        ;
+        $query = $qb->getQuery();
+        $factures = $query->getResult();
+        
         return array(
             'entity'      => $entity,
         	'offres' =>  $offres,
         	'chantiers' => $chantiers,
+        	'factures' => $factures,
         );
     }
 

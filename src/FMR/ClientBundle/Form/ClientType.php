@@ -12,11 +12,12 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('prenom',null,array('label' => 'Prénom'))
+            ->add('prenom',null,array('label' => 'Prénom', 'required'=> false))
             ->add('adresse',null,array('required'=> false))
             ->add('nPA',null,array('label' => 'NPA','required'=> false))
             ->add('localite',null,array('label' => 'Localité'))
             ->add('email','email',array('required'=> false))
+            ->add('tel',null,array('required'=> false))
             ->add('divers','textarea',array('required'=> false))
            
         ;

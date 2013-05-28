@@ -136,6 +136,11 @@ class ChantierController extends Controller
     		$facture->setReferenceClient($chantier->getDescription());
     	}
     	
+    	$statut = $em->getRepository('FMRFactureBundle:StatutFacture')->find(1);
+    	if ($statut) {
+    		$facture->setStatut($statut);
+    	}
+    	
     	$ordre = 0;
     	//ajout des articles
     	foreach ($chantier->getFournitures() as $fourniture ){
@@ -159,7 +164,7 @@ class ChantierController extends Controller
     
     	$this->get('session')->getFlashBag()->add('success', 'Cr&eacute;ation de la facture compl&egrave;te avec '.$ordre.' articles importés.');
     
-    	return $this->redirect($this->generateUrl('facture_show', array('id' => $chantier->getFacture()->getId())));
+    	return $this->redirect($this->generateUrl('facture_article_multiple_edit', array('id' => $chantier->getFacture()->getId())));
     	
     	
     }

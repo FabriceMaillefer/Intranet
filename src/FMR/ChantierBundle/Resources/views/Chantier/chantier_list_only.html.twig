@@ -2,10 +2,10 @@
         <thead>
             <tr>
                 <th>N°</th>
-                <th>Architecte</th>
+                <th class="hidden-phone">Architecte</th>
                 <th>Lieu</th>
                 <th>Description</th>
-                <th>Datedebut</th>
+                <th class="hidden-phone">Datedebut</th>
                 <th>Datefin</th>
                 <th>Actions</th>
             </tr>
@@ -14,13 +14,19 @@
         {% for chantier in chantiers %}
             <tr>
                 <td><a href="{{ path('chantier_show', { 'id': chantier.id }) }}">{{ chantier.id }}</a></td>
-                <td>{{ chantier.architecte }}</td>
+                <td class="hidden-phone">{{ chantier.architecte }}</td>
                 <td>{{ chantier.lieu }}</td>
                 <td>{{ chantier.description }}</td>
-                <td>{% if chantier.dateDebut %}{{ chantier.dateDebut|date('d.m.Y') }}{% endif %}</td>
+                <td class="hidden-phone">{% if chantier.dateDebut %}{{ chantier.dateDebut|date('d.m.Y') }}{% endif %}</td>
                 <td>{% if chantier.dateFin %}{{ chantier.dateFin|date('d.m.Y') }}{% endif %}</td>
                 <td><a class="btn btn-info" href="{{ path('chantier_show', { 'id': chantier.id }) }}">Voir</a></td>
             </tr>
+            {% else %}
+			<tr>
+				<td colspan="7">
+					Aucun chantier trouv&eacute;.
+		      	</td>
+		      </tr>
         {% endfor %}
         </tbody>
     </table>

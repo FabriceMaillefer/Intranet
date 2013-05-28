@@ -8,9 +8,9 @@
       		</form>
       	</div>
       	{% if recherche is defined %}
-      		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
+      		<h1>{{ count }} r&eacute;sultats pour la recherche &quot;{{ recherche }}&quot;</h1>
       	{% else %}
-			<h1>Liste des clients</h1>
+			<h1>Liste des derniers clients</h1>
 	    {% endif %}
 	    <a class="btn" href="{{ path('client_new') }}">
             Ajouter un nouveau client
@@ -18,7 +18,7 @@
       	
 	</div>
 	
-	<table class="table table-bordered table-striped">
+	<table class="table table-bordered table-striped table-condensed">
 		<thead>
 			<tr>
 				<th>Client</th>
@@ -26,6 +26,7 @@
 				<th>Localite</th>
 				<th class="hidden-phone">Date de cr&eacute;ation</th>
 				<th class="hidden-phone">Email</th>
+				<th class="hidden-phone hidden-tablet">Téléphone</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -37,6 +38,7 @@
 				<td>{{ entity.nPA }} {{ entity.localite }}</td>
 				<td class="hidden-phone">{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
 				<td class="hidden-phone">{{ entity.email }}</td>
+				<td class="hidden-phone hidden-tablet">{{ entity.tel }}</td>
 				<td><a class="btn btn-info" href="{{ path('client_show', { 'id': entity.id }) }}">Voir</a>
 					<a class="btn btn-success" href="{{ path('client_edit', { 'id': entity.id }) }}">Modifier</a>
 				</td>

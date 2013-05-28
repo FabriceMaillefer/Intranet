@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th class="hidden-phone">Date Cr&eacute;ation</th>
+                <th>R&eacute;f&eacute;rence</th>
+                <th>Statut</th>
+                <th>Montant</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+				<td><a href="{{ path('facture_show', { 'id': facture.id }) }}">{{ facture.id }}</a></td>
+                <td class="hidden-phone">{% if facture.dateCreation %}{{ facture.dateCreation|date('d.m.Y') }}{% endif %}</td>
+                <td>{{ facture.referenceClient }}</td>
+                <td>{{ facture.statut }}</td>
+                <td>{{ macro.monetaire(facture.CalculSommeMontantArrondiTotal) }}</td>
+                <td><a class="btn btn-info" href="{{ path('facture_show', { 'id': facture.id }) }}">Voir</a>
+                </td>
+            </tr>
+           {% else %}
+			<tr>
+				<td colspan="5">
+					Aucune facture trouv&eacute;e.
+		      	</td>
+		      </tr>
+        {% endfor %}
+    </table>

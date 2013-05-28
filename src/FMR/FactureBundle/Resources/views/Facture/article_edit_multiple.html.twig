@@ -1,0 +1,51 @@
+{% extends 'FMRFactureBundle::layout.html.twig' %}{% block content -%}
+<div class="page-header">
+		<h1>Modification des articles pour la facture N° {{ facture.id }}</h1>
+		<div style="text-align:right;">
+			<a class="btn" href="{{ path('facture_show', { 'id': facture.id }) }}" >
+	            Retour aux d&eacute;tails de la facture
+	        </a>
+		</div>
+	</div>
+
+<div class="row-fluid">
+		<h3>Articles : </h3>
+	<form action="{{ path('facture_article_multiple_update', { 'id': facture.id }) }}" method="post" {{ form_enctype(formArticles) }}>
+		<input type="hidden" name="_method" value="PUT" />
+		<table class="table table-bordered table-striped table-condensed">
+		<thead>
+				<tr>
+					<th>Descriptif</th>
+					<th>Quantité</th>
+					<th>Unité</th>
+					<th>Prix Unitaire</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for formArticle in formArticles.articles %}
+				<tr>
+			    	<td>{{ form_widget(formArticle.descriptif) }}</td>
+			    	<td>{{ form_widget(formArticle.quantite) }}</td>
+			    	<td>{{ form_widget(formArticle.unite) }}</td>
+			    	<td>{{ form_widget(formArticle.prixUnitaire) }}CHF
+			    		{{ form_rest(formArticle) }}</td>
+			    </tr>
+			 {% endfor %}
+		 		</tr>
+			</tbody>
+		</table>
+		
+
+		
+	    <p>
+	        <button class="btn btn-primary" type="submit">Enregistrer</button>
+	    </p>
+	    
+	    <a class="btn" href="{{ path('facture_show', { 'id': facture.id }) }}" >
+            Retour aux d&eacute;tails de la facture
+        </a>
+	    
+	</form>	
+</div>
+
+{% endblock %}

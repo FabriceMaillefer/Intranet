@@ -9,6 +9,12 @@ use FMR\CommonBundle\Form\ArticleBaseType;
 
 class ArticleFactureType extends ArticleBaseType
 {
+	private $id;
+	
+	public function __construct($id = ""){
+		$this->id = $id;
+	}
+	
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
        	parent::buildForm($builder, $options);
@@ -23,6 +29,6 @@ class ArticleFactureType extends ArticleBaseType
 
     public function getName()
     {
-        return 'fmr_facturebundle_articlefacturetype';
+        return 'fmr_facturebundle_articlefacturetype_'.$this->id;
     }
 }

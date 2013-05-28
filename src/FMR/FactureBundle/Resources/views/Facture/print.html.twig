@@ -14,11 +14,6 @@
 			<div class="span6">
 				<p><strong>Référence Client : </strong>{{ entity.referenceClient }}</p>
 				<p><strong>Statut : </strong>{{ entity.statut }}</p>
-				<form action="{{ path('facture_statut', {'id':entity.id}) }}" method="post" {{ form_enctype(formStatut) }}>
-					<input type="hidden" name="_method" value="PUT" />
-					{{ form_widget(formStatut) }}
-			        <button type="submit" class="btn btn-primary">Changer le statut</button>
-    			</form>
 				
 			</div>
 			<div class="span6">
@@ -106,6 +101,7 @@
 					<td colspan="2">Rabais {{ entity.rabais*100 }}% : </td>
 					<td>-{{ macro.monetaire(entity.CalculRabais)  }} CHF</td>
 				</tr>
+				
 				<tr>
 					<td colspan="2">Montant Net : </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantTotal) }} CHF</td>
@@ -117,26 +113,9 @@
 				</tr>
 			</tbody>
 		</table>
-		{% if entity.editable  %}
-			{{ render(controller("FMRFactureBundle:ArticleFacture:new", { 'id':entity.id } )) }}
-			<a class="btn btn-small" href="{{ path('facture_article_multiple_edit', { 'id': entity.id }) }}">Editer tous les articles</a>
-		{% endif %}
 		
 		</div>
 		
-		
-		
-		
-			<div class="form-actions">
-		<a class="btn" href="{{ path('facture') }}">
-			Retour &agrave; la liste
-		</a>
-		<a class="btn btn-primary" href="{{ path('facture_edit', { 'id': entity.id }) }}">
-			Editer
-		</a>
-		<a class="btn btn-danger" href="{{ path('facture_delete', { 'id': entity.id }) }}">
-			Supprimer
-		</a>
 </div>
 
 {% endblock %}
