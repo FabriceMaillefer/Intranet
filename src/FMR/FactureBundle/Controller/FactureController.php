@@ -211,7 +211,7 @@ class FactureController extends Controller
      * @Route("/{id}/print", name="facture_show", defaults={"_format"="html"})
      * @Method("GET")
      *
-     * @Pdf()
+     * @Pdf(stylesheet="FMRFactureBundle:Facture:print-style.xml.twig")
      */
     public function printAction($id)
     {

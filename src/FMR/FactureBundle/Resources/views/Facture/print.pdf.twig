@@ -3,34 +3,6 @@
 {% endmacro %}
 {% import _self as macro %}
 <pdf>
-<stylesheet>
-        <div class="class">
-            <!-- simple and complex attributes are nested in "div.class" selector path -->
-            <attribute name="font-size" value="12px" />
-            <attribute name="color" value="grey" />
-            <!-- equivalent of background.color attribute -->
-            <complex-attribute name="background" color="yellow" />
-
-            <!-- another nested element, equivalent CSS selector syntax: "div.class p" -->
-            <p>
-                <attribute name="margin" value="10px 15px" />
-            </p>
-        </div>
-
-        <!-- equivalent CSS selector syntax: ".another-class", "any" tag is wildcard (mean any tag) -->
-        <any class="another-class">
-            <attribute name="text-align" value="right" />
-        </any>
-
-        <h2 class="header">
-            <span>
-                <attribute name="font-size" value="9px" />
-            </span>
-            <div>
-                <attribute name="font-style" value="bold" />
-            </div>
-        </h2>
-    </stylesheet>
         <dynamic-page>
        		<placeholders>
                     <footer>
@@ -61,30 +33,30 @@
 				</tr>
 			{% endfor %}
 				<tr>
-					<td colspan="4">Sous Total	: </td>
+					<td class="text-right" colspan="4">Sous Total	: </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTotale) }} CHF</td>
 				
 				</tr>
 				<tr>
-					<td colspan="4" >TVA {{ entity.tVA*100 }}% : </td>
+					<td class="text-right" colspan="4" >TVA {{ entity.tVA*100 }}% : </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculTVA) }} CHF</td>
 				</tr>
 				<tr>
-					<td colspan="4">Total TTC : </td>
+					<td class="text-right" colspan="4">Total TTC : </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTTCTotale) }} CHF</td>
 				</tr>
 				{% if entity.rabais > 0 %}
 				<tr>
-					<td colspan="4">Rabais {{ entity.rabais*100 }}% : </td>
+					<td class="text-right" colspan="4">Rabais {{ entity.rabais*100 }}% : </td>
 					<td>-{{ macro.monetaire(entity.CalculRabais)  }} CHF</td>
 				</tr>
 				<tr>
-					<td colspan="4">Montant Net : </td>
+					<td class="text-right" colspan="4">Montant Net : </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantTotal) }} CHF</td>
 				</tr>
 				{% endif %}
 				<tr>
-					<td colspan="4">Montant Net 30 jours : </td>
+					<td class="text-right" colspan="4">Montant Net 30 jours : </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantArrondiTotal) }} CHF</td>
 				</tr>
 		</table>
