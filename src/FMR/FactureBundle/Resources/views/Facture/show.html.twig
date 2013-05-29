@@ -86,9 +86,9 @@
 					{% if entity.editable  %}<th>Actions</th>{% endif %}
 				</tr>
 			</thead>
-			<tbody>
+			<tbody  id="sortable">
 			{% for article in entity.articles %}
-				<tr>
+				<tr id="{{article.id}}">
 					<td>{{ article.descriptif|raw }}</td>
 					<td>{{ article.quantite }}</td>
 					<td>{{ article.unite }}</td>
@@ -128,6 +128,29 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		 <script>
+		    $(function() {
+		        $( "#sortable" ).sortable({
+		        	axis: "y",
+				    update: function( event, ui ) {
+				    	ordreContenu();		    	
+				    }
+				});
+		        function ordreContenu(){
+		        	sort = $( "#sortable" ).sortable("toArray");
+				    	$.ajax({
+						  url: "{{ path('articlefacture_sort') }}",
+						  type: 'POST',
+						  data: "sort="+sort
+						 });
+						 
+					
+		        }
+		        $( "#sortable" ).disableSelection();
+		        ordreContenu();
+		    });
+		</script>
 		{% if entity.editable  %}
 			{{ render(controller("FMRFactureBundle:ArticleFacture:new", { 'id':entity.id } )) }}
 			<a class="btn btn-small" href="{{ path('facture_article_multiple_edit', { 'id': entity.id }) }}">Editer tous les articles</a>

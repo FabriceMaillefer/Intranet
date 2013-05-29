@@ -3,6 +3,7 @@
 namespace FMR\FactureBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -35,6 +36,34 @@ class ArticleFactureController extends Controller
             'entities' => $entities,
         );
     }
+    
+    /**
+     *
+     *
+     * @Route("/sortable", name="articlefacture_sort")
+     * @Method("POST")
+     */
+    public function sortAction(Request $request){
+    	if ($request->isXmlHttpRequest()){
+    		$em = $this->getDoctrine()->getManager();
+    
+    		 
+    		$sort = explode(",", $request->get('sort'));
+    		foreach ($sort as $index_ordre => $idContenu) {
+    			$contenu = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($idContenu);
+    			if ($contenu) {
+    				$contenu->setOrdre($index_ordre);
+    				$em->persist($contenu);
+    			}
+    		}
+    
+    		$em->flush();
+    		 
+    	}
+    
+    	return new Response('Ordre ok');
+    }
+    
 
     /**
      * Creates a new ArticleFacture entity.

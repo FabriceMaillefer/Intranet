@@ -56,6 +56,7 @@ class Offre
      * @var FMR\OffreBundle\Entity\Article
      *
      * @ORM\OneToMany(targetEntity="FMR\OffreBundle\Entity\ArticleOffre", mappedBy="offre")
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $articles;
 

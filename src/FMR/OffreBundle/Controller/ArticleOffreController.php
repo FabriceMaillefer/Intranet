@@ -50,6 +50,33 @@ class ArticleOffreController extends Controller
             'form'   => $form->createView(),
         );
     }
+    
+    /**
+     *
+     *
+     * @Route("/sortable", name="articleoffre_sort")
+     * @Method("POST")
+     */
+    public function sortAction(Request $request){
+    	if ($request->isXmlHttpRequest()){
+    		$em = $this->getDoctrine()->getManager();
+    
+    		 
+    		$sort = explode(",", $request->get('sort'));
+    		foreach ($sort as $index_ordre => $idContenu) {
+    			$contenu = $em->getRepository('FMROffreBundle:ArticleOffre')->find($idContenu);
+    			if ($contenu) {
+    				$contenu->setOrdre($index_ordre);
+    				$em->persist($contenu);
+    			}
+    		}
+    
+    		$em->flush();
+    		 
+    	}
+    
+    	return new Response('Ordre ok');
+    }
 
     /**
      * Displays a form to create a new ArticleOffre entity.

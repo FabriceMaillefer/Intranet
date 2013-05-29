@@ -3,6 +3,7 @@
 namespace FMR\FactureBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -38,6 +39,8 @@ class FactureController extends Controller
             'entities' => $entities,
         );
     }
+    
+    
 
     /**
      * search and displays an Facture entity.

@@ -81,9 +81,9 @@
 	                {% if entity.editable  %}<th>Actions</th>{% endif %}
 	            </tr>
 	        </thead>
-	        <tbody>
+	        <tbody id="sortable">
 	        {% for article in entity.articles %}
-	            <tr>
+	            <tr id="{{article.id}}">
 	                <td>{{ article.descriptif }}</td>
 	                <td>{{ article.quantite }}</td>
 	                <td>{{ article.unite }}</td>
@@ -94,6 +94,30 @@
 	        {% endfor %}
 	        </tbody>
 	    </table>
+	    
+	    <script>
+	    $(function() {
+	        $( "#sortable" ).sortable({
+	        	axis: "y",
+			    update: function( event, ui ) {
+			    	ordreContenu();		    	
+			    }
+			});
+	        function ordreContenu(){
+	        	sort = $( "#sortable" ).sortable("toArray");
+			    	$.ajax({
+					  url: "{{ path('articleoffre_sort') }}",
+					  type: 'POST',
+					  data: "sort="+sort
+					 });
+					 
+				
+	        }
+	        $( "#sortable" ).disableSelection();
+	        ordreContenu();
+	    });
+	</script>
+	    
 	    {# Seulement si le statut est "en création" #}
 	    {% if entity.editable  %}
 			{{ render(controller("FMROffreBundle:ArticleOffre:new", { 'id':entity.id } )) }}

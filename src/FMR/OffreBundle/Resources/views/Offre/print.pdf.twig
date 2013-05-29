@@ -23,8 +23,12 @@
 					<td width="40px">Unité</td>
 					<td width="100px">Prix Unitaire</td>
 					<td width="100px">Montant</td>
-			
 				</tr>
+				{% if entity.referenceClient %}
+					<tr>
+						<td colspan="5" style="text-decoration:underline;">Référence : {{ entity.referenceClient }}</td>
+					</tr>
+				{% endif %}
 			{% for article in entity.articles %}
 				<tr>
 					<td>{{ article.descriptif|raw }}</td>

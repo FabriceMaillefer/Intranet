@@ -62,6 +62,7 @@ class Facture
      * @var FMR\OffreBundle\Entity\Article
      *
      * @ORM\OneToMany(targetEntity="FMR\FactureBundle\Entity\ArticleFacture", mappedBy="facture", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $articles;
 
