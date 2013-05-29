@@ -55,6 +55,19 @@
 			<p><strong>Localité : </strong>{{ entity.client.NPA }} {{ entity.client.Localite }}</p>
 			<hr>
 		{% endif %}
+		
+		<div class="btn-group">
+		  <a href="{{ path('offre_print', { 'id': entity.id } ) }}?_format=pdf" target="_blank" class="btn btn-danger">Impression en PDF</a>
+		  <button class="btn  btn-danger dropdown-toggle" data-toggle="dropdown">
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li>
+		    	<a href="{{ path('offre_print', { 'id': entity.id } ) }}?_format=html" >Impression en HTML</a>
+		    </li>
+		  </ul>
+		</div>
+		
 		<h3>Articles : </h3>
 		
 		<table class="table table-bordered table-striped table-condensed">

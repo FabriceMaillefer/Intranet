@@ -44,22 +44,8 @@
 					<td class="text-right">{{ macro.monetaire(entity.CalculTVA) }}</td>
 				</tr>
 				<tr>
-					<td class="text-right border-table-footer" colspan="4">Total TTC : </td>
-					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTTCTotale) }}</td>
-				</tr>
-				{% if entity.rabais > 0 %}
-				<tr>
-					<td class="text-right border-table-footer" colspan="4">Rabais {{ entity.rabais*100 }}% : </td>
-					<td>-{{ macro.monetaire(entity.CalculRabais)  }}</td>
-				</tr>
-				<tr>
-					<td class="text-right border-table-footer" colspan="4">Montant Net : CHF </td>
+					<td class="text-right" colspan="4">Montant Net : CHF </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantTotal) }}</td>
-				</tr>
-				{% endif %}
-				<tr>
-					<td class="text-right" colspan="4">Montant Net à 30 jours : CHF </td>
-					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantArrondiTotal) }}</td>
 				</tr>
 		</table>
     </dynamic-page>

@@ -7,15 +7,15 @@
 {%  include "::entete.html.twig" %}
 		<br />
 		<br />
-		<h2>Facture N° {{ entity.id }} : </h2>
+		<h2>Offre N° {{ entity.id }} : </h2>
 		<p>L'Abergement, le {{ entity.dateImpression|date('d.m.Y') }}</p>
-		<table class="table table-bordered">
+		<table>
 				<tr>
 					<td>Descriptif</td>
 					<td width="50px">Quantité</td>
 					<td width="40px">Unité</td>
-					<td width="120px">Prix Unitaire</td>
-					<td width="120px">Montant</td>
+					<td width="100px">Prix Unitaire</td>
+					<td width="100px">Montant</td>
 			
 				</tr>
 			{% for article in entity.articles %}
@@ -37,22 +37,8 @@
 					<td class="text-right">{{ macro.monetaire(entity.CalculTVA) }}</td>
 				</tr>
 				<tr>
-					<td class="text-right border-table-footer" colspan="4">Total TTC : </td>
-					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTTCTotale) }}</td>
-				</tr>
-				{% if entity.rabais > 0 %}
-				<tr>
-					<td class="text-right" colspan="4">Rabais {{ entity.rabais*100 }}% : </td>
-					<td>-{{ macro.monetaire(entity.CalculRabais)  }}</td>
-				</tr>
-				<tr>
-					<td class="text-right border-table-footer" colspan="4">Montant Net : </td>
-					<td class="text-right">CHF {{ macro.monetaire(entity.CalculSommeMontantTotal) }}</td>
-				</tr>
-				{% endif %}
-				<tr>
-					<td class="text-right" colspan="4">Montant Net 30 jours : </td>
-					<td class="text-right">CHF {{ macro.monetaire(entity.CalculSommeMontantArrondiTotal) }}</td>
+					<td class="text-right border-table-footer" colspan="4">Montant Net : CHF </td>
+					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantTotal) }}</td>
 				</tr>
 		</table>
 {% endblock %}

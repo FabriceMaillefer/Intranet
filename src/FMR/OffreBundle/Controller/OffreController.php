@@ -67,7 +67,7 @@ class OffreController extends Controller
      *
      * @Pdf(stylesheet="::print-style.xml.twig")
      */
-    public function printAction(Facture $entity)
+    public function printAction(Offre $entity)
     {
     	$format = $this->get('request')->get('_format');
     	
