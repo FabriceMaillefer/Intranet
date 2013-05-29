@@ -1,0 +1,25 @@
+        <table width="100%">
+        	<tr>
+        		<td colspan="2"><h1 class="titre">Maillefer Charpente</h1></td>
+        	</tr>
+        	<tr>
+        		<td class="entreprise"><h2 class="titre">Chemin du Derbel</h2></td>
+				<td>Client N° {{ entity.client.id }}</td>
+        	</tr>
+        	<tr>
+        		<td><h2 class="titre">1355 L'Abergement</h2></td>
+				<td></td>
+        	</tr>
+        	<tr>
+        		<td>Tél: 024 441 01 26</td>
+				<td>{{ entity.client.nomPrenom }}</td>
+        	</tr>        	
+        	<tr>
+        		<td>Fax: 024 441 03 09</td>
+				<td>{{ entity.client.adresse }}</td>
+        	</tr>
+        	<tr>
+        		<td>CCP: 12-345678-9</td>
+				<td style="text-decoration:underline;">{{ entity.client.nPA }} {{ entity.client.localite }}</td>
+        	</tr>
+        </table>

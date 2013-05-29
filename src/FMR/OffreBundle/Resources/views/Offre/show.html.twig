@@ -28,6 +28,11 @@
 			<div class="span6">
 				<p><strong>Date Cr&eacute;ation</strong>
            		{{ entity.dateCreation|date('d.m.Y H:i') }}</p>
+           		{% if entity.dateImpression %}
+					<p><strong>Date d'impression</strong>
+						{{ entity.dateImpression|date('d.m.Y H:i') }}
+					</p>
+				{% endif %}
            		<p>
            			{% if entity.statut.id == 2 or entity.statut.id == 3 or entity.chantier %}
 					<h4>Chantier :</h4>

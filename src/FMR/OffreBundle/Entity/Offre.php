@@ -45,6 +45,14 @@ class Offre
     private $dateCreation;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="DateImpression", type="datetime", nullable=true)
+     */
+    private $dateImpression;
+    
+    
+    /**
      * @var FMR\OffreBundle\Entity\Article
      *
      * @ORM\OneToMany(targetEntity="FMR\OffreBundle\Entity\ArticleOffre", mappedBy="offre")
@@ -65,14 +73,35 @@ class Offre
      * @ORM\JoinColumn(name="statut_id", referencedColumnName="id", nullable=false)
      */
     private $statut;
+    
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="TVA", type="float", nullable=true)
+     */
+    private $tVA;
 
     public function __construct() {
     	$this->dateCreation = new \DateTime();
+    	$this->tVA = 0.08;
     }
     public function __toString() {
     	return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().', '.$this->getReferenceClient();
     }
 
+    /**
+     * Calcul du montant total de tous les articles
+     *
+     * @return float
+     */
+    public function CalculSommeTotale() {
+    	$somme = 0;
+    	foreach ($this->getArticles() as $article){
+    		$somme += $article->CalculPrixTotal();
+    	}
+    	return $somme;
+    }
+    
     /**
      * Get id
      *
@@ -247,5 +276,51 @@ class Offre
     public function getChantier()
     {
     	return $this->chantier;
+    }
+    
+    /**
+     * Set dateImpression
+     *
+     * @param \DateTime $dateImpression
+     * @return Facture
+     */
+    public function setDateImpression($dateImpression)
+    {
+    	$this->dateImpression = $dateImpression;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get dateImpression
+     *
+     * @return \DateTime
+     */
+    public function getDateImpression()
+    {
+    	return $this->dateImpression;
+    }
+    
+    /**
+     * Set tVA
+     *
+     * @param float $tVA
+     * @return Facture
+     */
+    public function setTVA($tVA)
+    {
+    	$this->tVA = $tVA;
+    
+    	return $this;
+    }
+    
+    /**
+     * Get tVA
+     *
+     * @return float
+     */
+    public function getTVA()
+    {
+    	return $this->tVA;
     }
 }

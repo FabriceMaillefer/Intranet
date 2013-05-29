@@ -183,7 +183,7 @@ class FactureController extends Controller
      * @Route("/{id}", name="facture_show")
      * @Method("GET")
      *
-     * @Pdf()
+     * @Template()
      */
     public function showAction($id)
     {
@@ -206,12 +206,12 @@ class FactureController extends Controller
     }
     
     /**
-     * Finds and displays a Facture entity.
+     * Formattage de la facture en PDF ou en HTML selon le format
      *
-     * @Route("/{id}/print", name="facture_show", defaults={"_format"="html"})
+     * @Route("/print/{id}", name="facture_print", defaults={"_format"="html"})
      * @Method("GET")
      *
-     * @Pdf(stylesheet="FMRFactureBundle:Facture:print-style.xml.twig")
+     * @Pdf(stylesheet="::print-style.xml.twig")
      */
     public function printAction($id)
     {
@@ -224,8 +224,21 @@ class FactureController extends Controller
     	if (!$entity) {
     		throw $this->createNotFoundException('Unable to find Facture entity.');
     	}
-    
-   
+    	
+    	if (!$entity->getDateImpression()) {
+    		//Mise à jour de la date d'impression de la facture
+			$dateImpression = new \DateTime();
+			$entity->setDateImpression($dateImpression);
+			//Changement du statut de la facture
+			$statut = $em->getRepository('FMRFactureBundle:StatutFacture')->find(2);
+			if ($statut) {
+				$entity->setStatut($statut);
+			}
+			
+			$em->persist($entity);
+			$em->flush();
+    	}
+
     	return $this->render(sprintf('FMRFactureBundle:Facture:print.%s.twig', $format), array(
     			'entity'      => $entity,
     	));

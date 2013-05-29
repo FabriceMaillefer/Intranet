@@ -11,6 +11,7 @@ use FMR\OffreBundle\Entity\Offre;
 use FMR\ClientBundle\Entity\Client;
 use FMR\OffreBundle\Form\OffreType;
 use FMR\OffreBundle\Form\OffreChangeStatutType;
+use Ps\PdfBundle\Annotation\Pdf;
 
 /**
  * Offre controller.
@@ -74,7 +75,44 @@ class OffreController extends Controller
     			'recherche' => $q,
     	);
     }
+   
+    /**
+     * Formattage de l'offre en PDF ou en HTML selon le format
+     *
+     * @Route("/print/{id}", name="offre_print", defaults={"_format"="html"})
+     * @Method("GET")
+     *
+     * @Pdf(stylesheet="::print-style.xml.twig")
+     */
+    public function printAction($id)
+    {
+    	$format = $this->get('request')->get('_format');
     
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$entity = $em->getRepository('FMROffreBundle:Offree')->find($id);
+    
+    	if (!$entity) {
+    		throw $this->createNotFoundException('Unable to find Offre entity.');
+    	}
+        if (!$entity->getDateImpression()) {
+    		//Mise à jour de la date d'impression de l'offre
+			$dateImpression = new \DateTime();
+			$entity->setDateImpression($dateImpression);
+			//Changement du statut de la facture
+			$statut = $em->getRepository('FMROffreBundle:StatutOffre')->find(2);
+			if ($statut) {
+				$entity->setStatut($statut);
+			}
+			
+			$em->persist($entity);
+			$em->flush();
+    	}
+    
+    	return $this->render(sprintf('FMROffreBundle:Offre:print.%s.twig', $format), array(
+    			'entity'      => $entity,
+    	));
+    }
     
     /**
      * Creates a new Offre entity.
