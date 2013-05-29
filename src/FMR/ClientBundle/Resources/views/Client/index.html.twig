@@ -10,7 +10,8 @@
       	{% if recherche is defined %}
       		<h1>{{ count }} r&eacute;sultats pour la recherche &quot;{{ recherche }}&quot;</h1>
       	{% else %}
-			<h1>Liste des derniers clients</h1>
+			<h1>Liste des clients</h1>
+			<p>Seuls les derniers clients créés sont affichées.</p>
 	    {% endif %}
 	    <a class="btn" href="{{ path('client_new') }}">
             Ajouter un nouveau client

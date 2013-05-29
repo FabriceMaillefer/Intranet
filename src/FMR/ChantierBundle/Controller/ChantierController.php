@@ -52,26 +52,7 @@ class ChantierController extends Controller
     
     	$em = $this->getDoctrine()->getManager();
     
-    	$qb = $em->createQueryBuilder();
-    
-    	$qb
-    	->select('h')
-    	->from('FMRChantierBundle:Chantier', 'h')
-    	->innerJoin('h.client', 'c')
-    	->where('CONCAT(c.nom, \' \', c.prenom) LIKE ?1')
-    	->orWhere('CONCAT(c.prenom, \' \', c.nom) LIKE ?1')
-    	->orWhere('h.description LIKE ?1')
-    	->orWhere('h.architecte LIKE ?1')
-    	->orWhere('h.lieu LIKE ?1')
-    	->orWhere('h.id = ?2')
-    	->setParameter('1','%'.$q.'%')
-    	->setParameter('2',$q)
-    	 
-    	;
-    
-    
-    	$query = $qb->getQuery();
-    	$entities = $query->getResult();
+    	$entities = $em->getRepository('FMRChantierBundle:Chantier')->search($q);
     
     	return array(
     			'entities' => $entities,

@@ -103,6 +103,34 @@ class Offre
     }
     
     /**
+     * Calcul du montant avec la TVA de l'offre
+     *
+     * @return float
+     */
+    public function CalculSommeMontantTotal() {
+    	return $this->arrondiAuCentime($this->CalculSommeTotale() + $this->CalculTVA());
+    }
+    
+    /**
+     * Calcul de la TVA de l'offre
+     *
+     * @return float
+     */
+    public function CalculTVA() {
+    	return $this->arrondiAuCentime($this->CalculSommeTotale() * $this->tVA);
+    }
+    
+    /**
+     * Arrondi au 5 centimes
+     *
+     * @var float
+     * @return float
+     */
+    public function arrondiAuCentime($montant){
+    	return 0.05 * ceil($montant / 0.05);
+    }
+    
+    /**
      * Get id
      *
      * @return integer 

@@ -5,8 +5,9 @@
                 <th class="hidden-phone">Architecte</th>
                 <th>Lieu</th>
                 <th>Description</th>
-                <th class="hidden-phone">Datedebut</th>
-                <th>Datefin</th>
+                <th class="hidden-phone">Date de début</th>
+                <th>Date de fin</th>
+                <th class="hidden-phone">Nb Fournitures</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -19,11 +20,12 @@
                 <td>{{ chantier.description }}</td>
                 <td class="hidden-phone">{% if chantier.dateDebut %}{{ chantier.dateDebut|date('d.m.Y') }}{% endif %}</td>
                 <td>{% if chantier.dateFin %}{{ chantier.dateFin|date('d.m.Y') }}{% endif %}</td>
+                <td class="hidden-phone">{{ chantier.fournitures.count }}</td>
                 <td><a class="btn btn-info" href="{{ path('chantier_show', { 'id': chantier.id }) }}">Voir</a></td>
             </tr>
             {% else %}
 			<tr>
-				<td colspan="7">
+				<td colspan="8">
 					Aucun chantier trouv&eacute;.
 		      	</td>
 		      </tr>

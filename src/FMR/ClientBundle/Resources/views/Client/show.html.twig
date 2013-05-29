@@ -55,23 +55,26 @@
   </div>
 </div>
 <div class="row-fluid">
-<h3>Offres en cours</h3>
+	<h3>Offres en cours</h3>
+		<a href="{{ path('offre_search') }}?q=client:{{ entity.id }}">Toutes les offres</a>
        	<p>
 	       	<a class="btn btn-primary" href="{{ path('offre_client_new', { 'id': entity.id }) }}">
 	            Créer une offre pour ce client.
 	        </a>
         </p>
 		{% include 'FMROffreBundle:Offre:offre_list_only.html.twig' %}
-<h3>Chantiers en cours</h3
-<p>
+	<h3>Chantiers en cours</h3>
+		<a href="{{ path('chantier_search') }}?q=client:{{ entity.id }}">Tous les chantiers</a>
+		<p>
 	       	<a class="btn btn-primary" href="{{ path('chantier_client_new', { 'id': entity.id }) }}">
 	            Créer un chantier pour ce client.
 	        </a>
         </p>
 		{% include 'FMRChantierBundle:Chantier:chantier_list_only.html.twig' %}
 
-<h3>Factures en cours</h3
-<p>
+	<h3>Factures en cours</h3>
+		<a href="{{ path('facture_search') }}?q=client:{{ entity.id }}">Toutes les factures</a>
+		<p>
 	       	<a class="btn btn-primary" href="{{ path('facture_client_new', { 'id': entity.id }) }}">
 	            Créer une facture pour ce client.
 	        </a>

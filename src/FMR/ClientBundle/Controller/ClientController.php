@@ -114,60 +114,15 @@ class ClientController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Client $entity)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('FMRClientBundle:Client')->find($id);
+        $offres  = $em->getRepository('FMROffreBundle:Offre')->findAllActiveForClient($entity);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
-        }
-
+        $chantiers  = $em->getRepository('FMRChantierBundle:Chantier')->findAllActiveForClient($entity);     
         
-        $em = $this->getDoctrine()->getManager();
-        
-        //Selection des offres en cours
-        $qb = $em->createQueryBuilder();
-        $qb
-        ->select('o')
-        ->from('FMROffreBundle:Offre', 'o')
-        ->innerJoin('o.client', 'c')
-        ->innerJoin('o.statut', 's')
-        ->where('c.id = ?1')
-        ->andWhere('s.id = 1 or s.id = 2')
-        ->setParameter('1',$id)
-        ;
-        $query = $qb->getQuery();
-        $offres = $query->getResult();
-        
-        //Selection des chantiers en cours
-        $qb = $em->createQueryBuilder();
-        $qb
-        ->select('h')
-    	->from('FMRChantierBundle:Chantier', 'h')
-        ->innerJoin('h.client', 'c')
-        ->where('c.id = ?1')
-        ->andWhere('(h.dateFin >= ?2 OR h.dateFin is null)')
-        ->setParameter('1',$id)
-        ->setParameter('2', new \DateTime())
-        ;
-        $query = $qb->getQuery();
-        $chantiers = $query->getResult();
-        
-        //Selection des offres en cours
-        $qb = $em->createQueryBuilder();
-        $qb
-	        ->select('f')
-	        ->from('FMRFactureBundle:Facture', 'f')
-	        ->innerJoin('f.client', 'c')
-	        ->innerJoin('f.statut', 's')
-	        ->where('c.id = ?1')
-	        ->andWhere('s.id = 1 or s.id = 2')
-	        ->setParameter('1',$id)
-        ;
-        $query = $qb->getQuery();
-        $factures = $query->getResult();
+        $factures = $em->getRepository('FMRFactureBundle:Facture')->findAllActiveForClient($entity);
         
         return array(
             'entity'      => $entity,

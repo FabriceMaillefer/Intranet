@@ -11,13 +11,14 @@
       		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
       	{% else %}
 			<h1>Liste des chantiers</h1>
+			<p>Seuls les chantiers actifs sont affichées.</p>
 		{% endif %}
 	       	<a class="btn" href="{{ path('chantier_new') }}">
 				Ajouter un nouveau chantier
 			</a>
     	</div>
 	
-	<table class="table table-bordered table-striped">
+	<table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>
                 <th>N°</th>
@@ -25,8 +26,8 @@
                 <th class="hidden-phone">Architecte</th>
                 <th>Lieu</th>
                 <th class="hidden-phone">Description</th>
-                <th>Datedebut</th>
-                <th>Datefin</th>
+                <th class="hidden-phone">Date de début</th>
+                <th>Date de fin</th>
                 <th class="hidden-phone">Nb Fournitures</th>
                 <th>Actions</th>
             </tr>

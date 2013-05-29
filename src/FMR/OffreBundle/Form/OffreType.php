@@ -13,6 +13,7 @@ class OffreType extends AbstractType
         $builder
             ->add('referenceClient',null,array('required'=> false,'label'=>'Référence pour le client'))
             ->add('client')
+            ->add('tVA')
         ;
     }
 

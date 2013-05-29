@@ -31,7 +31,7 @@ class OffreController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('FMROffreBundle:Offre')->findAll();
+        $entities = $em->getRepository('FMROffreBundle:Offre')->findRecents();
 
         return array(
             'entities' => $entities,
@@ -51,24 +51,7 @@ class OffreController extends Controller
     	 
     	$em = $this->getDoctrine()->getManager();
     
-    	$qb = $em->createQueryBuilder();
-    	 
-    	$qb
-    	->select('o')
-    	->from('FMROffreBundle:Offre', 'o')
-    	->innerJoin('o.client', 'c')
-    	->where('CONCAT(c.nom, \' \', c.prenom) LIKE ?1')
-    	->orWhere('CONCAT(c.prenom, \' \', c.nom) LIKE ?1')
-    	->orWhere('o.referenceClient LIKE ?1')
-    	->orWhere('o.id = ?2')
-    	->setParameter('1','%'.$q.'%')
-    	->setParameter('2',$q)
-    	
-    	;
-    	 
-    	 
-    	$query = $qb->getQuery();
-    	$entities = $query->getResult();
+    	$entities = $em->getRepository('FMROffreBundle:Offre')->search($q);
     	 
     	return array(
     			'entities' => $entities,
@@ -84,17 +67,12 @@ class OffreController extends Controller
      *
      * @Pdf(stylesheet="::print-style.xml.twig")
      */
-    public function printAction($id)
+    public function printAction(Facture $entity)
     {
     	$format = $this->get('request')->get('_format');
-    
+    	
     	$em = $this->getDoctrine()->getManager();
     
-    	$entity = $em->getRepository('FMROffreBundle:Offree')->find($id);
-    
-    	if (!$entity) {
-    		throw $this->createNotFoundException('Unable to find Offre entity.');
-    	}
         if (!$entity->getDateImpression()) {
     		//Mise à jour de la date d'impression de l'offre
 			$dateImpression = new \DateTime();

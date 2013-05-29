@@ -11,6 +11,7 @@
       		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
       	{% else %}
 			<h1>Liste des offres</h1>
+			<p>Seules les offres en attente de confirmation du client sont affichées.</p>
 		{% endif %}
 	       	<a class="btn" href="{{ path('offre_new') }}">
 				Ajouter une nouvelle offre
@@ -23,10 +24,11 @@
             <tr>
                 <th>N°</th>
                 <th>Client</th>
-                <th class="hidden-phone">Date Cr&eacute;ation</th>
+                <th class="hidden-phone">Date de cr&eacute;ation</th>
                 <th>R&eacute;f&eacute;rence</th>
-                <th>Nb Article</th>
-                <th>Statut</th>
+                <th class="hidden-phone">Nb Article</th>
+                <th class="hidden-phone">Statut</th>
+                <th>Montant</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -37,14 +39,15 @@
                 <td>{{ entity.client }}</td>
                 <td class="hidden-phone">{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
                 <td>{{ entity.referenceClient }}</td>
-                <td>{{ entity.articles.count }}</td>
-                <td>{{ entity.statut }}</td>
+                <td class="hidden-phone">{{ entity.articles.count }}</td>
+                <td class="hidden-phone">{{ entity.statut }}</td>
+                <td>{{ macro.monetaire(entity.CalculSommeMontantTotal) }}</td>
                 <td><a class="btn btn-info" href="{{ path('offre_show', { 'id': entity.id }) }}">Voir</a>
                 </td>
             </tr>
             {% else %}
 			<tr>
-				<td colspan="5">
+				<td colspan="8">
 					Aucune offre trouv&eacute;e.
 					<br/><br/>
 					<a class="btn btn-primary" href="{{ path('offre_new') }}">

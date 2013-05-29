@@ -1,9 +1,12 @@
 <table class="table table-bordered table-striped table-condensed">
         <thead>
-            <tr>
+            <tr>               
                 <th>N°</th>
-                <th>Date Cr&eacute;ation</th>
+                <th class="hidden-phone">Date de cr&eacute;ation</th>
                 <th>R&eacute;f&eacute;rence</th>
+                <th class="hidden-phone">Nb Article</th>
+                <th class="hidden-phone">Statut</th>
+                <th>Montant</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -11,13 +14,17 @@
         {% for offre in offres %}
             <tr>
                 <td><a href="{{ path('offre_show', { 'id': offre.id }) }}">{{ offre.id }}</a></td>
-                <td>{% if offre.dateCreation %}{{ offre.dateCreation|date('d.m.Y') }}{% endif %}</td>
-                <td><a href="{{ path('offre_show', { 'id': offre.id }) }}">{{ offre.referenceClient }}</a></td>
-                <td><a class="btn btn-info" href="{{ path('offre_show', { 'id': offre.id }) }}">Voir</a>                </td>
+                <td class="hidden-phone">{% if offre.dateCreation %}{{ offre.dateCreation|date('d.m.Y') }}{% endif %}</td>
+                <td>{{ offre.referenceClient }}</td>
+                <td class="hidden-phone">{{ offre.articles.count }}</td>
+                <td class="hidden-phone">{{ offre.statut }}</td>
+                <td>{{ macro.monetaire(offre.CalculSommeMontantTotal) }}</td>
+                <td><a class="btn btn-info" href="{{ path('offre_show', { 'id': offre.id }) }}">Voir</a>
+                </td>
             </tr>
             {% else %}
 			<tr>
-				<td colspan="5">
+				<td colspan="7">
 					Aucune offre trouv&eacute;e.
 		      	</td>
 		      </tr>

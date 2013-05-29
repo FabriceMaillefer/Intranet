@@ -9,7 +9,7 @@ use FMR\CommonBundle\Entity\ArticleBase;
  * ArticleFacture
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="FMR\OffreBundle\Entity\ArticleFactureRepository")
+ * @ORM\Entity()
  */
 class ArticleFacture extends ArticleBase
 {

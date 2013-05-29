@@ -32,7 +32,7 @@ class FactureController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('FMRFactureBundle:Facture')->findAll();
+        $entities = $em->getRepository('FMRFactureBundle:Facture')->findRecents();
 
         return array(
             'entities' => $entities,
