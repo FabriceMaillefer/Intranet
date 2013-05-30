@@ -53,9 +53,9 @@ class Offre
     
     
     /**
-     * @var FMR\OffreBundle\Entity\Article
+     * @var FMR\OffreBundle\Entity\ArticleOffre
      *
-     * @ORM\OneToMany(targetEntity="FMR\OffreBundle\Entity\ArticleOffre", mappedBy="offre")
+     * @ORM\OneToMany(targetEntity="FMR\OffreBundle\Entity\ArticleOffre", mappedBy="offre", cascade={"persist", "remove"})
      * @ORM\OrderBy({"ordre" = "ASC"})
      */
     private $articles;

@@ -93,30 +93,68 @@
 	            </tr>
 	        {% endfor %}
 	        </tbody>
-	    </table>
-	    
-	    <script>
-	    $(function() {
-	        $( "#sortable" ).sortable({
-	        	axis: "y",
-			    update: function( event, ui ) {
-			    	ordreContenu();		    	
-			    }
-			});
-	        function ordreContenu(){
-	        	sort = $( "#sortable" ).sortable("toArray");
-			    	$.ajax({
-					  url: "{{ path('articleoffre_sort') }}",
-					  type: 'POST',
-					  data: "sort="+sort
-					 });
-					 
-				
-	        }
-	        $( "#sortable" ).disableSelection();
-	        ordreContenu();
-	    });
-	</script>
+	        <tfoot>
+	        {% set colspan = 2 %}
+	        	<tr>
+	        		<td colspan="{{ colspan }}" rowspan="10">
+						<button class="btn" onclick="activeSortable(this);"><i class="icon-move"></i> Activer le changement d'ordre</button>
+						 <script>
+						 	
+						    function activeSortable(elem) {
+						        $( "#sortable" ).sortable({
+						        	axis: "y",
+						        	distance: 15,
+						        	opacity: 0.7,
+						        	cursor: "move",
+								    update: function( event, ui ) {
+								    	ordreContenu();		    	
+								    }
+								});
+								
+								if(elem){
+									console.log(elem);
+									elem.innerHTML = '<i class="icon-ban-circle"></i> Désactiver le changement d\'ordre</a>';
+									elem.setAttribute("onclick","desactiveSortable(this);")
+								}
+								
+						       
+						        $( "#sortable" ).disableSelection();
+						        ordreContenu();
+						    }
+						    function desactiveSortable(elem) {
+						    	 $( "#sortable" ).sortable("destroy");
+						    	 $( "#sortable" ).enableSelection();
+						    	 if(elem){
+										console.log(elem);
+										elem.innerHTML = '<i class="icon-move"></i> Activer le changement d\'ordre';
+										elem.setAttribute("onclick","activeSortable(this);")
+									}
+							    }
+						    
+						    function ordreContenu(){
+					        	sort = $( "#sortable" ).sortable("toArray");
+							    	$.ajax({
+									  url: "{{ path('articleoffre_sort') }}",
+									  type: 'POST',
+									  data: "sort="+sort
+									 });				
+					        }
+						</script>
+					</td>
+					<td colspan="2">Sous Total	: </td>
+						<td class="text-right">{{ macro.monetaire(entity.CalculSommeTotale) }} CHF</td>
+						<td rowspan="10" ></td>
+					</tr>
+					<tr>
+						<td colspan="2" >TVA {{ entity.tVA*100 }}% : </td>
+						<td class="text-right">{{ macro.monetaire(entity.CalculTVA) }} CHF</td>
+					</tr>
+					<tr>
+						<td colspan="2">Total TTC : </td>
+						<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantTotal) }} CHF</td>
+					</tr>
+		        </tfoot>
+		    </table>
 	    
 	    {# Seulement si le statut est "en création" #}
 	    {% if entity.editable  %}

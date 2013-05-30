@@ -88,7 +88,7 @@ class Fourniture
 	}
 	
 	public function getLigneFacturation(){
-		return  $this->getQuantite().'x '.$this->getDescriptif();
+		return  $this->getDescriptif();
 	}
     
 	

@@ -59,7 +59,7 @@ class Facture
     private $datePayement;
 
     /**
-     * @var FMR\OffreBundle\Entity\Article
+     * @var FMR\FactureBundle\Entity\ArticleFacture
      *
      * @ORM\OneToMany(targetEntity="FMR\FactureBundle\Entity\ArticleFacture", mappedBy="facture", cascade={"persist", "remove"})
      * @ORM\OrderBy({"ordre" = "ASC"})

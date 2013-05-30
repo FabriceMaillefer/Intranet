@@ -38,30 +38,34 @@ class ArticleFactureController extends Controller
     }
     
     /**
-     *
+     * Mise à jour de l'ordre des articles
      *
      * @Route("/sortable", name="articlefacture_sort")
      * @Method("POST")
      */
-    public function sortAction(Request $request){
-    	if ($request->isXmlHttpRequest()){
-    		$em = $this->getDoctrine()->getManager();
-    
-    		 
-    		$sort = explode(",", $request->get('sort'));
-    		foreach ($sort as $index_ordre => $idContenu) {
-    			$contenu = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($idContenu);
-    			if ($contenu) {
-    				$contenu->setOrdre($index_ordre);
-    				$em->persist($contenu);
-    			}
-    		}
-    
-    		$em->flush();
-    		 
-    	}
-    
-    	return new Response('Ordre ok');
+	public function sortAction(Request $request){
+		//verifie que la reqête est de l’AJAX
+		if ($request->isXmlHttpRequest()){
+			//récupération de l’entity manager
+			$em = $this->getDoctrine()->getManager();
+			//Explosion du tableau sérialisé de la requête en tableau PHP
+			$sort = explode(",", $request->get('sort'));
+			//Pour chaque élément du tableau : $index_ordre est l’index du tableau
+			foreach ($sort as $index_ordre => $idArticle) {
+				//Récupération de l’article depuis la base de données
+				$article = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($idArticle);
+				//Si l’article existe :
+				if ($article) {
+					//modifie l’ordre de l’article
+					$article->setOrdre($index_ordre);
+					//sauve l’entité
+					$em->persist($article);
+				}
+			}
+			//Execute les requêtes
+			$em->flush();  		 
+		}
+		return new Response('Ordre ok');
     }
     
 

@@ -97,9 +97,53 @@
 					{% if entity.editable  %}<td><a href="{{ path('articlefacture_edit', { 'id': article.id }) }}">Modifier</a></td>{% endif %}
 				</tr>
 			{% endfor %}
+			</tbody>
+			<tfoot>
 			{% set colspan = 2 %}
 				<tr>
-					<td colspan="{{ colspan }}" rowspan="10"></td>
+					<td colspan="{{ colspan }}" rowspan="10">
+						<button class="btn" onclick="activeSortable(this);"><i class="icon-move"></i> Activer le changement d'ordre</button>
+						 <script>
+						 	
+						    function activeSortable(elem) {
+						        $( "#sortable" ).sortable({
+						        	axis: "y",
+						        	distance: 15,
+						        	opacity: 0.7,
+						        	cursor: "move",
+								    update: function( event, ui ) {
+								    	ordreArticle();		    	
+								    }
+								});
+								
+								if(elem){
+									elem.innerHTML = '<i class="icon-ban-circle"></i> Désactiver le changement d\'ordre</a>';
+									elem.setAttribute("onclick","desactiveSortable(this);")
+								}
+								
+						       
+						        $( "#sortable" ).disableSelection();
+						        ordreArticle();
+						    }
+						    function desactiveSortable(elem) {
+						    	 $( "#sortable" ).sortable("destroy");
+						    	 $( "#sortable" ).enableSelection();
+						    	 if(elem){
+										elem.innerHTML = '<i class="icon-move"></i> Activer le changement d\'ordre';
+										elem.setAttribute("onclick","activeSortable(this);")
+									}
+							    }
+						    
+						    function ordreArticle(){
+						        	sort = $( "#sortable" ).sortable("toArray");
+							    	$.ajax({
+									  url: "{{ path('articlefacture_sort') }}",
+									  type: 'POST',
+									  data: "sort="+sort
+									 });
+						    }
+						</script>
+					</td>
 					<td colspan="2">Sous Total	: </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTotale) }} CHF</td>
 					<td rowspan="10" ></td>
@@ -126,31 +170,9 @@
 					<td colspan="2">Montant Net 30 jours : </td>
 					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantArrondiTotal) }} CHF</td>
 				</tr>
-			</tbody>
+			</tfoot>
 		</table>
 		
-		 <script>
-		    $(function() {
-		        $( "#sortable" ).sortable({
-		        	axis: "y",
-				    update: function( event, ui ) {
-				    	ordreContenu();		    	
-				    }
-				});
-		        function ordreContenu(){
-		        	sort = $( "#sortable" ).sortable("toArray");
-				    	$.ajax({
-						  url: "{{ path('articlefacture_sort') }}",
-						  type: 'POST',
-						  data: "sort="+sort
-						 });
-						 
-					
-		        }
-		        $( "#sortable" ).disableSelection();
-		        ordreContenu();
-		    });
-		</script>
 		{% if entity.editable  %}
 			{{ render(controller("FMRFactureBundle:ArticleFacture:new", { 'id':entity.id } )) }}
 			<a class="btn btn-small" href="{{ path('facture_article_multiple_edit', { 'id': entity.id }) }}">Editer tous les articles</a>

@@ -3,7 +3,6 @@
 namespace FMR\FactureBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -13,6 +12,7 @@ use FMR\ClientBundle\Entity\Client;
 use FMR\FactureBundle\Form\FactureType;
 use FMR\FactureBundle\Form\ArticleFactureType;
 use FMR\FactureBundle\Form\FactureChangeStatutType;
+use FMR\FactureBundle\Form\FactureMultipleArticleType;
 use Ps\PdfBundle\Annotation\Pdf;
 
 /**
@@ -131,17 +131,11 @@ class FactureController extends Controller
      */
     public function multipleArticleEditAction(Facture $facture)
     {
-    	$formArticles = $this->createFormBuilder($facture)
-    		->add('articles', 'collection', 
-    				array(
-    				'type'   => new ArticleFactureType()
-    		)
-    	)
-    	->getForm();
+    	$formArticles = $this->createForm(new FactureMultipleArticleType(), $facture);
 
         return array(
             'facture'      => $facture,
-        	'formArticles' => $formArticles->createView(),
+        	'formMultiple' => $formArticles->createView(),
         );
     }
     /**
@@ -155,15 +149,8 @@ class FactureController extends Controller
     	
 
     	$em = $this->getDoctrine()->getManager();
-    
-    	$formArticles = $this->createFormBuilder($facture)
-    	->add('articles', 'collection',
-    			array(
-    					'type'   => new ArticleFactureType()
-    			)
-    	)
-    	->getForm();
     	
+    	$formArticles = $this->createForm(new FactureMultipleArticleType(), $facture);
     	$formArticles->bind($request);
     		
     		if ($formArticles->isValid()) {
