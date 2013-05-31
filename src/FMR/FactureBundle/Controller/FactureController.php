@@ -203,17 +203,11 @@ class FactureController extends Controller
      *
      * @Pdf(stylesheet="::print-style.xml.twig")
      */
-    public function printAction($id)
+    public function printAction(Facture $entity)
     {
     	$format = $this->get('request')->get('_format');
     	 
     	$em = $this->getDoctrine()->getManager();
-    
-    	$entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
-    
-    	if (!$entity) {
-    		throw $this->createNotFoundException('Unable to find Facture entity.');
-    	}
     	
     	if (!$entity->getDateImpression()) {
     		//Mise à jour de la date d'impression de la facture
@@ -224,7 +218,6 @@ class FactureController extends Controller
 			if ($statut) {
 				$entity->setStatut($statut);
 			}
-			
 			$em->persist($entity);
 			$em->flush();
     	}
