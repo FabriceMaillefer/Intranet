@@ -12,10 +12,10 @@ class DoctrineGenerateCrudTwitterBootstrapCommand extends GenerateDoctrineCrudCo
 		$this->setName('doctrine:generate:crud:fmr');
 	}
 
-	protected function getGenerator() {
+	protected function getGenerator($bundle = null) {
 		$generator = new DoctrineCrudGenerator($this->getContainer()->get('filesystem'), __DIR__.'/../Resources/skeleton/crud');
 		$this->setGenerator($generator);
-		return parent::getGenerator();
+		return parent::getGenerator($bundle);
 	}
 
 }
