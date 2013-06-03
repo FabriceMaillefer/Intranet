@@ -1,0 +1,50 @@
+{% extends "SensioDistributionBundle::Configurator/layout.html.twig" %}
+
+{% block title %}Intranet Maillefer - Création de la base de données{% endblock %}
+
+{% block content %}
+    {% form_theme form "SensioDistributionBundle::Configurator/form.html.twig" %}
+
+    <div class="step">
+        {% include "SensioDistributionBundle::Configurator/steps.html.twig" with { "index": index, "count": count } %}
+
+        <h1>Création de la base de données</h1>
+
+        <p><strong>L'utilisateur de la base de donnée doit avoir les droits de création pour que la nouvelle table soit créée automatiquement.</strong></p>
+        <form action="{{ path('_configurator_step', { 'index': index }) }} " method="POST">
+          
+            {{ form_rest(form) }}
+
+            <div class="symfony-form-footer">
+                <p>
+                    <button type="submit" class="sf-button">
+                        <span class="border-l">
+                            <span class="border-r">
+                                <span class="btn-bg">SUIVANT</span>
+                            </span>
+                        </span>
+                    </button>
+             {% if index == count-1 %}
+                    <a href="{{ path('_configurator_final', { 'index': index }) }}" class="sf-button">
+                        <span class="border-l">
+                            <span class="border-r">
+                                <span class="btn-bg">Passer cette étape</span>
+                            </span>
+                        </span>
+                    </button>
+            {% else %}
+                    <a href="{{ path('_configurator_step', { 'index': index+1 }) }}" class="sf-button">
+                        <span class="border-l">
+                            <span class="border-r">
+                                <span class="btn-bg">Passer cette étape</span>
+                            </span>
+                        </span>
+                    </button>
+            {% endif %}
+                </p>
+            </div>
+           
+
+        </form>
+    </div>
+{% endblock %}

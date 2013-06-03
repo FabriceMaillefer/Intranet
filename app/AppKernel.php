@@ -20,19 +20,19 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
         	new FOS\UserBundle\FOSUserBundle(),
-        	new Ps\PdfBundle\PsPdfBundle(),
-            new FMR\CommonBundle\FMRCommonBundle(),
-            new FMR\ClientBundle\FMRClientBundle(),
-            new FMR\OffreBundle\FMROffreBundle(),
-            new FMR\ChantierBundle\FMRChantierBundle(),
-            new FMR\FactureBundle\FMRFactureBundle(),
-        );
-
+        	new Ps\PdfBundle\PsPdfBundle()
+        );		
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
+        
+        $bundles[] =    new FMR\CommonBundle\FMRCommonBundle();
+        $bundles[] =    new FMR\ClientBundle\FMRClientBundle();
+        $bundles[] =    new FMR\OffreBundle\FMROffreBundle();
+        $bundles[] =    new FMR\ChantierBundle\FMRChantierBundle();
+        $bundles[] =    new FMR\FactureBundle\FMRFactureBundle();
 
         return $bundles;
     }
