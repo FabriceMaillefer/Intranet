@@ -3,6 +3,7 @@
 namespace FMR\CommonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article de base
@@ -22,8 +23,6 @@ class ArticleBase
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
-
 
     /**
      * @var integer
@@ -34,28 +33,30 @@ class ArticleBase
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="La description ne doit pas être vide")
      * @ORM\Column(name="Descriptif", type="string", length=255)
      */
     private $descriptif;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="float", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * @ORM\Column(name="Quantite", type="float")
      */
     private $quantite;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="Unite", type="string", length=255)
      */
     private $unite;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="float", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * @ORM\Column(name="PrixUnitaire", type="float")
      */
     private $prixUnitaire;

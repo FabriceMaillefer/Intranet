@@ -3,6 +3,7 @@
 namespace FMR\OffreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Offre
@@ -77,7 +78,7 @@ class Offre
     
     /**
      * @var float
-     *
+     * @Assert\Type(type="float", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * @ORM\Column(name="TVA", type="float", nullable=true)
      */
     private $tVA;

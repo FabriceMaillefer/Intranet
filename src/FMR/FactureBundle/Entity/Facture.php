@@ -3,6 +3,7 @@
 namespace FMR\FactureBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Facture
@@ -53,7 +54,7 @@ class Facture
     
     /**
      * @var \DateTime
-     *
+     * 
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $datePayement;
@@ -68,7 +69,7 @@ class Facture
 
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="ReferenceClient", type="string", length=255, nullable=true)
      */
     private $referenceClient;
@@ -83,14 +84,14 @@ class Facture
 
     /**
      * @var float
-     *
+     * @Assert\Type(type="float", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * @ORM\Column(name="Rabais", type="float", nullable=true)
      */
     private $rabais;
 
     /**
      * @var float
-     *
+     * @Assert\Type(type="float", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
      * @ORM\Column(name="TVA", type="float", nullable=true)
      */
     private $tVA;

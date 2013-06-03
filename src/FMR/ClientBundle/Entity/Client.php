@@ -3,6 +3,7 @@
 namespace FMR\ClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Client
@@ -23,14 +24,14 @@ class Client
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Le nom ne doit pas être vide")
      * @ORM\Column(name="Nom", type="string", length=255)
      */
     private $nom;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Le prénom ne doit pas être vide")
      * @ORM\Column(name="Prenom", type="string", length=255)
      */
     private $prenom;
