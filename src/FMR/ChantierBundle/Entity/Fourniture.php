@@ -4,6 +4,7 @@ namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FMR\ChantierBundle\Form\FournitureType as FournitureType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Fourniture simple
@@ -25,21 +26,21 @@ class Fourniture
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Le descriptif ne doit pas être vide")
      * @ORM\Column(name="Descriptif", type="string", length=255)
      */
     private $descriptif;
 
     /**
      * @var float
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="Quantite", type="float")
      */
     private $quantite;
 
     /**
      * @var \DateTime
-     *
+     * 
      * @ORM\Column(name="Date", type="date")
      */
     private $date;
@@ -60,7 +61,7 @@ class Fourniture
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="l'unité ne doit pas être vide")
      * @ORM\Column(name="Unite", type="string", length=10)
      */
     private $unite;

@@ -3,7 +3,6 @@
 namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Chantier
  *
@@ -53,7 +52,7 @@ class Chantier
 
     /**
      * @var string
-     *
+     * 
      * @ORM\Column(name="Lieu", type="string", length=255, nullable=true)
      */
     private $lieu;

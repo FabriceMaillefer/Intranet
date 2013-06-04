@@ -16,6 +16,8 @@ use FMR\ChantierBundle\Entity\Chantier;
 /**
  * Fourniture controller.
  *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ * 
  * @Route("/fourniture")
  */
 class FournitureController extends Controller
