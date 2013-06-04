@@ -68,6 +68,7 @@
 			</div>
 		</div>
 		<br />
+		
     	<div class="container-fluid">
 			{% for type, flashMessages in app.session.flashbag.all() %}
 			    {% for flashMessage in flashMessages %}
@@ -76,7 +77,18 @@
 			        </div>
 			    {% endfor %}
 			{% endfor %}
-	        {% block body %}{% endblock %}
+		<div class="row-fluid">
+    		<div class="span2">
+		 		<ul class="nav nav-list">
+				  <li class="nav-header">List header</li>
+				  <li class="active"><a href="#">Home</a></li>
+				  <li><a href="#">Library</a></li>
+				 </ul>
+			</div>
+    		<div class="span10">
+			{% block body %}{% endblock %}
+	        </div>
+			</div>
 	        {% block javascripts %}{% endblock %}
 	    </div>
     </body>
