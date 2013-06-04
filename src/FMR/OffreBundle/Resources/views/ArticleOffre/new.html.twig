@@ -1,4 +1,12 @@
-{% extends '::layout.html.twig' %}
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMROffreBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Modification de l'article {{ entity.id }}{% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Offre {{ offre.id }}</li>
+	<li><a href="{{ path('offre_show', { 'id': offre.id }) }}">Détails de l'offre</a></li>
+{% endblock %}
 {% block content -%}
 	<div class="page-header">
 	    <h1>Ajouter un article d'offre</h1>

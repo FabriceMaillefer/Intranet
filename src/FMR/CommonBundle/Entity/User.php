@@ -6,6 +6,11 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Entité User
+ * 
+ * Utilisé pour stocker les comptes avec FOSUserBundle
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
@@ -18,10 +23,6 @@ class User extends BaseUser
      */
     protected $id;
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Get id

@@ -13,7 +13,9 @@ use FMR\OffreBundle\Form\ArticleOffreType;
 use FMR\OffreBundle\Entity\Offre;
 
 /**
- * ArticleOffre controller.
+ * Contrôleur de l'entité Article d'offre
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @Route("/articleoffre")
  */
@@ -111,15 +113,8 @@ class ArticleOffreController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(ArticleOffre $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMROffreBundle:ArticleOffre')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleOffre entity.');
-        }
 
         $editForm = $this->createForm(new ArticleOffreType(), $entity);
 
@@ -136,15 +131,10 @@ class ArticleOffreController extends Controller
      * @Method("PUT")
      * @Template("FMROffreBundle:ArticleOffre:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, ArticleOffre $entity)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('FMROffreBundle:ArticleOffre')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleOffre entity.');
-        }
 
         $editForm = $this->createForm(new ArticleOffreType(), $entity);
         $editForm->bind($request);
@@ -172,15 +162,10 @@ class ArticleOffreController extends Controller
      * @Route("/{id}/delete", name="articleoffre_delete")
      *@Method("GET")
      */
-	public function deleteAction($id)
+	public function deleteAction(ArticleOffre $entity)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('FMROffreBundle:ArticleOffre')->find($id);
 
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find ArticleOffre entity.');
-		}
-		
 		$offre = $entity->getOffre();
 		
 		$em->remove($entity);

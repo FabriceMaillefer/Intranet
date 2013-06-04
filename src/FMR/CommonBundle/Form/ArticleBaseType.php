@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formulaire type pour un article de base
+ * @author Fabrice Maillefer
+ */
 class ArticleBaseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

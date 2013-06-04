@@ -1,4 +1,15 @@
-{% extends 'FMRFactureBundle::layout.html.twig' %}{% block content -%}
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRFactureBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Details facture {{ entity.id }} {% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('facture') }}">Liste des factures</a></li>
+	<li class="divider"></li>
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Facture {{ entity.id }}</li>
+	<li><a href="{{ path('facture_edit', { 'id': entity.id }) }}">Editer la facture</a></li>
+{% endblock %}
+{% block content %}
 <div class="page-header">
 		<h1>Facture N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
 		<div style="text-align:right;">
@@ -120,7 +131,7 @@
 								
 								if(elem){
 									elem.innerHTML = '<i class="icon-ban-circle"></i> Désactiver le changement d\'ordre</a>';
-									elem.setAttribute("onclick","desactiveSortable(this);")
+									elem.setAttribute("onclick","desactiveSortable(this);");
 								}
 								
 						       
@@ -132,7 +143,7 @@
 						    	 $( "#sortable" ).enableSelection();
 						    	 if(elem){
 										elem.innerHTML = '<i class="icon-move"></i> Activer le changement d\'ordre';
-										elem.setAttribute("onclick","activeSortable(this);")
+										elem.setAttribute("onclick","activeSortable(this);");
 									}
 							    }
 						    

@@ -6,8 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Article de base
+ * Entité Article de base
  *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ * 
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\InheritanceType("JOINED")
@@ -15,6 +17,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ArticleBase
 {
+	
+	/*
+	 * Attributs
+	*/
+	
     /**
      * @var integer
      *
@@ -68,12 +75,20 @@ class ArticleBase
      */
     private $dateCreation;
 
+    /*
+     * Methodes magiques
+    */
+    
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     	$this->ordre  = 0;
     	$this->quantite = 1;
     	$this->prixUnitaire = 0;
     }
+    
+    /*
+     * Methodes spéciales
+    */
     
     /**
      * Arrondi au 5 centimes
@@ -95,6 +110,10 @@ class ArticleBase
     	return $this->arrondiAuCentime($this->prixUnitaire * $this->quantite);
  
     }
+    
+    /*
+     * Getter et Setter
+    */
     
     /**
      * Get id

@@ -1,5 +1,14 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMROffreBundle::layout.html.twig' %}
-
+{% block title %}{{ parent() }} Details offre {{ entity.id }} {% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('offre') }}">Liste des offres</a></li>
+	<li class="divider"></li>
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Offre {{ entity.id }}</li>
+	<li><a href="{{ path('offre_edit', { 'id': entity.id }) }}">Editer l'offre</a></li>
+{% endblock %}
 {% block content -%}
 <div class="page-header">
 		<h1>Offre N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
@@ -87,8 +96,8 @@
 	                <td>{{ article.descriptif }}</td>
 	                <td>{{ article.quantite }}</td>
 	                <td>{{ article.unite }}</td>
-	                <td>{{ article.prixUnitaire }}</td>
-	                <td>{{ article.calculPrixTotal }}</td>
+	                <td class="text-right">{{ macro.monetaire(article.prixUnitaire) }} CHF</td>
+					<td class="text-right">{{ macro.monetaire(article.calculPrixTotal) }} CHF</td>
 	                {% if entity.editable  %}<td><a href="{{ path('articleoffre_edit', { 'id': article.id }) }}">Modifier</a></td>{% endif %}
 	            </tr>
 	        {% endfor %}
@@ -114,7 +123,7 @@
 								if(elem){
 									console.log(elem);
 									elem.innerHTML = '<i class="icon-ban-circle"></i> Désactiver le changement d\'ordre</a>';
-									elem.setAttribute("onclick","desactiveSortable(this);")
+									elem.setAttribute("onclick","desactiveSortable(this);");
 								}
 								
 						       
@@ -127,7 +136,7 @@
 						    	 if(elem){
 										console.log(elem);
 										elem.innerHTML = '<i class="icon-move"></i> Activer le changement d\'ordre';
-										elem.setAttribute("onclick","activeSortable(this);")
+										elem.setAttribute("onclick","activeSortable(this);");
 									}
 							    }
 						    
@@ -140,10 +149,10 @@
 									 });				
 					        }
 						</script>
-					</td>
-					<td colspan="2">Sous Total	: </td>
+						</td>
+						<td colspan="2">Sous Total	: </td>
 						<td class="text-right">{{ macro.monetaire(entity.CalculSommeTotale) }} CHF</td>
-						<td rowspan="10" ></td>
+						{% if entity.editable  %}<td rowspan="10" ></td>{% endif  %}
 					</tr>
 					<tr>
 						<td colspan="2" >TVA {{ entity.tVA*100 }}% : </td>

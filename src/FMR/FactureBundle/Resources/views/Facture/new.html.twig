@@ -1,4 +1,10 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMRFactureBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Création{% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('facture') }}">Liste des factures</a></li>
+	{{ parent() }}
+{% endblock %}
 {% block content -%}
 	<div class="page-header">
 	    <h1>Ajouter une facture</h1>

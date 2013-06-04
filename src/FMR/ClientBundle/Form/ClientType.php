@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formulaire type pour un client
+ * @author Fabrice Maillefer
+ */
 class ClientType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -19,7 +23,6 @@ class ClientType extends AbstractType
             ->add('email','email',array('required'=> false))
             ->add('tel',null,array('required'=> false))
             ->add('divers','textarea',array('required'=> false))
-           
         ;
     }
 

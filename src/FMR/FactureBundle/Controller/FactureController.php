@@ -16,7 +16,9 @@ use FMR\FactureBundle\Form\FactureMultipleArticleType;
 use Ps\PdfBundle\Annotation\Pdf;
 
 /**
- * Facture controller.
+ * Contrôleur de l'entité Facture
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @Route("/facture")
  */
@@ -175,20 +177,10 @@ class FactureController extends Controller
      *
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Facture $entity)
     {
-    	
-    	$em = $this->getDoctrine()->getManager();
-    
-    	$entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
-    
-    	if (!$entity) {
-    		throw $this->createNotFoundException('Unable to find Facture entity.');
-    	}
-    
     	$formStatut = $this->createForm(new FactureChangeStatutType(), $entity);
-    
-    
+
     	return array(
     			'entity'      => $entity,
     			'formStatut' => $formStatut->createView(),
@@ -294,19 +286,12 @@ class FactureController extends Controller
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Facture $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Facture entity.');
-        }
-
+		//Controle que l'entité a un status qui permet la modification
         if (!$entity->isEditable()){
         	$this->get('session')->getFlashBag()->add('error', 'Facture vérouillée. Changez le statut pour pouvoir la modifier.');
-        	return $this->redirect($this->generateUrl('facture_show', array('id' => $id)));
+        	return $this->redirect($this->generateUrl('facture_show', array('id' => $entity->getId())));
         }
         
         $editForm = $this->createForm(new FactureType(), $entity);
@@ -324,15 +309,9 @@ class FactureController extends Controller
      * @Method("PUT")
      * @Template("FMRFactureBundle:Facture:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Facture $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Facture entity.');
-        }
 
         $editForm = $this->createForm(new FactureType(), $entity);
         $editForm->bind($request);
@@ -358,17 +337,12 @@ class FactureController extends Controller
      * Deletes a Facture entity.
      *
      * @Route("/{id}/delete", name="facture_delete")
-     *@Method("GET")
+     * @Method("GET")
      */
-	public function deleteAction($id)
+	public function deleteAction(Facture $entity)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('FMRFactureBundle:Facture')->find($id);
 
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find Facture entity.');
-		}
-		
 		$em->remove($entity);
 		$em->flush();
             

@@ -7,6 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FMR\CommonBundle\Form\ArticleBaseType;
 
+/**
+ * Formulaire type pour un article de facture
+ * @author Fabrice Maillefer
+ */
 class ArticleFactureType extends ArticleBaseType
 {
 	private $id;

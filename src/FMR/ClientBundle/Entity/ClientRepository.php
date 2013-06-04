@@ -41,7 +41,6 @@ class ClientRepository extends EntityRepository
 		->setParameter('2',$q)
 		;
 	 
-	 
 		$query = $qb->getQuery();
 		return $query->getResult();
 	}

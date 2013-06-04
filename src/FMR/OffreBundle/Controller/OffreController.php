@@ -14,7 +14,9 @@ use FMR\OffreBundle\Form\OffreChangeStatutType;
 use Ps\PdfBundle\Annotation\Pdf;
 
 /**
- * Offre controller.
+ * Contrôleur de l'entité Offre
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @Route("/offre")
  */

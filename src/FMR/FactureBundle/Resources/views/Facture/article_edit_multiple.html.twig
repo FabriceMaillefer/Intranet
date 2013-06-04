@@ -1,4 +1,13 @@
-{% extends 'FMRFactureBundle::layout.html.twig' %}{% block content -%}
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRFactureBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Modifications multiples de {{ facture.id }}{% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Facture {{ facture.id }}</li>
+	<li><a href="{{ path('facture_show', { 'id': facture.id }) }}">Détails de la facture</a></li>
+{% endblock %}
+{% block content -%}
 <div class="page-header">
 		<h1>Modification des articles pour la facture N° {{ facture.id }}</h1>
 		<div style="text-align:right;">

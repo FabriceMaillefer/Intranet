@@ -4,13 +4,20 @@ namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FMR\ChantierBundle\Form\Fourniture1DType as FournitureType;
+
 /**
- * Fourniture une dimension
+ * Entité Fourniture une dimension
+ *
+ *	@author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @ORM\Entity()
  */
 class Fourniture1D extends Fourniture
 {
+	/*
+	 * Attributs
+	*/
+	
 	/**
 	 * @var integer
 	 *
@@ -26,6 +33,17 @@ class Fourniture1D extends Fourniture
 	 * @ORM\Column(type="float")
 	 */
 	private $longueur;
+	
+	/*
+	 * Methode magique
+	*/
+	public function __construct(){
+		parent::__construct();
+		$this->setUnite('m');
+	}
+	/*
+	 * Methodes spéciales
+	*/
 	
 	public function getForm(){
 		return new FournitureType();
@@ -43,10 +61,11 @@ class Fourniture1D extends Fourniture
 		return $this->getQuantite() * $this->getLongueur();
 	}
 	
-	public function __construct(){
-		parent::__construct();
-		$this->setUnite('m');
-	}
+
+
+	/*
+	 * Getter et Setter
+	 */
 	
     /**
      * Get id

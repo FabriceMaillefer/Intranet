@@ -1,6 +1,13 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMRClientBundle::layout.html.twig' %}
-
-{% block body %}
+{% block title %}{{ parent() }} Modification de {{ entity.nomPrenom }}{% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">{{ entity.nomPrenom }}</li>
+	<li><a href="{{ path('client_show', { 'id': entity.id }) }}">Détails du client</a></li>
+{% endblock %}
+{% block content %}
 <div class="page-header">
     <h1>Modification du client : {{ entity.nomPrenom }}</h1>
 	<div style="text-align:right;">
@@ -28,5 +35,4 @@
         </a>
 </div>
 
-{% endblock body %}
-
+{% endblock content %}

@@ -14,7 +14,7 @@ use FMR\ChantierBundle\Entity\Fourniture3D;
 use FMR\ChantierBundle\Entity\Chantier;
 
 /**
- * Fourniture controller.
+ * Contrôleur de l'entité Fourniture
  *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  * 
@@ -23,27 +23,27 @@ use FMR\ChantierBundle\Entity\Chantier;
 class FournitureController extends Controller
 {
     /**
-     * Lists all Fourniture entities for a Chantier Entity.
+     * Liste de toutes les fournitures d'un chantier
      *
      * @Route("/chantier/{id}/", name="chantier_fourniture")
      * @Method("GET")
      * @Template("FMRChantierBundle:Fourniture:list.html.twig")
      */
     public function listFournitureChantierAction(Chantier $chantier)
-    {
-    	    
+    {   
     	$fournitures = $chantier->getFournitures();
+    	
     	if ($chantier->getFacture()){
     		$this->get('session')->getFlashBag()->add('info', 'Ce chantier est déjà facturé. Les nouvelles fournitures ajoutées ne seront pas facturées.');    		
     	}
     	return array(
-    			'fournitures' => $fournitures,
+    		 'fournitures' => $fournitures,
     			'chantier' => $chantier,
     	);
     }
     
     /**
-     * Creates a new Fourniture entity.
+     * Création d'une nouvelle Fourniture selon le _type donné
      *
      * @Route("/chantier/{id}/", name="fourniture_create")
      * @Method("POST")
@@ -53,6 +53,7 @@ class FournitureController extends Controller
     {
     	$type=$request->request->get('_type');
 
+    	//instanciation de l'entité spécifiée
     	$classe = 'FMR\ChantierBundle\Entity\Fourniture'.$type;
         $entity  = new $classe();
         
@@ -82,7 +83,7 @@ class FournitureController extends Controller
     }
 
     /**
-     * Displays a form to create a new Fourniture entity.
+     * Affichage d'un formulaire pour créer une fourniture selon le type
      *
      * @Route("/chantier/{id}/new/{type}", name="fourniture_new")
      * 
@@ -91,8 +92,7 @@ class FournitureController extends Controller
      */
     public function newAction(Request $request, Chantier $chantier, $type="")
     {
-    	
-    	
+    	//instanciation de l'entité spécifiée
         $classe = 'FMR\ChantierBundle\Entity\Fourniture'.$type;
         $entity  = new $classe();
         
@@ -107,6 +107,7 @@ class FournitureController extends Controller
         	'type' => $type,
         );
         
+        //Si c'est une requête ajax : affichage du formulaire seul
 		if ($request->isXmlHttpRequest()){
 			return $this->render(
 					'FMRChantierBundle:Fourniture:new_single.html.twig',
@@ -118,22 +119,14 @@ class FournitureController extends Controller
 
 
     /**
-     * Displays a form to edit an existing Fourniture entity.
+     * Affichage d'un formulaire pour editer une fourniture
      *
      * @Route("/{id}/edit", name="fourniture_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, Fourniture $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRChantierBundle:Fourniture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Fourniture entity.');
-        }
-
         $editForm = $this->createForm($entity->getForm(), $entity);
 
         
@@ -152,22 +145,16 @@ class FournitureController extends Controller
     }
 
     /**
-     * Edits an existing Fourniture entity.
+     * Mise à jour d'une fourniture
      *
      * @Route("/{id}", name="fourniture_update")
      * @Method("PUT")
      * @Template("FMRChantierBundle:Fourniture:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Fourniture $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRChantierBundle:Fourniture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Fourniture entity.');
-        }
-
+        
         $editForm = $this->createForm($entity->getForm(), $entity);
         $editForm->bind($request);
 
@@ -189,19 +176,14 @@ class FournitureController extends Controller
     }
 
     /**
-     * Deletes a Fourniture entity.
+     * Suppression d'une fourniture
      *
      * @Route("/{id}/delete", name="fourniture_delete")
-     *@Method("GET")
+     * @Method("GET")
      */
-	public function deleteAction($id)
+	public function deleteAction(Fourniture $entity)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('FMRChantierBundle:Fourniture')->find($id);
-
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find Fourniture entity.');
-		}
 		
 		$em->remove($entity);
 		$em->flush();

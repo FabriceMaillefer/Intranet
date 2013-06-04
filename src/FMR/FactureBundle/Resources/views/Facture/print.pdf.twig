@@ -1,3 +1,5 @@
+{# Projet TPI - Fabrice Maillefer #}
+{# Page d'impression en PDF #}
 {% macro monetaire(montant) %}
 {{ montant|number_format(2, '.', '`')}}
 {% endmacro %}
@@ -16,6 +18,9 @@
 		<br />
 		<h2>Facture N° {{ entity.id }} : </h2>
 		<p>L'Abergement, le {{ entity.dateImpression|date('d.m.Y') }}</p>
+		{% if entity.referenceClient %}
+			<span style="text-decoration:underline;">Référence : {{ entity.referenceClient }}</span>
+		{% endif %}
 		<table>
 				<tr>
 					<td>Descriptif</td>
@@ -25,11 +30,6 @@
 					<td width="100px">Montant</td>
 			
 				</tr>
-				{% if entity.referenceClient %}
-					<tr>
-						<td colspan="5" style="text-decoration:underline;">Référence : {{ entity.referenceClient }}</td>
-					</tr>
-				{% endif %}
 			{% for article in entity.articles %}
 				<tr>
 					<td>{{ article.descriptif|raw }}</td>

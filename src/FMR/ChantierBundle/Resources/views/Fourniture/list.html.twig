@@ -1,5 +1,14 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMRChantierBundle::layout.html.twig' %}
-{% block content -%}
+{% block title %}{{ parent() }} Liste des fournitures du chantier {{ chantier.id }}{% endblock %}
+{% block sidebar %}
+	{{ parent() }}
+	<li class="divider"></li>
+	<li class="nav-header">Chantier {{ chantier.id }}</li>
+	<li><a href="{{ path('chantier_show', { 'id': chantier.id }) }}">Retour aux détails du chantier</a></li>
+	<li><a href="{{ path('chantier_edit', { 'id': chantier.id }) }}">Editer le chantier</a></li>
+{% endblock %}
+{% block content %}
 	<div class="page-header">
 	    <h1>Liste des fournitures du chantier {{ chantier }}</h1>
 		<div style="text-align:right;">

@@ -7,7 +7,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Facture
- *
+ * 
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ * 
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="FMR\FactureBundle\Entity\FactureRepository")
  */

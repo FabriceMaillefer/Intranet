@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formulaire type pour une fourniture 1D
+ * @author Fabrice Maillefer
+ */
 class Fourniture1DType extends FournitureType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

@@ -1,26 +1,8 @@
-<form action="{{ path('articleoffre_create', {'id':offre.id}) }}" method="post" {{ form_enctype(form) }}>
-<div style="display:inline-block;">
-{{ form_label(form.descriptif) }}
-{{ form_errors(form.descriptif) }}     
-{{ form_widget(form.descriptif) }}
-</div>
-<div style="display:inline-block;">
-{{ form_label(form.quantite) }}
-{{ form_errors(form.quantite) }}     
-{{ form_widget(form.quantite) }}
-</div>
-<div style="display:inline-block;">
-{{ form_label(form.unite) }}
-{{ form_errors(form.unite) }}     
-{{ form_widget(form.unite) }}
-</div>
-<div style="display:inline-block;">
-{{ form_label(form.prixUnitaire) }}
-{{ form_errors(form.prixUnitaire) }}     
-{{ form_widget(form.prixUnitaire) }}
-</div>
-{{ form_rest(form) }}
-<div style="display:inline-block;">
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
-</div>
-    </form>
+{# Projet TPI - Fabrice Maillefer #}
+<form action="{{ path('articleoffre_create', {'id':offre.id}) }}" class="form_inline_block" method="post" {{ form_enctype(form) }}>
+	{{ form_widget(form) }}
+
+      <div>
+      	<button type="submit" class="btn btn-primary">Enregistrer</button>
+      </div>
+</form>

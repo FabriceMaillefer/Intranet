@@ -1,4 +1,10 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMROffreBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Création{% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('offre') }}">Liste des offres</a></li>
+	{{ parent() }}
+{% endblock %}
 {% block content -%}
 	<div class="page-header">
 		{% if client is defined and client is not null %}

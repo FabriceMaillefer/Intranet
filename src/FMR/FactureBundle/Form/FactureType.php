@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formulaire type pour une facture
+ * @author Fabrice Maillefer
+ */
 class FactureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

@@ -1,4 +1,6 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMRChantierBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Liste des chantiers{% endblock %}
 {% block content -%}
 	<div class="page-header">
 		<div class="pull-right" style="text-align:right;">
@@ -17,7 +19,6 @@
 				Ajouter un nouveau chantier
 			</a>
     	</div>
-	
 	<table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>

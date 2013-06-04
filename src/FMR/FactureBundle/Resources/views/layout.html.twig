@@ -1,4 +1,19 @@
+{# Projet TPI - Fabrice Maillefer #}
+{# Layout de la partie Facture #}
 {% extends '::base.html.twig' %}
+{% block title %}{{ parent() }} Facture - {% endblock %}
 {% block body %}
-{% block content %}{% endblock %}
+<div class="row-fluid">
+	<div class="span2 hidden-phone" >
+		<ul class="nav nav-list">
+			{% block sidebar %}
+				<li class="nav-header">Factures</li>
+				<li><a href="{{ path('facture_new') }}">Ajouter une nouvelle facture</a></li>
+			{% endblock %}
+			</ul>
+ 		</div>
+	<div class="span10">
+	{% block content %}{% endblock %}
+	</div>
+</div>
 {% endblock %}

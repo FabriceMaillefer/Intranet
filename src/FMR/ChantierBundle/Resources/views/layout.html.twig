@@ -1,4 +1,19 @@
+{# Projet TPI - Fabrice Maillefer #}
+{# Layout de la partie Chantier #}
 {% extends '::base.html.twig' %}
+{% block title %}{{ parent() }} Chantier - {% endblock %}
 {% block body %}
-{% block content %}{% endblock %}
+<div class="row-fluid">
+	<div class="span2 hidden-phone" >
+		<ul class="nav nav-list">
+			{% block sidebar %}
+				<li class="nav-header">Chantiers</li>
+				<li><a href="{{ path('chantier_new') }}">Ajouter un nouveau chantier</a></li>
+			{% endblock %}
+				</ul>
+	 		</div>
+	<div class="span10">
+	{% block content %}{% endblock %}
+	</div>
+</div>
 {% endblock %}

@@ -6,6 +6,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Formulaire type pour changer le statut d'une offre
+ * @author Fabrice Maillefer
+ */
 class OffreChangeStatutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

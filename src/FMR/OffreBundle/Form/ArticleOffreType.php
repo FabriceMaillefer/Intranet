@@ -7,6 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FMR\CommonBundle\Form\ArticleBaseType;
 
+/**
+ * Formulaire type pour un article d'offre
+ * @author Fabrice Maillefer
+ */
 class ArticleOffreType extends ArticleBaseType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

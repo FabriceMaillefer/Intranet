@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * StatutFacture
  *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ * 
  * @ORM\Table()
  * @ORM\Entity
  */

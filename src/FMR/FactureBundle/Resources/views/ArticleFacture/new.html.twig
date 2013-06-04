@@ -1,20 +1,28 @@
-{% extends '::layout.html.twig' %}
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRFactureBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Modification de l'article {{ entity.id }}{% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Facture {{ facture.id }}</li>
+	<li><a href="{{ path('facture_show', { 'id': facture.id }) }}">Détails de la facture</a></li>
+{% endblock %}
 {% block content -%}
 	<div class="page-header">
 	    <h1>Ajouter un article de facture</h1>
 	    <div style="text-align:right;">
-	    	<a class="btn" href="{{ path('articlefacture') }}">
-	            Retour &agrave; la liste
+	    	<a class="btn" href="{{ path('facture_show', { 'id': facture.id }) }}">
+	            Retour aux d&eacute;tails de la facture
 	        </a>
 	    </div>
 	</div>
 
-    {% include 'new_single.html.twig' %}
+    {% include 'FMRFactureBundle:ArticleFacture:new_single.html.twig' %}
 
-        	<div class="form-actions">
-        <a class="btn" href="{{ path('articlefacture') }}">
-            Retour &agrave; la liste
+    <div class="form-actions">
+        <a class="btn" href="{{ path('facture_show', { 'id': facture.id }) }}">
+            Retour aux d&eacute;tails de la facture
         </a>
-</div>
+	</div>
 
 {% endblock %}

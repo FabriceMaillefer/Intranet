@@ -1,4 +1,12 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMRFactureBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Modification de {{ entity.id }}{% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Facture {{ entity.id }}</li>
+	<li><a href="{{ path('facture_show', { 'id': entity.id }) }}">Détails de la facture</a></li>
+{% endblock %}
 {% block content %}
 <div class="page-header">
     <h1>Modifier une facture</h1>

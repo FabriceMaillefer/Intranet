@@ -13,29 +13,14 @@ use FMR\FactureBundle\Form\ArticleFactureType;
 use FMR\FactureBundle\Entity\Facture;
 
 /**
- * ArticleFacture controller.
+ * Contrôleur de l'entité Article de Facture
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @Route("/articlefacture")
  */
 class ArticleFactureController extends Controller
 {
-    /**
-     * Lists all ArticleFacture entities.
-     *
-     * @Route("/", name="articlefacture")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('FMRFactureBundle:ArticleFacture')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     
     /**
      * Mise à jour de l'ordre des articles
@@ -122,43 +107,14 @@ class ArticleFactureController extends Controller
     }
 
     /**
-     * Finds and displays a ArticleFacture entity.
-     *
-     * @Route("/{id}", name="articlefacture_show")
-     * @Method("GET")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFacture entity.');
-        }
-
-        return array(
-            'entity'      => $entity,
-        );
-    }
-
-    /**
      * Displays a form to edit an existing ArticleFacture entity.
      *
      * @Route("/{id}/edit", name="articlefacture_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(ArticleFacture $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFacture entity.');
-        }
 
         $editForm = $this->createForm(new ArticleFactureType(), $entity);
 
@@ -175,15 +131,10 @@ class ArticleFactureController extends Controller
      * @Method("PUT")
      * @Template("FMRFactureBundle:ArticleFacture:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, ArticleFacture $entity)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ArticleFacture entity.');
-        }
 
         $editForm = $this->createForm(new ArticleFactureType(), $entity);
         $editForm->bind($request);
@@ -211,15 +162,10 @@ class ArticleFactureController extends Controller
      * @Route("/{id}/delete", name="articlefacture_delete")
      *@Method("GET")
      */
-	public function deleteAction($id)
+	public function deleteAction(ArticleFacture $entity)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('FMRFactureBundle:ArticleFacture')->find($id);
 
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find ArticleFacture entity.');
-		}
-		
 		$facture = $entity->getFacture();
 		
 		

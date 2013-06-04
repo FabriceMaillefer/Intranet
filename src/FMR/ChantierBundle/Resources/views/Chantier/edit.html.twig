@@ -1,4 +1,12 @@
-{% extends '::layout.html.twig' %}
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRChantierBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Modification de {{ entity }}{% endblock %}
+{% block sidebar %}
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">Chantier {{ entity.id }}</li>
+	<li><a href="{{ path('chantier_show', { 'id': entity.id }) }}">Détails du chantier</a></li>
+{% endblock %}
 {% block content %}
 <div class="page-header">
     <h1>Modifier un chantier</h1>

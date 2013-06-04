@@ -15,14 +15,16 @@ use FMR\FactureBundle\Entity\Facture;
 use FMR\FactureBundle\Entity\ArticleFacture;
 
 /**
- * Chantier controller.
+ * Contrôleur de l'entité Chantier
+ *
+ * @author Fabrice Maillefer
  *
  * @Route("/chantier")
  */
 class ChantierController extends Controller
 {
     /**
-     * Lists all Chantier entities.
+     * Liste des chantiers actifs
      *
      * @Route("/", name="chantier")
      * @Method("GET")
@@ -32,7 +34,7 @@ class ChantierController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('FMRChantierBundle:Chantier')->findAll();
+        $entities = $em->getRepository('FMRChantierBundle:Chantier')->findAllActive();
 
         return array(
             'entities' => $entities,
@@ -40,14 +42,13 @@ class ChantierController extends Controller
     }
 
     /**
-     * search and displays an Chantier entity.
+     * Recherche et affichage des chantiers trouvés
      *
      * @Route("/search/", name="chantier_search")
      * @Template("FMRChantierBundle:Chantier:index.html.twig")
      */
     public function searchAction(Request $request)
     {
-    
     	$q = $request->get('q');
     
     	$em = $this->getDoctrine()->getManager();
@@ -61,7 +62,7 @@ class ChantierController extends Controller
     }
     
     /**
-     * Creates a new Chantier entity.
+     * Création d'un nouveau Chantier
      *
      * @Route("/", name="chantier_create")
      *
@@ -92,7 +93,7 @@ class ChantierController extends Controller
     }
     
     /**
-     * Creates a new Facture entity for a Chantier.
+     * Création d'une nouvelle Facture à partir d'un Chantier 
      *
      * @Route("/{id}/facture", name="chantier_facture_create")
      * @Method("GET")
@@ -117,6 +118,7 @@ class ChantierController extends Controller
     		$facture->setReferenceClient($chantier->getDescription());
     	}
     	
+    	//Parametrage du status "En création"
     	$statut = $em->getRepository('FMRFactureBundle:StatutFacture')->find(1);
     	if ($statut) {
     		$facture->setStatut($statut);
@@ -151,7 +153,7 @@ class ChantierController extends Controller
     }
 
     /**
-     * Displays a form to create a new Chantier entity.
+     * Affichage du formulaire pour créer un nouveau Chantier
      *
      * @Route("/new", name="chantier_new")
      * @Route("/offre/{id}/new", name="chantier_offre_new")
@@ -187,8 +189,8 @@ class ChantierController extends Controller
         );
     }
     /**
-     * Displays a form to create a new Chantier entity from a Client Entity.
-
+     * Affiche un formulaire pour créer un nouveau Chantier à partir d'un Client
+     * 
      * @Route("/client/{id}/new", name="chantier_client_new")
      * @Method("GET")
      * @Template("FMRChantierBundle:Chantier:new.html.twig")
@@ -209,43 +211,28 @@ class ChantierController extends Controller
     }
 
     /**
-     * Finds and displays a Chantier entity.
+     * Trouve et affiche un Chantier
      *
      * @Route("/{id}", name="chantier_show")
      * @Method("GET")
      * @Template()
      */
-    public function showAction($id)
+    public function showAction(Chantier $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRChantierBundle:Chantier')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Chantier entity.');
-        }
-
         return array(
             'entity'      => $entity,
         );
     }
 
     /**
-     * Displays a form to edit an existing Chantier entity.
+     * Affichage du formulaire pour modifier un Chantier
      *
      * @Route("/{id}/edit", name="chantier_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Chantier $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRChantierBundle:Chantier')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Chantier entity.');
-        }
 
         $editForm = $this->createForm(new ChantierType(), $entity);
 
@@ -256,22 +243,16 @@ class ChantierController extends Controller
     }
 
     /**
-     * Edits an existing Chantier entity.
+     * Mise à jour du Chantier
      *
      * @Route("/{id}", name="chantier_update")
      * @Method("PUT")
      * @Template("FMRChantierBundle:Chantier:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Chantier $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRChantierBundle:Chantier')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Chantier entity.');
-        }
-
+        
         $editForm = $this->createForm(new ChantierType(), $entity);
         $editForm->bind($request);
 
@@ -293,20 +274,14 @@ class ChantierController extends Controller
     }
 
     /**
-     * Deletes a Chantier entity.
+     * Suppression d'un Chanteir
      *
      * @Route("/{id}/delete", name="chantier_delete")
-     *@Method("GET")
+     * @Method("GET")
      */
-	public function deleteAction($id)
+	public function deleteAction(Chantier $entity)
 	{
 		$em = $this->getDoctrine()->getManager();
-		$entity = $em->getRepository('FMRChantierBundle:Chantier')->find($id);
-
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find Chantier entity.');
-		}
-	
 		
 		$em->remove($entity);
 		$em->flush();

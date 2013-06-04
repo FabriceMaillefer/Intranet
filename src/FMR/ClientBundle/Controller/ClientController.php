@@ -12,14 +12,15 @@ use FMR\ClientBundle\Form\ClientType;
 
 
 /**
- * Client controller.
- *
+ * Contrôleur de l'entité client.
+ * 
  * @Route("/client")
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  */
 class ClientController extends Controller
 {
     /**
-     * Lists all Client entities.
+     * Liste des clients créé récement
      *
      * @Route("/", name="client")
      * @Method("GET")
@@ -37,7 +38,7 @@ class ClientController extends Controller
     }
 
     /**
-     * search and displays a Client entity.
+     * Recherche et affichage les clients trouvés
      *
      * @Route("/search/", name="client_search")
      * @Template("FMRClientBundle:Client:index.html.twig")
@@ -60,7 +61,7 @@ class ClientController extends Controller
     }
     
     /**
-     * Creates a new Client entity.
+     * Création d'un nouveau Client
      *
      * @Route("/", name="client_create")
      * @Method("POST")
@@ -90,7 +91,7 @@ class ClientController extends Controller
     }
 
     /**
-     * Displays a form to create a new Client entity.
+     * Affichage du formulaire pour créer un nouveau client
      *
      * @Route("/new", name="client_new")
      * @Method("GET")
@@ -108,7 +109,8 @@ class ClientController extends Controller
     }
 
     /**
-     * Finds and displays a Client entity.
+     * Trouve et affiche un client
+     * Affiche aussi ses offres, chantiers et factures en cours
      *
      * @Route("/{id}", name="client_show")
      * @Method("GET")
@@ -133,22 +135,14 @@ class ClientController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Client entity.
+     * Affichage du formulaire pour modifier un client
      *
      * @Route("/{id}/edit", name="client_edit")
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction(Client $entity)
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRClientBundle:Client')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
-        }
-
         $editForm = $this->createForm(new ClientType(), $entity);
 
         return array(
@@ -158,21 +152,15 @@ class ClientController extends Controller
     }
 
     /**
-     * Edits an existing Client entity.
+     * Mise à jour du client
      *
      * @Route("/{id}", name="client_update")
      * @Method("PUT")
      * @Template("FMRClientBundle:Client:edit.html.twig")
      */
-    public function updateAction(Request $request, $id)
+    public function updateAction(Request $request, Client $entity)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('FMRClientBundle:Client')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Client entity.');
-        }
 
         $editForm = $this->createForm(new ClientType(), $entity);
         $editForm->bind($request);
@@ -195,21 +183,15 @@ class ClientController extends Controller
     }
 
     /**
-     * Deletes a Client entity.
+     * Suppression d'un client
      *
      * @Route("/{id}/delete", name="client_delete")
-     *@Method("GET")
+     * @Method("GET")
      */
-    public function deleteAction($id)
+    public function deleteAction(Client $entity)
     {
     	$em = $this->getDoctrine()->getManager();
     	 
-		$entity = $em->getRepository('FMRClientBundle:Client')->find($id);
-		
-		if (!$entity) {
-			throw $this->createNotFoundException('Unable to find Client entity.');
-		}
-
 		$em->remove($entity);
 		$em->flush();
 		

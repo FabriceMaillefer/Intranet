@@ -8,6 +8,8 @@ use FMR\CommonBundle\Entity\ArticleBase;
 /**
  * ArticleFacture
  *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ * 
  * @ORM\Table()
  * @ORM\Entity()
  */

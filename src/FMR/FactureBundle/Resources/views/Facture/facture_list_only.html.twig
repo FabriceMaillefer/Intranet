@@ -1,7 +1,9 @@
+{# Projet TPI - Fabrice Maillefer #}
 <table class="table table-bordered table-striped table-condensed">
         <thead>
             <tr>
                 <th>N°</th>
+                {% if show_client is defined %}<th>Client</th>{% endif %}
                 <th class="hidden-phone">Date de cr&eacute;ation</th>
                 <th>R&eacute;f&eacute;rence</th>
                 <th class="hidden-phone">Nb Article</th>
@@ -14,7 +16,7 @@
         {% for facture in factures %}
             <tr>
                 <td><a href="{{ path('facture_show', { 'id': facture.id }) }}">{{ facture.id }}</a></td>
-                <td>{{ facture.client }}</td>
+                {% if show_client  is defined %}<td>{{ facture.client }}</td>{% endif %}
                 <td class="hidden-phone">{% if facture.dateCreation %}{{ facture.dateCreation|date('d.m.Y') }}{% endif %}</td>
                 <td>{{ facture.referenceClient }}</td>
                 <td class="hidden-phone">{{ facture.articles.count }}</td>

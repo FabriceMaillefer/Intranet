@@ -5,15 +5,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Formulaire pour la création d'un utilisateur depuis le web configurator
+ * 
+ * Formulaire servant à faire éxéctuer l'installation des tables de la bd
+ *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  */
-class UserCreateStepType extends AbstractType
+class SchemaCreateStepType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
     }
 
     public function getName()

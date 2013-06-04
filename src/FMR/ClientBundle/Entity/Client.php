@@ -6,13 +6,21 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Client
+ * Entité Client
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="FMR\ClientBundle\Entity\ClientRepository")
  */
 class Client
 {
+	
+	/*
+	 * Attributs
+	 */
+	
+	
     /**
      * @var integer
      *
@@ -107,6 +115,10 @@ class Client
      */
     private $factures;
 
+    /*
+     * Methodes magiques
+     */
+    
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     }
@@ -114,6 +126,10 @@ class Client
     	return $this->getNomPrenom();
     }
 
+    /*
+     * Getter et Setter
+     */
+    
     /**
      * Get id
      *

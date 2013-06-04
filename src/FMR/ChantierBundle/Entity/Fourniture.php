@@ -7,7 +7,9 @@ use FMR\ChantierBundle\Form\FournitureType as FournitureType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Fourniture simple
+ * Entité Fourniture simple
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @ORM\Entity()
  * @ORM\InheritanceType("JOINED")
@@ -15,6 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Fourniture
 {
+	/*
+	 * Attributs
+	 */
+	
     /**
      * @var integer
      *
@@ -66,8 +72,10 @@ class Fourniture
      */
     private $unite;
     
-    
-    
+    /*
+     * Methode magique
+     */
+
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     	$this->date = new \DateTime();
@@ -75,6 +83,10 @@ class Fourniture
     	$this->unite = "pcs";
     }
 
+    /*
+     * Methodes spéciales
+     */
+    
     /**
      * Retourne le formulaire correspondant au type de fourniture
      *
@@ -84,19 +96,38 @@ class Fourniture
     	return new FournitureType();
     }
     
+    /**
+     * écrit la taille
+     * 
+     * @return string
+     */
 	public function getTaille(){
 		return '';
 	}
 	
+	/**
+	 * Texte utilisé pour créer les articles des factures
+	 *
+	 * @return string
+	 */
 	public function getLigneFacturation(){
 		return  $this->getDescriptif();
 	}
     
-	
+	/**
+	 * Calcul de la quantité totale de l'objet
+	 *
+	 * @return float
+	 */
 	public function CalculQuantiteTotale(){
 		return $this->quantite;
 	}
+	
     
+	/*
+	 * Getter et Setter
+	 */
+	
     /**
      * Get id
      *

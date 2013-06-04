@@ -1,4 +1,27 @@
+{# Projet TPI - Fabrice Maillefer #}
 {% extends 'FMRClientBundle::layout.html.twig' %}
+{% block title %}{{ parent() }} Details de {{ entity.nomPrenom }}{% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('client') }}">Liste de tous les clients</a></li>
+	<li class="divider"></li>
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">{{ entity.nomPrenom }}</li>
+	<li><a href="{{ path('client_edit', { 'id': entity.id }) }}">Editer le client</a></li>
+	
+	<li class="nav-header">Offre ({{ entity.offres.count }})</li>
+	<li><a href="{{ path('offre_search') }}?q=client:{{ entity.id }}">Afficher toutes les offres</a></li>
+	<li><a href="{{ path('offre_client_new', { 'id': entity.id }) }}">Créer une offre pour ce client</a></li>
+	
+	<li class="nav-header">Chantier ({{ entity.chantiers.count }})</li>
+	<li><a href="{{ path('chantier_search') }}?q=client:{{ entity.id }}">Afficher tous les chantiers</a></li>
+	<li><a href="{{ path('chantier_client_new', { 'id': entity.id }) }}">Créer un chantier pour ce client</a></li>
+	
+	<li class="nav-header">Factures ({{ entity.factures.count }})</li>
+	<li><a href="{{ path('facture_search') }}?q=client:{{ entity.id }}">Afficher toutes les factures</a></li>
+	<li><a href="{{ path('facture_client_new', { 'id': entity.id }) }}">Créer une facture pour ce client</a></li>
+	
+{% endblock %}
 {% block content -%}
 <div class="page-header">
       <h1>Client : {{ entity.nomPrenom }}</h1>

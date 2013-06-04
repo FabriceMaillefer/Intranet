@@ -7,8 +7,11 @@ use FMR\CommonBundle\Configurator\Step\DatabaseCreateStep;
 use FMR\CommonBundle\Configurator\Step\SchemaCreateStep;
 /**
  *
+ * Bundle Common
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
+ *
+ * Contient les étapes de configurations
  */
 class FMRCommonBundle extends Bundle
 {

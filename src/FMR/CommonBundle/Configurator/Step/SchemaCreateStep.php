@@ -3,14 +3,14 @@ namespace FMR\CommonBundle\Configurator\Step;
 
 use Sensio\Bundle\DistributionBundle\Configurator\Step\StepInterface;
 
-use FMR\CommonBundle\Configurator\Form\DatabaseCreateStepType;
+use FMR\CommonBundle\Configurator\Form\SchemaCreateStepType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\DriverManager;
 
 /**
- * DatabaseCreation Step.
+ * SchemaCreateStep Step.
  *
- *	Etape de création de la base de données
+ *	Etape de création du schema de la bd
  *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  */
@@ -34,7 +34,7 @@ class SchemaCreateStep implements StepInterface
      */
     public function getFormType()
     {
-    	return new DatabaseCreateStepType();
+    	return new SchemaCreateStepType();
     }
 
     /**

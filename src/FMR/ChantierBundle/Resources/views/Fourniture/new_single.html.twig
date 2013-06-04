@@ -1,4 +1,5 @@
- <form action="{{ path('fourniture_create', {'id': chantier.id}) }}" method="post" class="form_inline_block" {{ form_enctype(form) }}>
+{# Projet TPI - Fabrice Maillefer #}
+<form action="{{ path('fourniture_create', {'id': chantier.id}) }}" method="post" class="form_inline_block" {{ form_enctype(form) }}>
       <input type="hidden" name="_type" value="{{ type }}" />
 		{{ form_widget(form) }}
         <p>

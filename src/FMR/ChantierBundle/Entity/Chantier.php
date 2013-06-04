@@ -4,13 +4,19 @@ namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
- * Chantier
+ * Entité Chantier
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="FMR\ChantierBundle\Entity\ChantierRepository")
  */
 class Chantier
 {
+	/*
+	 * Attributs
+	 */
+	
     /**
      * @var integer
      *
@@ -92,6 +98,10 @@ class Chantier
      */
     private $dateCreation;
 
+    /*
+     * Methodes magiques
+     */
+    
     public function __construct() {
     	$this->dateCreation = new \DateTime();
     	$this->dateDebut = new \DateTime();
@@ -101,6 +111,9 @@ class Chantier
     	return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().' à '.$this->getLieu();
     }
     
+    /*
+     * Getter et Setter
+     */
     
     /**
      * Get id

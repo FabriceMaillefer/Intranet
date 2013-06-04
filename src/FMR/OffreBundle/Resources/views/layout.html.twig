@@ -1,4 +1,19 @@
+{# Projet TPI - Fabrice Maillefer #}
+{# Layout de la partie Offre #}
 {% extends '::base.html.twig' %}
+{% block title %}{{ parent() }} Offre - {% endblock %}
 {% block body %}
-{% block content %}{% endblock %}
+<div class="row-fluid">
+	<div class="span2 hidden-phone" >
+		<ul class="nav nav-list">
+			{% block sidebar %}
+				<li class="nav-header">Offres</li>
+				<li><a href="{{ path('offre_new') }}">Ajouter une nouvelle offre</a></li>
+			{% endblock %}
+			</ul>
+ 		</div>
+	<div class="span10">
+	{% block content %}{% endblock %}
+	</div>
+</div>
 {% endblock %}

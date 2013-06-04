@@ -6,12 +6,18 @@ use Doctrine\ORM\Mapping as ORM;
 use FMR\ChantierBundle\Form\Fourniture3DType as FournitureType;
 
 /**
- * Fourniture trois dimensions 
+ * Entité Fourniture trois dimensions 
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @ORM\Entity()
  */
 class Fourniture3D extends Fourniture2D
 {
+	
+	/*
+	 * Attributs
+	*/
 	
 	/**
 	 * @var integer
@@ -29,6 +35,19 @@ class Fourniture3D extends Fourniture2D
 	 */
 	private $hauteur;
 	
+	/*
+	 * Methode magique
+	*/
+	public function __construct(){
+		parent::__construct();
+		$this->setUnite('m3');
+	}
+	
+	
+	/*
+	 * Methodes spéciales
+	 */
+	
 	public function getForm(){
 		return new FournitureType();
 	}
@@ -41,10 +60,9 @@ class Fourniture3D extends Fourniture2D
 		return $this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100 * $this->getHauteur()/1000;
 	}
 	
-	public function __construct(){
-		parent::__construct();
-		$this->setUnite('m3');
-	}
+	/*
+	 * Getter et Setter
+	 */
 	
     /**
      * Get id

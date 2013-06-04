@@ -1,18 +1,22 @@
 <?php
 
-
 namespace FMR\ChantierBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FMR\ChantierBundle\Form\Fourniture2DType as FournitureType;
 
 /**
- * Fourniture deux dimensions 
- *
+ * Entité Fourniture deux dimensions 
+ * 
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ * 
  * @ORM\Entity()
  */
 class Fourniture2D extends Fourniture1D
 {
+	/*
+	 * Attributs
+	*/
 	
 	/**
 	 * @var integer
@@ -30,6 +34,19 @@ class Fourniture2D extends Fourniture1D
 	 */
 	private $largeur;
 	
+	/*
+	 * Methode magique
+	*/
+	public function __construct(){
+		parent::__construct();
+		$this->setUnite('m2');
+	}
+	
+	
+	/*
+	 * Methodes spéciales
+	 */
+	
 	public function getForm(){
 		return new FournitureType();
 	}
@@ -42,10 +59,10 @@ class Fourniture2D extends Fourniture1D
 		return $this->getQuantite() * $this->getLongueur() * $this->getLargeur()/100;
 	}
 
-	public function __construct(){
-		parent::__construct();
-		$this->setUnite('m2');
-	}
+	
+	/*
+	 * Getter et Setter
+	*/
 	
     /**
      * Get id

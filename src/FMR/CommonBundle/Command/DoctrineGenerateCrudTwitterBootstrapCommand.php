@@ -3,6 +3,11 @@ namespace FMR\CommonBundle\Command;
 use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
 
+/**
+ * Générateur personalisé de CRUD
+ *
+ * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
+ */
 class DoctrineGenerateCrudTwitterBootstrapCommand extends GenerateDoctrineCrudCommand
 {
 
