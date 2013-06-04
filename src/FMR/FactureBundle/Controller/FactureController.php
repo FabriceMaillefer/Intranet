@@ -260,6 +260,32 @@ class FactureController extends Controller
     			'formStatut' => $formStatut->createView(),
     	);
     }
+    
+    /**
+     * Change le statut en payé et change la date de payement
+     *
+     * @Route("/{id}/payer", name="facture_payer")
+     * @Method("GET")
+     */
+    public function payerAction(Facture $facture)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	//Changement du statut de la facture
+		$statut = $em->getRepository('FMRFactureBundle:StatutFacture')->find(3);
+		if ($statut) {
+			$facture->setStatut($statut);
+		}
+		//changement de la date d'impression
+    	$facture->setDatePayement(new \DateTime());
+    	$em->persist($facture);
+    	$em->flush();
+    
+    		
+    	$this->get('session')->getFlashBag()->add('success', 'Facture marquée comme payée !');
+    
+    	return $this->redirect($this->generateUrl('facture_show', array('id' => $facture->getId())));
+    }
 
     /**
      * Displays a form to edit an existing Facture entity.
