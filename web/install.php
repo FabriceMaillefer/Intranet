@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Script d'installation modifié pour configurer l'intranet
+ * 
+ * 
+ * @author Fabrice Maillefer
+ */
+
 if (!isset($_SERVER['HTTP_HOST'])) {
 	exit('This script cannot be run from the CLI. Run it from a browser.');
 }
@@ -72,29 +79,29 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
                         <?php if ($symfonyRequirements->hasPhpIniConfigIssue()): ?>
                             <p id="phpini">*
                                 <?php if ($symfonyRequirements->getPhpIniConfigPath()): ?>
-                                    Changes to the <strong>php.ini</strong> file must be done in "<strong><?php echo $symfonyRequirements->getPhpIniConfigPath() ?></strong>".
+                                    Les changements du fichier <strong>php.ini</strong> devront être fait dans "<strong><?php echo $symfonyRequirements->getPhpIniConfigPath() ?></strong>".
                                 <?php else: ?>
-                                    To change settings, create a "<strong>php.ini</strong>".
+                                    Pour changer les paramêtres, créez un fichier "<strong>php.ini</strong>".
                                 <?php endif; ?>
                             </p>
                         <?php endif; ?>
 
                         <?php if (!count($majorProblems) && !count($minorProblems)): ?>
-                            <p class="ok">Your configuration looks good to run Symfony.</p>
+                            <p class="ok">Votre configuration semble correct pour executer l'application.</p>
                         <?php endif; ?>
 
                         <ul class="symfony-install-continue">
                             <?php if (!count($majorProblems)): ?>
-                                <li><a href="app_dev.php/_configurator/">Configure your Symfony Application online</a></li>
+                                <li><a href="app_dev.php/_configurator/">Configurer l'application en ligne</a></li>
                             <?php endif; ?>
                             <?php if (count($majorProblems) || count($minorProblems)): ?>
-                                <li><a href="config.php">Re-check configuration</a></li>
+                                <li><a href="install.php">Re-contrôler la configuration</a></li>
                             <?php endif; ?>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="version">Symfony Standard Edition</div>
+            <div class="version">Symfony Maillefer Edition</div>
         </div>
     </body>
 </html>
