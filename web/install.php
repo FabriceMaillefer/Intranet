@@ -38,7 +38,8 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
         <div id="content">
             <div class="header clear-fix">
                 <div class="header-logo">
-                    <img src="bundles/framework/images/logo_symfony.png" alt="Symfony" />
+                    <img style="vertical-align:middle;" src="intranet.png" alt="intranet" />
+                  	<h1 style="display:inline; font-size:3em;">Intranet Gestion</h1>  
                 </div>
             </div>
 
