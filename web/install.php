@@ -38,7 +38,7 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
         <div id="content">
             <div class="header clear-fix">
                 <div class="header-logo">
-                    <img style="vertical-align:middle;" src="intranet.png" alt="intranet" />
+                    <img style="vertical-align:middle;" src="/intranet.png" alt="intranet" />
                   	<h1 style="display:inline; font-size:3em;">Intranet Gestion</h1>  
                 </div>
             </div>
@@ -104,8 +104,5 @@ $minorProblems = $symfonyRequirements->getFailedRecommendations();
             </div>
             <div class="version">Symfony Maillefer Edition</div>
         </div>
-    </body>
-</html>
-                        
     </body>
 </html>
