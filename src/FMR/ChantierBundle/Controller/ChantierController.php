@@ -262,7 +262,7 @@ class ChantierController extends Controller
             
             $this->get('session')->getFlashBag()->add('success', 'Modification r&eacute;ussie');
 
-            return $this->redirect($this->generateUrl('chantier_show', array('id' => $id)));
+            return $this->redirect($this->generateUrl('chantier_show', array('id' => $entity->getId())));
         }
         
 		$this->get('session')->getFlashBag()->add('error', 'Erreur lors de la modification');

@@ -51,6 +51,16 @@
         		</a>
                 </td>
             </tr>
+            {% else %}
+			<tr>
+				<td colspan="9">
+					Aucun chantier trouv&eacute;.
+					<br/><br/>
+					<a class="btn btn-primary" href="{{ path('chantier_new') }}">
+						Ajouter un nouveau chantier
+					</a>
+		      	</td>
+		      </tr>
         {% endfor %}
         </tbody>
     </table>

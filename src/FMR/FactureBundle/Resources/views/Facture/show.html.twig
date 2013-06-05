@@ -45,7 +45,7 @@
 					<p><strong>Date du payement</strong>
 						{{ entity.datePayement|date('d.m.Y H:i') }}
 					</p>
-				{% else %}
+				{% elseif entity.statut.id == 2 %}
 					<a class="btn btn-primary" href="{{ path('facture_payer', { 'id': entity.id }) }}">Marquer comme payé</a>
 				{% endif %}
 				<p><strong>Rabais</strong>

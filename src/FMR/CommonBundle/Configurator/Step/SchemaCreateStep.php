@@ -74,8 +74,12 @@ class SchemaCreateStep implements StepInterface
     	$application->setAutoExit(false);
 
     	
-    	//Create de Schema
+    	//Création du schéma
     	$options = array('command' => 'doctrine:schema:create');
+    	$application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
+    	
+    	//Ajout des données de base
+    	$options = array('command' => 'doctrine:fixtures:load', '--append'=>true );
     	$application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     	
     	return true;

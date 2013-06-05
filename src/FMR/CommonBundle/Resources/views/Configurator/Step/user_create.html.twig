@@ -1,6 +1,6 @@
 {% extends "SensioDistributionBundle::Configurator/layout.html.twig" %}
 
-{% block title %}Intranet Maillefer - Création des tables{% endblock %}
+{% block title %}Intranet Maillefer - Création des utilisateurs{% endblock %}
 
 {% block content %}
     {% form_theme form "SensioDistributionBundle::Configurator/form.html.twig" %}
@@ -8,9 +8,7 @@
     <div class="step">
         {% include "SensioDistributionBundle::Configurator/steps.html.twig" with { "index": index, "count": count } %}
 
-        <h1>Création des tables de la base de données</h1>
-        <p>Création automatique des tables dans la base de données.</p>
-        <p>Les données de base sont chargée dans la base de données.</p>
+        <h1>Création d'un utilisateur pour l'application</h1>
         <form action="{{ path('_configurator_step', { 'index': index }) }} " method="POST">
           
             {{ form_rest(form) }}

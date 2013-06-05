@@ -5,6 +5,8 @@ namespace FMR\CommonBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use FMR\CommonBundle\Configurator\Step\DatabaseCreateStep;
 use FMR\CommonBundle\Configurator\Step\SchemaCreateStep;
+use FMR\CommonBundle\Configurator\Step\UserCreateStep;
+
 /**
  *
  * Bundle Common
@@ -26,6 +28,10 @@ class FMRCommonBundle extends Bundle
 			$configurator->addStep(new DatabaseCreateStep($configurator->getParameters(),$kernel));
 			//Etape de la création des tables
 			$configurator->addStep(new SchemaCreateStep($configurator->getParameters(),$kernel));
+			//Etape de la création des utilisateurs
+			$userManipulator = $this->container->get('fos_user.util.user_manipulator');
+			$configurator->addStep(new UserCreateStep($configurator->getParameters(),$userManipulator));
+			
 		}
 	}
 }

@@ -3,30 +3,44 @@ namespace FMR\CommonBundle\Configurator\Step;
 
 use Sensio\Bundle\DistributionBundle\Configurator\Step\StepInterface;
 
-use FMR\CommonBundle\Configurator\Form\DatabaseCreateStepType;
+use FMR\CommonBundle\Configurator\Form\UserCreateStepType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\DriverManager;
 
 /**
- * DatabaseCreation Step.
+ * UserCreateStep Step.
  *
- *	Etape de création de la base de données
+ *	Etape de création d'un utilisateur de l'application
  *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  */
-class DatabaseCreateStep implements StepInterface
+class UserCreateStep implements StepInterface
 {
 	/**
 	 * Parametre du fichier parameters.yml
 	 */
 	protected $parameters;
 	
-	protected $kernel;
+	protected $userManipulator;
 	
-    public function __construct(array $parameters, $kernel = null)
+	
+	/**
+	 * @Assert\NotBlank
+	 */
+	public $username;
+	/**
+	 * @Assert\NotBlank
+	 */
+	public $password;
+	/**
+	 * @Assert\Email
+	 */
+	public $email;
+	
+    public function __construct(array $parameters, $userManipulator = null)
     {
 		$this->parameters = $parameters;
-    	$this->kernel = $kernel;
+    	$this->userManipulator = $userManipulator;
     }
 
     /**
@@ -34,7 +48,7 @@ class DatabaseCreateStep implements StepInterface
      */
     public function getFormType()
     {
-    	return new DatabaseCreateStepType();
+    	return new UserCreateStepType();
     }
 
     /**
@@ -61,24 +75,10 @@ class DatabaseCreateStep implements StepInterface
      * @see StepInterface
      */
     public function update(StepInterface $data)
-    {
-    	
-    	$this->create();
+    {    	
+    	$this->userManipulator->create($this->username, $this->password, $this->email, true, true);
     	
     	return array();
-    }
-
-    public function create(){
- 
-    	$application = new \Symfony\Bundle\FrameworkBundle\Console\Application($this->kernel);
-    	$application->setAutoExit(false);
-
-    	
-    	//Création de la base de données
-    	$options = array('command' => 'doctrine:database:create');
-    	$application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
-    	
-    	return true;
     }
     
     /**
@@ -86,6 +86,6 @@ class DatabaseCreateStep implements StepInterface
      */
     public function getTemplate()
     {
-        return 'FMRCommonBundle:Configurator/Step:database_create.html.twig';
+        return 'FMRCommonBundle:Configurator/Step:user_create.html.twig';
     }
 }
