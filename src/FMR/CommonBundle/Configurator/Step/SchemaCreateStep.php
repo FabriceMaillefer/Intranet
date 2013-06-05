@@ -82,6 +82,10 @@ class SchemaCreateStep implements StepInterface
     	$options = array('command' => 'doctrine:fixtures:load', '--append'=>true );
     	$application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     	
+    	//Vide la cache de production de l'application
+    	$options = array('command' => 'cache:clear', '--env'=>'prod' );
+    	$application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
+    	
     	return true;
     }
     
