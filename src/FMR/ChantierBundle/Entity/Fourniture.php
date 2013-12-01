@@ -58,12 +58,7 @@ class Fourniture
      */
     private $dateCreation;
 
-    /**
-     * @var FMR\ChantierBundle\Entity\Chantier
-     *
-     * @ORM\ManyToOne(targetEntity="FMR\ChantierBundle\Entity\Chantier", inversedBy="fournitures")
-     */
-    private $chantier;
+
 
     /**
      * @var string

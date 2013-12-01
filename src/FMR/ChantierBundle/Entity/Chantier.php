@@ -2,16 +2,19 @@
 
 namespace FMR\ChantierBundle\Entity;
 
+use FMR\RelationClientBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use FMR\RelationClientBundle\Entity\RelationClientAvecLigne;
 /**
  * Entité Chantier
  *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="FMR\ChantierBundle\Entity\ChantierRepository")
+ * @ORM\Entity
+ * ORM\Entity(repositoryClass="FMR\ChantierBundle\Entity\ChantierRepository")
  */
-class Chantier
+class Chantier extends RelationClientAvecLigne
 {
 	/*
 	 * Attributs
@@ -24,30 +27,7 @@ class Chantier
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
-    /**
-     * @var FMR\ClientBundle\Entity\Client
-     *
-     * @ORM\ManyToOne(targetEntity="FMR\ClientBundle\Entity\Client", inversedBy="chantiers")
-     * @ORM\JoinColumn(name="client_id", referencedColumnName="id", nullable=false)
-     */
-    private $client;
-
-    /**
-     * @var FMR\OffreBundle\Entity\Offre
-     *
-     * @ORM\OneToOne(targetEntity="FMR\OffreBundle\Entity\Offre", inversedBy="chantier")
-     * @ORM\JoinColumn(name="offre_id", referencedColumnName="id", nullable=true)
-     */
-    private $offre;
-    
-    /**
-     * @var FMR\FactureBundle\Entity\Facture
-     *
-     * @ORM\OneToOne(targetEntity="FMR\FactureBundle\Entity\Facture", mappedBy="chantier")
-     */
-    private $facture;
+    protected  $id;
 
     /**
      * @var string
@@ -63,12 +43,6 @@ class Chantier
      */
     private $lieu;
 
-    /**
-     * @var FMR\OffreBundle\Entity\Fourniture
-     *
-     * @ORM\OneToMany(targetEntity="FMR\ChantierBundle\Entity\Fourniture", mappedBy="chantier")
-     */
-    private $fournitures;
 
     /**
      * @var string
@@ -91,24 +65,19 @@ class Chantier
      */
     private $dateFin;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="DateCreation", type="datetime")
-     */
-    private $dateCreation;
 
     /*
      * Methodes magiques
      */
     
     public function __construct() {
-    	$this->dateCreation = new \DateTime();
+    	parent::__construct();
     	$this->dateDebut = new \DateTime();
     }
 
     public function __toString() {
-    	return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().' à '.$this->getLieu();
+    	//return 'N°'.$this->id.': '.$this->getClient()->getNomPrenom().' à '.$this->getLieu();
+    	return 'N°'.$this->id.':  à '.$this->getLieu();
     }
     
     /*
@@ -246,128 +215,5 @@ class Chantier
     }
 
 
-    /**
-     * Get dateCreation
-     *
-     * @return \DateTime 
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
-    }
-
-    /**
-     * Set dateCreation
-     *
-     * @param \DateTime $dateCreation
-     * @return Chantier
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-    
-        return $this;
-    }
-
-    /**
-     * Set client
-     *
-     * @param \FMR\ClientBundle\Entity\Client $client
-     * @return Chantier
-     */
-    public function setClient(\FMR\ClientBundle\Entity\Client $client = null)
-    {
-        $this->client = $client;
-    
-        return $this;
-    }
-
-    /**
-     * Get client
-     *
-     * @return \FMR\ClientBundle\Entity\Client 
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * Set offre
-     *
-     * @param \FMR\OffreBundle\Entity\Offre $offre
-     * @return Chantier
-     */
-    public function setOffre(\FMR\OffreBundle\Entity\Offre $offre = null)
-    {
-        $this->offre = $offre;
-    
-        return $this;
-    }
-
-    /**
-     * Get offre
-     *
-     * @return \FMR\OffreBundle\Entity\Offre 
-     */
-    public function getOffre()
-    {
-        return $this->offre;
-    }
-
-    /**
-     * Add fournitures
-     *
-     * @param \FMR\ChantierBundle\Entity\Fourniture $fournitures
-     * @return Chantier
-     */
-    public function addFourniture(\FMR\ChantierBundle\Entity\Fourniture $fournitures)
-    {
-        $this->fournitures[] = $fournitures;
-    
-        return $this;
-    }
-
-    /**
-     * Remove fournitures
-     *
-     * @param \FMR\ChantierBundle\Entity\Fourniture $fournitures
-     */
-    public function removeFourniture(\FMR\ChantierBundle\Entity\Fourniture $fournitures)
-    {
-        $this->fournitures->removeElement($fournitures);
-    }
-
-    /**
-     * Get fournitures
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFournitures()
-    {
-        return $this->fournitures;
-    }
-
-    /**
-     * Set facture
-     *
-     * @param \FMR\FactureBundle\Entity\Facture $facture
-     * @return Chantier
-     */
-    public function setFacture(\FMR\FactureBundle\Entity\Facture $facture = null)
-    {
-        $this->facture = $facture;
-    
-        return $this;
-    }
-
-    /**
-     * Get facture
-     *
-     * @return \FMR\FactureBundle\Entity\Facture
-     */
-    public function getFacture()
-    {
-        return $this->facture;
-    }
+   
 }

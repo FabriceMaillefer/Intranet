@@ -6,7 +6,7 @@
 		<div class="pull-right" style="text-align:right;">
       		<form action="{{ path('chantier_search') }}" >
       			<input name="q" type="search" placeholder="Rechercher un chantier"{% if recherche is defined %}value="{{ recherche }}"{% endif %} /><br />
-      			<button type="submit" class="btn">Recherche</button>
+      			<button type="submit" class="btn btn-default">Recherche</button>
       		</form>
       	</div>
 		{% if recherche is defined %}
@@ -15,7 +15,7 @@
 			<h1>Liste des chantiers</h1>
 			<p>Seuls les chantiers actifs sont affichées.</p>
 		{% endif %}
-	       	<a class="btn" href="{{ path('chantier_new') }}">
+	       	<a class="btn btn-default" href="{{ path('chantier_new') }}">
 				Ajouter un nouveau chantier
 			</a>
     	</div>

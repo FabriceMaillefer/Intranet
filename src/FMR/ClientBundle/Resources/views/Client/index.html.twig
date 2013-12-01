@@ -6,7 +6,7 @@
 		<div class="pull-right" style="text-align:right;">
       		<form action="{{ path('client_search') }}" >
       			<input name="q" type="search" placeholder="Rechercher un client"{% if recherche is defined %}value="{{ recherche }}"{% endif %} /><br />
-      			<button type="submit" class="btn">Recherche</button>
+      			<button type="submit" class="btn btn-default">Recherche</button>
       		</form>
       	</div>
       	{% if recherche is defined %}
@@ -15,7 +15,7 @@
 			<h1>Liste des clients</h1>
 			<p>Seuls les derniers clients créés sont affichées.</p>
 	    {% endif %}
-	    <a class="btn" href="{{ path('client_new') }}">
+	    <a class="btn btn-default" href="{{ path('client_new') }}">
             Ajouter un nouveau client
       	</a>
       	

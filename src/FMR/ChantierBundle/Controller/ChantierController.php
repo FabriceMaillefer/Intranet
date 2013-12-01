@@ -9,10 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FMR\ChantierBundle\Entity\Chantier;
 use FMR\ChantierBundle\Form\ChantierType;
-use FMR\OffreBundle\Entity\Offre;
 use FMR\ClientBundle\Entity\Client;
-use FMR\FactureBundle\Entity\Facture;
-use FMR\FactureBundle\Entity\ArticleFacture;
+
 
 /**
  * Contrôleur de l'entité Chantier

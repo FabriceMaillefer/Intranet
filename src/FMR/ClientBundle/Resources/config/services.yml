@@ -1,0 +1,5 @@
+services:
+    fmr_client.configure_menu_listener:
+        class: FMR\ClientBundle\EventListener\ConfigureMenuListener
+        tags:
+          - { name: kernel.event_listener, event: fmr_common.menu_configure, method: onMenuConfigure, priority: 100  }

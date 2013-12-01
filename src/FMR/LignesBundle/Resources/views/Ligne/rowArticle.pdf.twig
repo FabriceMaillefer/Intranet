@@ -1,0 +1,8 @@
+{% extends 'FMRLignesBundle:Ligne:row.html.twig' %}
+{% block cellules %}
+	<td>{{ ligne.libelle|raw }}</td>
+	<td>{{ ligne.unite }}</td>
+	<td>{{ ligne.CalculQuantiteTotale }}</td>
+	<td class="text-right">{{ macro.monetaire(ligne.prixUnitaire) }} CHF</td>
+	<td class="text-right">{{ macro.monetaire(ligne.calculPrix) }} CHF</td>
+{% endblock %}

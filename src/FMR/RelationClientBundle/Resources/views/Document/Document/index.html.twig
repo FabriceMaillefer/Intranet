@@ -1,0 +1,62 @@
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRRelationClientBundle:Document:Document\\layout.html.twig' %}
+{% block title %}{{ parent() }} Liste {{ entity.idpi }}{% endblock %}
+{% block content -%}
+	<div class="page-header">
+		<div class="pull-right" style="text-align:right;">
+      		<form action="{{ path('document_search',{'type': entity.type}) }}" >
+      			<input name="q" type="search" placeholder="Rechercher {{ entity.idsi }}"{% if recherche is defined %}value="{{ recherche }}"{% endif %} /><br />
+      			<button type="submit" class="btn btn-default">Recherche</button>
+      		</form>
+      	</div>
+		{% if recherche is defined %}
+      		<h1>R&eacute;sultats de la recherche &quot;{{ recherche }}&quot;</h1>
+      	{% else %}
+			<h1>Liste {{ entity.idpi }}</h1>
+		{% endif %}
+	       	<a class="btn btn-default" href="{{ path('document_new',{'type': entity.type}) }}">
+				Ajouter {{ entity.idsi('nouvelle ') }}
+			</a>
+    	</div>
+	
+	
+	<table class="table table-bordered table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Client</th>
+                <th class="hidden-xs">Date de cr&eacute;ation</th>
+                <th>R&eacute;f&eacute;rence</th>
+                <th class="hidden-xs">Nb Article</th>
+                <th class="hidden-xs">Statut</th>
+                <th>Montant</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('document_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.client }}</td>
+                <td class="hidden-xs">{% if entity.dateCreation %}{{ entity.dateCreation|date('d.m.Y') }}{% endif %}</td>
+                <td>{{ entity.referenceClient }}</td>
+                <td class="hidden-xs">{{ entity.lignes.count }}</td>
+                <td class="hidden-xs">{{ entity.statut }}</td>
+                <td>{{ macro.monetaire(entity.CalculSommeMontantTotal) }}</td>
+                <td><a class="btn btn-info" href="{{ path('document_show', { 'id': entity.id }) }}">Voir</a>
+                </td>
+            </tr>
+            {% else %}
+			<tr>
+				<td colspan="8">
+					Aucune offre trouv&eacute;e.
+					<br/><br/>
+						<a class="btn btn-default" href="{{ path('document_new',{'type': entity.type}) }}">
+							Ajouter {{ entity.idsi('nouvelle ') }}
+						</a>
+		      	</td>
+		      </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}

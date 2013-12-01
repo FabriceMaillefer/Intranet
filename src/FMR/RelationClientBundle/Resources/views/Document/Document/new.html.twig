@@ -1,0 +1,37 @@
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRRelationClientBundle:Document:Document\\layout.html.twig' %}
+{% block title %}{{ parent() }} Création d'{{ entity.idsi }}{% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('offre') }}">Liste {{ entity.idpi }}</a></li>
+	{{ parent() }}
+{% endblock %}
+{% block content -%}
+	<div class="page-header">
+		{% if client is defined and client is not null %}
+			<h1>Ajouter {{ entity.idsi }} pour le client {{ client }}</h1>
+		{% else %}
+			<h1>Ajouter {{ entity.idsi }}</h1>
+		{% endif %}
+	    
+	    <div style="text-align:right;">
+	    	<a class="btn btn-default" href="{{ path('document',{'type': entity.type}) }}">
+	            Retour &agrave; la liste
+	        </a>
+	    </div>
+	</div>
+
+    <form action="{{ path('document_create') }}" method="post" {{ form_enctype(form) }}>
+    	<input type="hidden" value="{{ entity.type }}" name="_type">
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </p>
+    </form>
+
+<div class="form-actions">
+		<a class="btn btn-default" href="{{ path('document',{'type': entity.type }) }}">
+            Retour &agrave; la liste
+		</a>
+</div>
+
+{% endblock %}

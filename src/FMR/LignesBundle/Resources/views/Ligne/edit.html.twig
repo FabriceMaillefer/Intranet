@@ -1,25 +1,20 @@
 {# Projet TPI - Fabrice Maillefer #}
-{% extends 'FMRChantierBundle::layout.html.twig' %}
+{% extends '::layout.html.twig' %}
 {% block title %}{{ parent() }} Modification de la fourniture {{ entity.id }}{% endblock %}
 {% block sidebar %}
-				<li><a href="{{ path('chantier', { 'id': entity.chantier.id }) }}">Retour aux détails du chantier</a></li>
-				<li><a href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}">Retour aux fournitures du chantier</a></li>
+			<li><a href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a></li>
 			{% endblock %}
 {% block content %}
 <div class="page-header">
-    <h1>Modifier une fourniture</h1>
+    <h4>Modification de la fourniture {{ entity.id }}</h4>
     	<div style="text-align:right;">
-		<a class="btn btn-primary" href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}" >
-            Retour aux fournitures du chantier
-        </a>
+		<a href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a>
 	</div>
 </div>
-	{% include 'FMRChantierBundle:Fourniture:edit_single.html.twig' %}
+	{% include 'FMRLignesBundle:Ligne:edit_single.html.twig' %}
 	<div class="form-actions">
-		<a class="btn" href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}" >
-            Retour aux fournitures du chantier
-        </a>
-        <a class="btn btn-danger" href="{{ path('fourniture_delete', { 'id': entity.id }) }}">
+		<a href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a>
+        <a class="btn btn-danger" href="{{ path('ligne_delete', { 'id': entity.id }) }}">
             Supprimer
         </a>
 </div>

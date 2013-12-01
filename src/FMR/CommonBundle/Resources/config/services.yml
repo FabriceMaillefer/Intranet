@@ -1,0 +1,11 @@
+services:
+    fmr_common.main_builder:
+        class: FMR\CommonBundle\Menu\MainBuilder
+        arguments: ["@knp_menu.factory", "@event_dispatcher"]
+
+    fmr_common.menu.main:
+        class: Knp\Menu\MenuItem 
+        factory_service: fmr_common.main_builder
+        factory_method: createMainMenu
+        tags:
+            - { name: knp_menu.menu, alias: main }

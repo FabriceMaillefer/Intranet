@@ -3,7 +3,7 @@ function ImageSelector(elem, actionOnClose, nomVariable) {
 	this.nomVariable = nomVariable;
 	this.elem = elem;
 	$(this.elem).invisible();
-	$(this.elem).after('<a class="btn" href="#imageSelector" id="button_select_'+this.nomVariable+'" onclick="'+this.nomVariable+'.openDialog()">Choisir une image</a>');
+	$(this.elem).after('<a class="btn btn-default" href="#imageSelector" id="button_select_'+this.nomVariable+'" onclick="'+this.nomVariable+'.openDialog()">Choisir une image</a>');
 	
 	this.openDialog = function(){
 		$.ajax({

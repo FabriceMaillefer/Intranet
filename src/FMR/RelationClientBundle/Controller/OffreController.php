@@ -1,6 +1,6 @@
 <?php
 
-namespace FMR\OffreBundle\Controller;
+namespace FMR\RelationClientBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,14 +18,14 @@ use Ps\PdfBundle\Annotation\Pdf;
  *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
- * @Route("/offre")
+ * Route("/offre")
  */
 class OffreController extends Controller
 {
     /**
      * Lists all Offre entities.
      *
-     * @Route("/", name="offre")
+     * Route("/", name="offre")
      * @Method("GET")
      * @Template()
      */
@@ -43,7 +43,7 @@ class OffreController extends Controller
     /**
      * search and displays an Offre entity.
      *
-     * @Route("/search/", name="offre_search")
+     * Route("/search/", name="offre_search")
      * @Template("FMROffreBundle:Offre:index.html.twig")
      */
     public function searchAction(Request $request)
@@ -64,7 +64,7 @@ class OffreController extends Controller
     /**
      * Formattage de l'offre en PDF ou en HTML selon le format
      *
-     * @Route("/print/{id}", name="offre_print", defaults={"_format"="html"})
+     * Route("/print/{id}", name="offre_print", defaults={"_format"="html"})
      * @Method("GET")
      *
      * @Pdf(stylesheet="::print-style.xml.twig")
@@ -97,7 +97,7 @@ class OffreController extends Controller
     /**
      * Creates a new Offre entity.
      *
-     * @Route("/", name="offre_create")
+     * Route("/", name="offre_create")
      * @Method("POST")
      * @Template("FMROffreBundle:Offre:new.html.twig")
      */
@@ -133,8 +133,8 @@ class OffreController extends Controller
     /**
      * Displays a form to create a new Offre entity.
      *
-     * @Route("/new", name="offre_new")
-     * @Route("/client/{id}/new", name="offre_client_new")
+     * Route("/new", name="offre_new")
+     * Route("/client/{id}/new", name="offre_client_new")
      * @Method("GET")
      * @Template()
      */
@@ -155,7 +155,7 @@ class OffreController extends Controller
     /**
      * Finds and displays a Offre entity.
      *
-     * @Route("/{id}", name="offre_show")
+     * Route("/{id}", name="offre_show")
      * @Method("GET")
      * @Template()
      */
@@ -180,7 +180,7 @@ class OffreController extends Controller
     /**
      * Permet de changer le statut de l'offre
      *
-     * @Route("/{id}/statut", name="offre_statut")
+     * Route("/{id}/statut", name="offre_statut")
      * @Method("PUT")
      * @Template("FMROffreBundle:Offre:show.html.twig")
      */
@@ -212,7 +212,7 @@ class OffreController extends Controller
     /**
      * Displays a form to edit an existing Offre entity.
      *
-     * @Route("/{id}/edit", name="offre_edit")
+     * Route("/{id}/edit", name="offre_edit")
      * @Method("GET")
      * @Template()
      */
@@ -242,7 +242,7 @@ class OffreController extends Controller
     /**
      * Edits an existing Offre entity.
      *
-     * @Route("/{id}", name="offre_update")
+     * Route("/{id}", name="offre_update")
      * @Method("PUT")
      * @Template("FMROffreBundle:Offre:edit.html.twig")
      */
@@ -279,7 +279,7 @@ class OffreController extends Controller
     /**
      * Deletes a Offre entity.
      *
-     * @Route("/{id}/delete", name="offre_delete")
+     * Route("/{id}/delete", name="offre_delete")
      *@Method("GET")
      */
 	public function deleteAction($id)

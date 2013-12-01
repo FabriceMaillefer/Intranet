@@ -32,8 +32,8 @@
 		</div>
 </div>
 
-<div class="row-fluid">
-	<div class="span4">
+<div class="row">
+	<div class="col-md-4">
          <p><strong>Nom</strong>
             {{ entity.nom }}
         </p>
@@ -50,7 +50,7 @@
             {{ entity.localite }}
         </p>
     </div>
-	<div class="span4">
+	<div class="col-md-4">
          <p><strong>Date Création</strong>
             {{ entity.dateCreation|date('d.m.Y') }}
         </p>
@@ -70,7 +70,7 @@
         </p>
         {% endif %}
      </div>
-     <div class="span4">
+     <div class="col-md-4">
      	<p><strong>NB Offres</strong>
         	   {{ entity.offres.count }}
        	</p>
@@ -82,7 +82,7 @@
        	</p>
   </div>
 </div>
-<div class="row-fluid">
+<div class="row">
 	<h3>Offres en cours</h3>
 		<a href="{{ path('offre_search') }}?q=client:{{ entity.id }}">Toutes les offres</a>
        	<p>
@@ -111,7 +111,7 @@
 </div>
 
 <div class="form-actions">
-        <a class="btn" href="{{ path('client') }}">
+        <a class="btn btn-default" href="{{ path('client') }}">
             Retour &agrave; la liste
         </a>
         <a class="btn btn-danger" href="{{ path('client_delete', { 'id': entity.id }) }}">

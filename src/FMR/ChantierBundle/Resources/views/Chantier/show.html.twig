@@ -20,7 +20,7 @@
 		</div>
 	</div>
 
-<div class="row-fluid">
+<div class="row">
 	{% include 'FMRChantierBundle:Chantier:info.html.twig' with {'chantier':entity} %}
 	<h3>Informations sur le client :</h3>
 			<p><strong>Client : </strong><a href="{{ path('client_show', { 'id': entity.client.id }) }}">{{ entity.client }}</a></p>
@@ -34,7 +34,7 @@
 </div>
 
 <div class="form-actions">
-        <a class="btn" href="{{ path('chantier') }}">
+        <a class="btn btn-default" href="{{ path('chantier') }}">
             Retour &agrave; la liste
         </a>
         <a class="btn btn-primary" href="{{ path('chantier_edit', { 'id': entity.id }) }}">

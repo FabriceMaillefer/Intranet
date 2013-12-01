@@ -1,6 +1,6 @@
 <?php
 
-namespace FMR\FactureBundle\Controller;
+namespace FMR\RelationClientBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,14 +20,14 @@ use Ps\PdfBundle\Annotation\Pdf;
  *
  * @author Fabrice Maillefer <fabrice.maillefer@gmail.com>
  *
- * @Route("/facture")
+ * Route("/facture")
  */
 class FactureController extends Controller
 {
     /**
      * Lists all Facture entities.
      *
-     * @Route("/", name="facture")
+     * Route("/", name="facture")
      * @Method("GET")
      * @Template()
      */
@@ -47,7 +47,7 @@ class FactureController extends Controller
     /**
      * search and displays an Facture entity.
      *
-     * @Route("/search/", name="facture_search")
+     * Route("/search/", name="facture_search")
      * @Template("FMRFactureBundle:Facture:index.html.twig")
      */
     public function searchAction(Request $request)
@@ -69,7 +69,7 @@ class FactureController extends Controller
     /**
      * Creates a new Facture entity.
      *
-     * @Route("/", name="facture_create")
+     * Route("/", name="facture_create")
      * @Method("POST")
      * @Template("FMRFactureBundle:Facture:new.html.twig")
      */
@@ -105,8 +105,8 @@ class FactureController extends Controller
     /**
      * Displays a form to create a new Facture entity.
      *
-     * @Route("/new", name="facture_new")
-     * @Route("/client/{id}/new", name="facture_client_new")
+     * Route("/new", name="facture_new")
+     * Route("/client/{id}/new", name="facture_client_new")
      * @Method("GET")
      * @Template()
      */
@@ -127,7 +127,7 @@ class FactureController extends Controller
     /**
      * 
      *
-     * @Route("/{id}/multiple/article/edit", name="facture_article_multiple_edit")
+     * Route("/{id}/multiple/article/edit", name="facture_article_multiple_edit")
      * @Method("GET")
      * @Template("FMRFactureBundle:Facture:article_edit_multiple.html.twig")
      */
@@ -143,7 +143,7 @@ class FactureController extends Controller
     /**
      *
      *
-     * @Route("/{id}/multiple/article/update", name="facture_article_multiple_update")
+     * Route("/{id}/multiple/article/update", name="facture_article_multiple_update")
      * @Method("PUT")
      */
     public function multipleArticleUpdateAction(Request $request, Facture $facture)
@@ -172,7 +172,7 @@ class FactureController extends Controller
     /**
      * Finds and displays a Facture entity.
      *
-     * @Route("/{id}", name="facture_show")
+     * Route("/{id}", name="facture_show")
      * @Method("GET")
      *
      * @Template()
@@ -190,7 +190,7 @@ class FactureController extends Controller
     /**
      * Formattage de la facture en PDF ou en HTML selon le format
      *
-     * @Route("/print/{id}", name="facture_print", defaults={"_format"="html"})
+     * Route("/print/{id}", name="facture_print", defaults={"_format"="html"})
      * @Method("GET")
      *
      * @Pdf(stylesheet="::print-style.xml.twig")
@@ -223,7 +223,7 @@ class FactureController extends Controller
     /**
      * Permet de changer le statut de la facture
      *
-     * @Route("/{id}/statut", name="facture_statut")
+     * Route("/{id}/statut", name="facture_statut")
      * @Method("PUT")
      * @Template("FMRFactureBundle:Facture:show.html.twig")
      */
@@ -256,7 +256,7 @@ class FactureController extends Controller
     /**
      * Change le statut en payé et change la date de payement
      *
-     * @Route("/{id}/payer", name="facture_payer")
+     * Route("/{id}/payer", name="facture_payer")
      * @Method("GET")
      */
     public function payerAction(Facture $facture)
@@ -282,7 +282,7 @@ class FactureController extends Controller
     /**
      * Displays a form to edit an existing Facture entity.
      *
-     * @Route("/{id}/edit", name="facture_edit")
+     * Route("/{id}/edit", name="facture_edit")
      * @Method("GET")
      * @Template()
      */
@@ -305,7 +305,7 @@ class FactureController extends Controller
     /**
      * Edits an existing Facture entity.
      *
-     * @Route("/{id}", name="facture_update")
+     * Route("/{id}", name="facture_update")
      * @Method("PUT")
      * @Template("FMRFactureBundle:Facture:edit.html.twig")
      */
@@ -336,7 +336,7 @@ class FactureController extends Controller
     /**
      * Deletes a Facture entity.
      *
-     * @Route("/{id}/delete", name="facture_delete")
+     * Route("/{id}/delete", name="facture_delete")
      * @Method("GET")
      */
 	public function deleteAction(Facture $entity)

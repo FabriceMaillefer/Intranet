@@ -1,0 +1,219 @@
+{# Projet TPI - Fabrice Maillefer #}
+{% extends 'FMRRelationClientBundle:Document:Document\\layout.html.twig' %}
+{% block title %}{{ parent() }} Détails {{ entity.idsm }} {{ entity.id }} {% endblock %}
+{% block sidebar %}
+	<li><a href="{{ path('document',{'type': entity.type}) }}">Liste {{ entity.idpi }}</a></li>
+	<li class="divider"></li>
+    {{ parent() }}
+    <li class="divider"></li>
+	<li class="nav-header">{{ entity.idsm }} {{ entity.id }}</li>
+	<li><a href="{{ path('document_edit',{'id': entity.id}) }}">Editer {{ entity.idsd }}</a></li>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+		<h1>{{ entity.idsm }} N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
+		<div style="text-align:right;">
+			<a class="btn btn-primary" href="{{ path('document_edit',{'id': entity.id}) }}">
+				Editer
+			</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<h3>Informations sur {{ entity.idsd }} : </h3>
+		<div class="row">
+			<div class="col-md-6  col-sm-6">
+				<p><strong>Référence Client : </strong>{{ entity.referenceClient }}</p>
+				<form action="{{ path('facture_statut', {'id':entity.id}) }}" role="form" class="form-horizontal" method="post" {{ form_enctype(formStatut) }}>
+					<input type="hidden" name="_method" value="PUT" />
+					{{ form_widget(formStatut) }}
+			        <button type="submit" class="btn btn-primary">Changer le statut</button>
+    			</form>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<p><strong>Date Cr&eacute;ation</strong>
+				{{ entity.dateCreation|date('d.m.Y H:i') }}</p>
+				
+				{% if entity.dateImpression %}
+					<p><strong>Date d'impression</strong>
+						{{ entity.dateImpression|date('d.m.Y H:i') }}
+					</p>
+				{% endif %}
+				<p><strong>Rabais</strong>
+					{{entity.rabais*100 }}%
+				</p>
+				<p><strong>TVA</strong>
+					{{ entity.Tva*100 }}%
+				</p>
+					{# {% if entity.chantier %}
+					<h4>Chantier :</h4>
+					<a class="btn btn-info" href="{{ path('chantier_show', { 'id': entity.chantier.id }) }}">Voir le chantier</a>
+					{% if entity.chantier.offre %}
+						<h4>Offre :</h4>
+						<a class="btn btn-info" href="{{ path('offre_show', { 'id': entity.chantier.offre.id }) }}">Voir l'offre</a>
+					{% endif %}
+				{% endif %} #}
+					
+				
+			</div>
+		</div>
+
+		<hr>
+		{% if entity.client %}
+			<h3>Informations sur le client :</h3>
+			<p><strong>Client : </strong><a href="{{ path('client_show', { 'id': entity.client.id }) }}">{{ entity.client }}</a></p>
+			<p><strong>Adresse : </strong>{{ entity.client.adresse }}</p>
+			<p><strong>Localité : </strong>{{ entity.client.NPA }} {{ entity.client.Localite }}</p>
+			<hr>
+		{% endif %}
+		<div class="btn-group">
+		  <a href="{{ path('document_print', { 'id': entity.id } ) }}?_format=pdf" target="_blank" class="btn btn-danger">Impression en PDF</a>
+		  <button class="btn  btn-danger dropdown-toggle" data-toggle="dropdown">
+		    <span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li>
+		    	<a href="{{ path('document_print', { 'id': entity.id } ) }}?_format=html" >Impression en HTML</a>
+		    </li>
+		  </ul>
+		</div>
+		{% if entity.editable  %}
+			<h3>Ajout de lignes : </h3>
+	    	<script>
+				function getFormulaireLigne(url){
+					$('#formulaire_ligne').html('<p>Chargement du formulaire...</p>');
+					$.ajax({
+						url: url,
+						type: 'GET',
+						success: function(data){
+							$('#formulaire_ligne').html(data);
+							loadAddon();
+						}
+					});
+					return false;
+				}
+	    	</script>
+	    	<div class="btn-group">
+				<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+					Ajouter une ligne
+					<span class="caret"></span>
+				</a>
+    			{% set menu = knp_menu_get('FMRLignesBundle:TypeBuilder:typeMenu', [], {'relation_id':entity.id})   %}
+		    	{{ knp_menu_render(menu,{'template': 'FMRLignesBundle:Menu:knp_menu.html.twig'}) }}
+	    	</div>
+	    	
+	    	<div id="formulaire_ligne"></div>
+		{% endif %}
+		<table class="table table-bordered table-striped table-condensed">
+			<thead>
+				<tr>
+					<th>Libellé</th>
+					<th>Unité</th>
+					<th>Quantité</th>
+					<th>Prix Unitaire</th>
+					<th>Montant</th>
+					{% if entity.editable  %}<th>Actions</th>{% endif %}
+				</tr>
+			</thead>
+			<tbody  id="sortable">
+			{% for ligne in entity.lignes %}
+				{% include "FMRLignesBundle:Ligne:row" ~ ligne.type ~ ".html.twig" %}
+			{% endfor %}
+			</tbody>
+			<tfoot>
+			{% set colspan = 2 %}
+				<tr>
+					<td colspan="{{ colspan }}" rowspan="10">
+						<p><button class="btn btn-default" onclick="activeSortable(this);"><i class="icon-move"></i> Activer le changement d'ordre</button></p>
+						<p><a class="btn btn-default" href="{{ path('relation_ligne_multiple_edit', { 'id': entity.id }) }}">Editer toutes les lignes</a></p>
+						 <script>
+						 	
+						    function activeSortable(elem) {
+						        $( "#sortable" ).sortable({
+						        	axis: "y",
+						        	distance: 15,
+						        	opacity: 0.7,
+						        	cursor: "move",
+								    update: function( event, ui ) {
+								    	ordreArticle();		    	
+								    }
+								});
+								
+								if(elem){
+									elem.innerHTML = '<i class="icon-ban-circle"></i> Désactiver le changement d\'ordre</a>';
+									elem.setAttribute("onclick","desactiveSortable(this);");
+								}
+								
+						       
+						        $( "#sortable" ).disableSelection();
+						        ordreArticle();
+						    }
+						    function desactiveSortable(elem) {
+								$( "#sortable" ).sortable("destroy");
+								$( "#sortable" ).enableSelection();
+								if(elem){
+									elem.innerHTML = '<i class="icon-move"></i> Activer le changement d\'ordre';
+									elem.setAttribute("onclick","activeSortable(this);");
+								}
+						    }
+						    
+						    function ordreArticle(){
+						        	sort = $( "#sortable" ).sortable("toArray");
+							    	$.ajax({
+									  url: "{{ path('ligne_sort') }}",
+									  type: 'POST',
+									  data: "sort="+sort
+									 });
+						    }
+						</script>
+					</td>
+					<td colspan="2">Sous Total HT	: </td>
+					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTotale) }} CHF</td>
+					<td rowspan="10" ></td>
+				</tr>
+				
+				
+				<tr>
+					<td colspan="2" >TVA {{ entity.Tva*100 }}% : </td>
+					<td class="text-right">{{ macro.monetaire(entity.CalculTVA) }} CHF</td>
+				</tr>
+				<tr>
+					<td colspan="2">Total TTC : </td>
+					<td class="text-right">{{ macro.monetaire(entity.CalculSommeTTCTotale) }} CHF</td>
+				</tr>
+				{% if entity.rabais > 0 %}
+				<tr>
+					<td colspan="2">Rabais {{ entity.rabais*100 }}% : </td>
+					<td>-{{ macro.monetaire(entity.CalculRabais)  }} CHF</td>
+				</tr>
+				<tr>
+					<td colspan="2">Montant Net : </td>
+					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantTotal) }} CHF</td>
+				</tr>
+				{% endif %}
+				<tr>
+					<td colspan="2">Montant Net 30 jours : </td>
+					<td class="text-right">{{ macro.monetaire(entity.CalculSommeMontantArrondiTotal) }} CHF</td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		
+		</div>
+		
+		
+		
+		
+<div class="form-actions">
+		<a class="btn btn-default" href="{{ path('document',{'type': entity.type}) }}">
+			Retour &agrave; la liste
+		</a>
+		<a class="btn btn-primary" href="{{ path('document_edit', { 'id': entity.id }) }}">
+			Editer
+		</a>
+		<a class="btn btn-danger" href="{{ path('document_delete', { 'id': entity.id }) }}">
+			Supprimer
+		</a>
+</div>
+
+{% endblock %}

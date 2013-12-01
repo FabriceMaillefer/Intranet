@@ -11,7 +11,7 @@
 <div class="page-header">
     <h1>Modification du client : {{ entity.nomPrenom }}</h1>
 	<div style="text-align:right;">
-		<a class="btn" href="{{ path('client_show', { 'id': entity.id }) }}">
+		<a class="btn btn-default" href="{{ path('client_show', { 'id': entity.id }) }}">
             Retour aux d&eacute;tails du client
         </a>
 	</div>
@@ -27,7 +27,7 @@
 </form>
 
 	<div class="form-actions">
-		<a class="btn" href="{{ path('client_show', { 'id': entity.id }) }}">
+		<a class="btn btn-default" href="{{ path('client_show', { 'id': entity.id }) }}">
             Retour aux d&eacute;tails du client
         </a>
         <a class="btn btn-danger" href="{{ path('client_delete', { 'id': entity.id }) }}">

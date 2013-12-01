@@ -18,7 +18,9 @@ class AppKernel extends Kernel
         	new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
         	new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
         	new FOS\UserBundle\FOSUserBundle(),
-        	new Ps\PdfBundle\PsPdfBundle()
+        	new Ps\PdfBundle\PsPdfBundle(),
+        	new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+        	new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
         );		
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
@@ -28,9 +30,9 @@ class AppKernel extends Kernel
         
         $bundles[] =    new FMR\CommonBundle\FMRCommonBundle();
         $bundles[] =    new FMR\ClientBundle\FMRClientBundle();
-        $bundles[] =    new FMR\OffreBundle\FMROffreBundle();
+        $bundles[] =   	new FMR\RelationClientBundle\FMRRelationClientBundle();
+        $bundles[] =    new FMR\LignesBundle\FMRLignesBundle();
         $bundles[] =    new FMR\ChantierBundle\FMRChantierBundle();
-        $bundles[] =    new FMR\FactureBundle\FMRFactureBundle();
 
         return $bundles;
     }

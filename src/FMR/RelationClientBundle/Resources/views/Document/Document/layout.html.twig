@@ -1,0 +1,21 @@
+{# Projet TPI - Fabrice Maillefer #}
+{# Layout de la partie Documents #}
+{% extends '::base.html.twig' %}
+{% block title %}{{ parent() }} {{ entity.type }} - {% endblock %}
+{% block body %}
+<div class="row">
+	<div class="col-md-2 visible-md visible-lg hidden-print" >
+		<ul class="nav nav-stacked">
+			{% block sidebar %}
+				<li class="nav-header">{{ entity.ids }}</li>
+					<a href="{{ path('document_new',{'type': entity.type}) }}">
+						Ajouter {{ entity.idsi('nouvelle ') }}
+					</a>
+			{% endblock %}
+			</ul>
+ 		</div>
+	<div class="col-md-10">
+	{% block content %}{% endblock %}
+	</div>
+</div>
+{% endblock %}

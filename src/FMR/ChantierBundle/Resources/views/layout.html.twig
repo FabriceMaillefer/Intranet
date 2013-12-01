@@ -3,16 +3,16 @@
 {% extends '::base.html.twig' %}
 {% block title %}{{ parent() }} Chantier - {% endblock %}
 {% block body %}
-<div class="row-fluid">
-	<div class="span2 hidden-phone" >
-		<ul class="nav nav-list">
+<div class="row">
+	<div class="col-md-2 visible-md visible-lg hidden-print" >
+		<ul class="nav nav-stacked">
 			{% block sidebar %}
 				<li class="nav-header">Chantiers</li>
 				<li><a href="{{ path('chantier_new') }}">Ajouter un nouveau chantier</a></li>
 			{% endblock %}
 				</ul>
 	 		</div>
-	<div class="span10">
+	<div class="col-md-10">
 	{% block content %}{% endblock %}
 	</div>
 </div>

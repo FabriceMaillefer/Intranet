@@ -1,0 +1,5 @@
+{% extends 'FMRLignesBundle:Ligne:row.html.twig' %}
+{% block cellules %}
+	<td colspan='5'><h4>{{ ligne.descriptif|raw }}</h4></td>
+	{% if entity.editable  %}<td><a href="{{ path('ligne_edit', { 'id': ligne.id }) }}">Modifier</a></td>{% endif %}
+{% endblock %}

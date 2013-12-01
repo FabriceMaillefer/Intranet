@@ -94,26 +94,13 @@ class Client
     private $tel;
 
     /**
-     * @var FMR\OffreBundle\Entity\Offre
      *
-	 * @ORM\OneToMany(targetEntity="FMR\OffreBundle\Entity\Offre", mappedBy="client")
+     *
+	 * @ORM\OneToMany(targetEntity="FMR\RelationClientBundle\Entity\RelationClient", mappedBy="client")
 	 * 
      */
-    private $offres;
+    private $relationClient;
 
-    /**
-     * @var FMR\ChantierBundle\Entity\Chantier
-     *
-     * @ORM\OneToMany(targetEntity="FMR\ChantierBundle\Entity\Chantier", mappedBy="client")
-     */
-    private $chantiers;
-
-    /**
-     * @var \stdClass
-     *
-     * @ORM\OneToMany(targetEntity="FMR\FactureBundle\Entity\Facture", mappedBy="client")
-     */
-    private $factures;
 
     /*
      * Methodes magiques
@@ -336,104 +323,7 @@ class Client
         return $this;
     }
 
-    /**
-     * Add offres
-     *
-     * @param \FMR\OffreBundle\Entity\Offre $offres
-     * @return Client
-     */
-    public function addOffre(\FMR\OffreBundle\Entity\Offre $offres)
-    {
-        $this->offres[] = $offres;
     
-        return $this;
-    }
-
-    /**
-     * Remove offres
-     *
-     * @param \FMR\OffreBundle\Entity\Offre $offres
-     */
-    public function removeOffre(\FMR\OffreBundle\Entity\Offre $offres)
-    {
-        $this->offres->removeElement($offres);
-    }
-
-    /**
-     * Get offres
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getOffres()
-    {
-        return $this->offres;
-    }
-
-    /**
-     * Add chantiers
-     *
-     * @param \FMR\ChantierBundle\Entity\Chantier $chantiers
-     * @return Client
-     */
-    public function addChantier(\FMR\ChantierBundle\Entity\Chantier $chantiers)
-    {
-        $this->chantiers[] = $chantiers;
-    
-        return $this;
-    }
-
-    /**
-     * Remove chantiers
-     *
-     * @param \FMR\ChantierBundle\Entity\Chantier $chantiers
-     */
-    public function removeChantier(\FMR\ChantierBundle\Entity\Chantier $chantiers)
-    {
-        $this->chantiers->removeElement($chantiers);
-    }
-
-    /**
-     * Get chantiers
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getChantiers()
-    {
-        return $this->chantiers;
-    }
-
-    /**
-     * Add factures
-     *
-     * @param \FMR\FactureBundle\Entity\Facture $factures
-     * @return Client
-     */
-    public function addFacture(\FMR\FactureBundle\Entity\Facture $factures)
-    {
-        $this->factures[] = $factures;
-    
-        return $this;
-    }
-
-    /**
-     * Remove factures
-     *
-     * @param \FMR\FactureBundle\Entity\Facture $factures
-     */
-    public function removeFacture(\FMR\FactureBundle\Entity\Facture $factures)
-    {
-        $this->factures->removeElement($factures);
-    }
-
-    /**
-     * Get factures
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFactures()
-    {
-        return $this->factures;
-    }
 
     /**
      * Set tel
@@ -456,5 +346,38 @@ class Client
     public function getTel()
     {
         return $this->tel;
+    }
+
+    /**
+     * Add relationClient
+     *
+     * @param \FMR\RelationClientBundle\Entity\RelationClient $relationClient
+     * @return Client
+     */
+    public function addRelationClient(\FMR\RelationClientBundle\Entity\RelationClient $relationClient)
+    {
+        $this->relationClient[] = $relationClient;
+    
+        return $this;
+    }
+
+    /**
+     * Remove relationClient
+     *
+     * @param \FMR\RelationClientBundle\Entity\RelationClient $relationClient
+     */
+    public function removeRelationClient(\FMR\RelationClientBundle\Entity\RelationClient $relationClient)
+    {
+        $this->relationClient->removeElement($relationClient);
+    }
+
+    /**
+     * Get relationClient
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRelationClient()
+    {
+        return $this->relationClient;
     }
 }

@@ -21,15 +21,13 @@ class DefaultController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
     	
-    	$offres  = $em->getRepository('FMROffreBundle:Offre')->findAllActive();
-    	$chantiers  = $em->getRepository('FMRChantierBundle:Chantier')->findAllActive();
-    	$factures = $em->getRepository('FMRFactureBundle:Facture')->findAllActive();
+    	$offres  = $em->getRepository('FMRRelationClientBundle:Document\\Offre')->findAll();
+    	$chantiers  = $em->getRepository('FMRChantierBundle:Chantier')->findAll();
+    	$factures = $em->getRepository('FMRRelationClientBundle:Document\\Facture')->findAll();
     	
     	return array(
     			'offres' =>  $offres,
     			'chantiers' => $chantiers,
     			'factures' => $factures,
-    	);
-        return array();
-    }
+    	);    }
 }

@@ -2,6 +2,7 @@
 namespace FMR\CommonBundle\Command;
 use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * Générateur personalisé de CRUD
@@ -17,7 +18,7 @@ class DoctrineGenerateCrudTwitterBootstrapCommand extends GenerateDoctrineCrudCo
 		$this->setName('doctrine:generate:crud:fmr');
 	}
 
-	protected function getGenerator($bundle = null) {
+	protected function getGenerator(BundleInterface $bundle = null) {
 		$generator = new DoctrineCrudGenerator($this->getContainer()->get('filesystem'), __DIR__.'/../Resources/skeleton/crud');
 		$this->setGenerator($generator);
 		return parent::getGenerator($bundle);

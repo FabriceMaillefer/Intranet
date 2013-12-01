@@ -1,15 +1,14 @@
 {# Projet TPI - Fabrice Maillefer #}
-{% extends 'FMRChantierBundle::layout.html.twig' %}
-{% block title %}{{ parent() }} Ajouter une fourniture{% endblock %}
+{% extends '::layout.html.twig' %}
+{% block title %}{{ parent() }} {{ entity.labelAjout }}{% endblock %}
 {% block sidebar %}
-		<li><a href="{{ path('chantier', { 'id': entity.chantier.id }) }}">Retour aux détails du chantier</a></li>
-		<li><a href="{{ path('chantier_fourniture', { 'id': entity.chantier.id }) }}">Retour aux fournitures du chantier</a></li>
+		<li><a href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a></li>
 {% endblock %}
 {% block content -%}
 	<div class="page-header">
 	    <h1>Ajouter une fourniture</h1>
 	</div>
 
-   {% include 'FMRChantierBundle:Fourniture:new_single.html.twig' %}
+   {% include 'FMRLignesBundle:Ligne:new_single.html.twig' %}
 
 {% endblock %}

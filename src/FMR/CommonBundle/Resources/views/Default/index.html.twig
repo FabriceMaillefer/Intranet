@@ -4,12 +4,12 @@
 {% block title %}{{ parent() }} Vue d'ensemble{% endblock %}
 {% block content -%}
 <h2>Vue d'ensemble</h2>
-<div class="row-fluid">
+<div class="row">
 	<h3>Offres en cours</h3>
-		{% include 'FMROffreBundle:Offre:offre_list_only.html.twig' with {'show_client':true} %}
+		{#% include 'FMROffreBundle:Offre:offre_list_only.html.twig' with {'show_client':true} %#}
 	<h3>Chantiers en cours</h3>
-		{% include 'FMRChantierBundle:Chantier:chantier_list_only.html.twig' with {'show_client':true} %}
+		{#% include 'FMRChantierBundle:Chantier:chantier_list_only.html.twig' with {'show_client':true} %#}
 	<h3>Factures en cours</h3>
-		{% include 'FMRFactureBundle:Facture:facture_list_only.html.twig' with {'show_client':true} %}
+		{#% include 'FMRFactureBundle:Facture:facture_list_only.html.twig' with {'show_client':true} %#}
 </div>
 {% endblock %}

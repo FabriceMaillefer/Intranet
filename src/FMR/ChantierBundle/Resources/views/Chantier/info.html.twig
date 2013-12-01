@@ -1,8 +1,8 @@
 {# Projet TPI - Fabrice Maillefer #}
 {# Informations sur un chantier #}
 	<h3>Informations sur le chantier : </h3>
-	<div class="row-fluid">
-		<div class="span6">
+	<div class="row">
+		<div class="col-md-6">
 			<p><strong>Date de d&eacute;but : </strong>
 			{{ chantier.dateDebut|date('d.m.Y') }}</p>
 			<p><strong>Date de fin : </strong>
@@ -13,7 +13,7 @@
 			{{ chantier.architecte }}</p>
 			<p><strong>Description : </strong>{{ chantier.description }}</p>
 		</div>
-		<div class="span6">
+		<div class="col-md-6">
 			<p><strong>Date Cr&eacute;ation</strong>
 			{{ chantier.dateCreation|date('d.m.Y H:i') }}</p>
 			{% if chantier.offre %}
