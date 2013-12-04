@@ -9,3 +9,10 @@ services:
         factory_method: createMainMenu
         tags:
             - { name: knp_menu.menu, alias: main }
+    
+    fmr_common.voter.request:
+        class: FMR\CommonBundle\Menu\RequestVoter
+        arguments:
+            - @service_container
+        tags:
+            - { name: knp_menu.voter }

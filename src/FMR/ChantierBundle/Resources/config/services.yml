@@ -1,0 +1,6 @@
+services:
+
+    fmr_chantier.configure_menu_listener:
+        class: FMR\ChantierBundle\EventListener\ConfigureMenuListener
+        tags:
+          - { name: kernel.event_listener, event: fmr_common.menu_configure, method: onMenuConfigure, priority: 0 }
