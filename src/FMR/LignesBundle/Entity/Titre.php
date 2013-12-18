@@ -32,10 +32,10 @@ class Titre extends Ligne
 
  	/**
      * @var string
-     * @Assert\NotBlank(message="La description ne doit pas être vide")
+     * @Assert\NotBlank(message="Le titre ne doit pas être vide")
      * @ORM\Column(name="Descriptif", type="string", length=255)
      */
-    private $descriptif;
+    private $titre;
 
 
     
@@ -72,26 +72,26 @@ class Titre extends Ligne
     }
 
     /**
-     * Set descriptif
+     * Set titre
      *
-     * @param string $descriptif
+     * @param string $titre
      * @return Article
      */
-    public function setDescriptif($descriptif)
+    public function setTitre($titre)
     {
-        $this->descriptif = $descriptif;
+        $this->titre = $titre;
     
         return $this;
     }
 
     /**
-     * Get descriptif
+     * Get titre
      *
      * @return string 
      */
-    public function getDescriptif()
+    public function getTitre()
     {
-        return $this->descriptif;
+        return $this->titre;
     }
 
 

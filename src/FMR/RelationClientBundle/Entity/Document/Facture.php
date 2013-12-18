@@ -35,6 +35,7 @@ class Facture extends Document
     public function getids($mot=''){ return 'facture';}
     public function getidsm($mot=''){ return 'Facture';}
     public function getidp($mot=''){ return 'factures';}
+    public function getidpm($mot=''){ return 'Factures';}
     public function getidpi($mot=''){ return 'des '.$mot.'factures';}
     public function getidsi($mot=''){ return 'une '.$mot.'facture';}
     public function getidsd($mot=''){ return 'la '.$mot.'facture';}

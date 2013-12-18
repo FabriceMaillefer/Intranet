@@ -14,7 +14,10 @@
 <html>
 <head>
     <meta charset="UTF-8" />
-         	
+        {% javascripts '@FMRCommonBundle/Resources/public/js/jquery.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    	     	
     {#  '@FMRCommonBundle/Resources/public/css/jquery-ui-1.10.3.custom.min.css'#}
     {% stylesheets
         '@MopaBootstrapBundle/Resources/public/less/mopabootstrapbundle.less'
@@ -32,7 +35,8 @@
      	table .text-right {
 			text-align: right;
 		}
-     	</style>
+		</style>
+
     {% endblock stylesheets %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -98,7 +102,6 @@
 		</div>
     {% javascripts
     	'@FMRCommonBundle/Resources/public/js/jquery.js'
-    	'@FMRCommonBundle/Resources/public/js/jquery-ui-1.10.3.custom.min.js'
     	'@FMRCommonBundle/Resources/public/js/hinclude.js'
         '@MopaBootstrapBundle/Resources/public/bootstrap/js/tooltip.js'
         '@MopaBootstrapBundle/Resources/public/bootstrap/js/affix.js'
@@ -119,7 +122,7 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-	{% block javascripts %}{% endblock %}
+	
     <script type="text/javascript">
         $(document).ready(function () {
         	loadAddon();
@@ -165,6 +168,29 @@
 			
         }
     </script>
-
+	<script type="text/javascript">
+	var uaidx = navigator.userAgent.indexOf("Android")
+	        if( uaidx >= 0 && parseFloat(navigator.userAgent.slice(uaidx+8)) < 4.0)
+	            dialog_fallback = true;
+	
+	function dlgShow(dlg, show) {
+	        dlg.modal({show: false});
+	        if(dialog_fallback) {
+	            dlg.on("shown", function(){
+	                $("#main_container").hide();
+	                $("#main_navbar").hide();
+	                dlg.css("position","absolute").css("z-index","0");
+	                $(".modal-backdrop").hide();
+	            });
+	            dlg.on("hide", function(){
+	                $("#main_container").show();
+	                $("#main_navbar").show();
+	            });
+	        }
+	        if(show) dlg.modal("show");
+	    }
+	
+	</script>
+	{% block javascripts %}{% endblock %}
 </body>
 </html>

@@ -5,13 +5,8 @@
 {% block sidebar %}
 			<li><a href="{{ path('document_show', { 'id': entity.id }) }}">Retour à {{ entity.idsd }}</a></li>
 {% endblock %}
-{% block content %}
-<div class="page-header">
-		<h1>Edition de toutes les lignes de {{ entity.idsd }} N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
-		<div style="text-align:right;">
-			<a class="btn btn-primary" href="{{ path('document_show', { 'id': entity.id }) }}">Retour à {{ entity.idsd }}</a>
-		</div>
-</div>
+{% block javascripts %}
+{{ parent() }}
 <script type="text/javascript">
 	function submitForm(formId, url){
     	$.ajax({
@@ -33,14 +28,28 @@
 		 });
 	}
 </script>
+{% endblock %}
+{% block content %}
+<div class="page-header">
+		<h1>Edition de toutes les lignes de {{ entity.idsd }} N° {{ entity.id }} {% if entity.client %} pour {{ entity.client }}{% endif %}</h1>
+		<div style="text-align:right;">
+			<a class="btn btn-primary" href="{{ path('document_show', { 'id': entity.id }) }}">Retour à {{ entity.idsd }}</a>
+		</div>
+</div>
 <div class="row">
 	{% for ligne in entity.lignes %}
-		{% if loop.index > 6 %}
-			<div>{{ render_hinclude(url('ligne_edit_form', {'id' : ligne.id }),{'default': 'Chargement...'}) }}</div>
-		{% else %}
-			<div>{{ render(url('ligne_edit_form', {'id' : ligne.id })) }}</div>
-		{% endif %}
-		<hr>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			<h4 class="panel-title">Ligne #{{ ligne.ordre }} <small>Type : {{ ligne.type }}</small></h4>
+			</div>
+			<div class="panel-body">
+			{% if loop.index > 6 %}
+				{{ render_hinclude(url('ligne_edit_form', {'id' : ligne.id }),{'default': 'Chargement...'}) }}
+			{% else %}
+				{{ render(url('ligne_edit_form', {'id' : ligne.id })) }}
+			{% endif %}
+			</div>
+		</div>
 	{% endfor %}
 </div>
 <div class="form-actions">

@@ -4,6 +4,7 @@ namespace FMR\LignesBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Entité Ligne
@@ -17,6 +18,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class Ligne
 {
+	use ORMBehaviors\Timestampable\Timestampable,
+	ORMBehaviors\Blameable\Blameable;
 	/*
 	 * Attributs
 	 */

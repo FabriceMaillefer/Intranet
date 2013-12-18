@@ -20,7 +20,7 @@ class TitreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           ->add('descriptif',null,array('attr'=>array('class'=>'input-large')))
+           ->add('titre',null,array('attr'=>array('class'=>'input-sm'), 'widget_form_group_attr' => array('class'=>'col-sm-12')))
         ;
     }
 

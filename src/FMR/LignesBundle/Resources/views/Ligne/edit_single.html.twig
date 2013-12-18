@@ -4,31 +4,37 @@
 	action="{{ path('ligne_update', { 'id': entity.id }) }}"
 {% else %}
 	action="javascript:submitForm('form_ligne_{{ entity.id }}','{{ path('ligne_update', { 'id': entity.id }) }}')" id="form_ligne_{{ entity.id }}"
-	
+	class="form-inline"
 {% endif %}
- method="post" role="form" class="form-inline" {{ form_enctype(edit_form) }}>
+ method="post" role="form"  {{ form_enctype(edit_form) }}>
 	<input type="hidden" name="_method" value="PUT" />
-    {{ form_widget(edit_form) }}
+
+	
     {% if not only_form %}
-        <p>
+    	{{ form_widget(edit_form) }}
+        <div class="form-group">
         	<button class="btn btn-primary" type="submit">Enregistrer</button>
 		</p>
 	{% else %}
-		<div style="float:right;" >
-			<div id="form_ligne_{{ entity.id }}_status"></div>
-		</div>
+		 <div class="col-sm-9 col-md-10 col-lg-10">
+	    	<div class="row">
+	    		{{ form_widget(edit_form) }}
+	    	</div>
+	    </div>
+		<div class="col-sm-3 col-md-2 col-lg-2" id="form_ligne_{{ entity.id }}_status"></div>
 		<script type="text/javascript">
-		$("#form_ligne_{{ entity.id }}").on("focusout focusin", "input", function(e){
-	        if ( e.type == "focusout" ) {
-	            $("#form_ligne_{{ entity.id }}").attr("form-blur-timeout", window.setTimeout(function(){
-	            	$("#form_ligne_{{ entity.id }}").submit();
-	            }, 100));
-	            
-	        } else {
-	            window.clearTimeout($("#form_ligne_{{ entity.id }}").attr("form-blur-timeout"));
-	            $("#form_ligne_{{ entity.id }}_status").html("");
-	        }
-	    });
-	    </script>
+				$("#form_ligne_{{ entity.id }}").on("focusout focusin", "input", function(e){
+			        if ( e.type == "focusout" ) {
+			            $("#form_ligne_{{ entity.id }}").attr("form-blur-timeout", window.setTimeout(function(){
+			            	$("#form_ligne_{{ entity.id }}").submit();
+			            }, 100));
+			            
+			        } else {
+			            window.clearTimeout($("#form_ligne_{{ entity.id }}").attr("form-blur-timeout"));
+			            $("#form_ligne_{{ entity.id }}_status").html("");
+			        }
+			    });
+		</script>
 	{% endif %}
+	
 </form>

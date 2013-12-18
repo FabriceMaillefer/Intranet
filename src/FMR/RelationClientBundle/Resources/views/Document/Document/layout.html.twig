@@ -7,7 +7,7 @@
 	<div class="col-md-2 visible-md visible-lg hidden-print" >
 		<ul class="nav nav-stacked">
 			{% block sidebar %}
-				<li class="nav-header">{{ entity.ids }}</li>
+				<li class="nav-header">{{ entity.idpm }}</li>
 					<a href="{{ path('document_new',{'type': entity.type}) }}">
 						Ajouter {{ entity.idsi('nouvelle ') }}
 					</a>

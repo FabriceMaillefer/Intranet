@@ -28,6 +28,7 @@ class Offre extends Document
     public function getids($mot=''){ return 'offre';}
     public function getidsm($mot=''){ return 'Offre';}
     public function getidp($mot=''){ return 'offres';}
+    public function getidpm($mot=''){ return 'Offres';}
     public function getidpi($mot=''){ return 'des '.$mot.'offres';}
     public function getidsi($mot=''){ return 'une '.$mot.'offre';}
     public function getidsd($mot=''){ return 'l\''.$mot.'offre';}

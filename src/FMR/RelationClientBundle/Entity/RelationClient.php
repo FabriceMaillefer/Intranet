@@ -4,6 +4,7 @@ namespace FMR\RelationClientBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Entité RelationClient
@@ -18,7 +19,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class RelationClient
 {
-	
+	use ORMBehaviors\Tree\Node,
+	ORMBehaviors\Timestampable\Timestampable,
+	ORMBehaviors\SoftDeletable\SoftDeletable,
+	ORMBehaviors\Blameable\Blameable,
+	ORMBehaviors\Loggable\Loggable
+	;
 	/*
 	 * Attributs
 	 */
@@ -48,10 +54,6 @@ abstract class RelationClient
      */
     private $client;
     
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateModification;
     
     /**
      * 

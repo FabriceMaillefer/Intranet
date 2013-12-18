@@ -11,9 +11,11 @@
 		<a href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a>
 	</div>
 </div>
+<div class="row">
 	{% include 'FMRLignesBundle:Ligne:edit_single.html.twig' %}
+</div>
 	<div class="form-actions">
-		<a href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a>
+		<a class="btn btn.default" href="{{ path('document_show', { 'id': entity.relationClient.id }) }}">Retour à {{ entity.relationClient.idsd }}</a>
         <a class="btn btn-danger" href="{{ path('ligne_delete', { 'id': entity.id }) }}">
             Supprimer
         </a>
